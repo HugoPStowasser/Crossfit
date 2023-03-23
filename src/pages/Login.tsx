@@ -29,7 +29,7 @@ const Login = () => {
         </Flex>
       )}
       <Flex w="full" h="full" alignItems="center" justifyContent="center">
-        <Stack paddingTop="50px" w="full" maxWidth="md" spacing={4} p={6}>
+        <Stack pt="50px" w="full" maxWidth="md" spacing={4} p={6}>
           {!isLargerThan720 && (
             <Image
               objectFit="cover"
@@ -59,7 +59,9 @@ const Login = () => {
           <Button color="#222" colorScheme="yellow" size="sm">
             Login
           </Button>
-          <Link color="#222">Cadastrar-se</Link>
+          <Link _hover={ {
+            opacity: 0.6
+          } } color="#222">Cadastrar-se</Link>
         </Stack>
       </Flex>
     </HStack>
