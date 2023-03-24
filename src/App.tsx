@@ -1,14 +1,9 @@
-import { Login } from "./pages/Login";
-import { ChakraProvider } from "@chakra-ui/react";
-
-function App() {
+import { Outlet } from "react-router-dom";
+import { CurrentUserProvider } from "./contexts/CurrentUser";
+export const App = () => {
   return (
-    <div className="App">
-      <ChakraProvider>
-        <Login />
-      </ChakraProvider>
-    </div>
+    <CurrentUserProvider>
+      <Outlet />
+    </CurrentUserProvider>
   );
-}
-
-export default App;
+};

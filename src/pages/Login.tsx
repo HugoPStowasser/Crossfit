@@ -1,6 +1,5 @@
 import {
   Button,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -12,9 +11,30 @@ import {
   Stack,
   useMediaQuery,
 } from "@chakra-ui/react";
+import { useCallback, useState } from "react";
+import { useCurrentUser } from "../hooks/useCurrentUser";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { setCurrentUser } = useCurrentUser();
   const [isLargerThan720] = useMediaQuery("(min-width: 720px)");
+
+  const handleSubmit = useCallback(() => {
+    // TODO: Validation here, request api
+    console.log(email);
+    if (email !== "" && password !== "") {
+      setCurrentUser({
+        name: "Paulo",
+        id: 1,
+        email,
+        perfil: "STUDENT",
+      });
+      navigate("/home");
+    }
+  }, [email, password]);
 
   return (
     <HStack w="full" h="100vh">
@@ -42,13 +62,22 @@ const Login = () => {
           <Heading fontSize="2xl" color="#222">
             Faça seu login
           </Heading>
-          <FormControl id="user">
-            <FormLabel>Usuário</FormLabel>
-            <Input placeholder="Digite seu usuário" />
+          <FormControl id="email">
+            <FormLabel>E-mail</FormLabel>
+            <Input
+              placeholder="Digite sua senha"
+              value={email}
+              onChange={(e) => setEmail(e.currentTarget.value)}
+            />
           </FormControl>
           <FormControl id="password">
             <FormLabel>Senha</FormLabel>
-            <Input type="password" placeholder="••••••" />
+            <Input
+              type="password"
+              placeholder="••••••"
+              value={password}
+              onChange={(e) => setPassword(e.currentTarget.value)}
+            />
           </FormControl>
           <Stack
             spacing={4}
@@ -56,12 +85,22 @@ const Login = () => {
             align="start"
             justify="space-between"
           ></Stack>
-          <Button color="#222" colorScheme="yellow" size="sm">
+          <Button
+            color="#222"
+            colorScheme="yellow"
+            size="sm"
+            onClick={handleSubmit}
+          >
             Login
           </Button>
-          <Link _hover={ {
-            opacity: 0.6
-          } } color="#222">Cadastrar-se</Link>
+          <Link
+            _hover={{
+              opacity: 0.6,
+            }}
+            color="#222"
+          >
+            Cadastrar-se
+          </Link>
         </Stack>
       </Flex>
     </HStack>
