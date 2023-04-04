@@ -14,6 +14,28 @@ import {
 import { useCallback, useState } from "react";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 import { useNavigate } from "react-router-dom";
+import {useForm, Resolver} from "react-hook-form"
+
+type FormValues = {
+  name: string;
+  id: number;
+  email: string;
+  perfil: string;
+};
+
+const resolver: Resolver<FormValues> = async (values) => {
+  return {
+    values: values.name ? values : {},
+    errors: !values.name
+      ? {
+        name: {
+            type: 'required',
+            message: 'This is required.',
+          },
+        }
+      : {},
+  };
+};
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,7 +44,12 @@ const Login = () => {
   const { setCurrentUser } = useCurrentUser();
   const [isLargerThan720] = useMediaQuery("(min-width: 720px)");
 
-  const handleSubmit = useCallback(() => {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = useCallback((formValues: FormValues) => {
+    console.log(formValues);
+  }, []);
+
+  const handleSend = useCallback(() => {
     // TODO: Validation here, request api
     console.log(email);
     if (email !== "" && password !== "") {
