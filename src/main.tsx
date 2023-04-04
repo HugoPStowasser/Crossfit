@@ -1,5 +1,5 @@
-import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
+import { ChakraProvider } from "@chakra-ui/react";
 import * as ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/router";

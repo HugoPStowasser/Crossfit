@@ -7,8 +7,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FiHome, FiMenu } from "react-icons/fi";
-import {MdOutlinePlayLesson} from "react-icons/md";
-import {AiOutlineTrophy} from "react-icons/ai";
+import { MdOutlinePlayLesson } from "react-icons/md";
+import { AiOutlineTrophy } from "react-icons/ai";
 import { useState } from "react";
 import { NavItem } from "./NavItem";
 
@@ -48,12 +48,18 @@ const Sidebar = () => {
             }
           }}
         />
-        <NavItem navSize={navSize} icon={FiHome} title="Dashboard"  active={undefined}/>
-        <NavItem navSize={navSize} icon={MdOutlinePlayLesson} title="Aulas" active={undefined}/>
-        <NavItem navSize={navSize} icon={AiOutlineTrophy} title="Recordes"active={undefined}/>
+        <NavItem navSize={navSize} icon={FiHome} title="Dashboard" />
+        <NavItem navSize={navSize} icon={MdOutlinePlayLesson} title="Aulas" />
+        <NavItem navSize={navSize} icon={AiOutlineTrophy} title="Recordes" />
       </Flex>
 
-      <Flex p="5%" flexDir="column" w="100%" alignItems={navSize == "small" ? "center" : "flex-start"} mb={4}>
+      <Flex
+        p="5%"
+        flexDir="column"
+        w="100%"
+        alignItems={navSize == "small" ? "center" : "flex-start"}
+        mb={4}
+      >
         <Divider display={navSize == "small" ? "none" : "flex"} />
         <Flex mt={4} align="center">
           <Avatar size="sm" src="https://i.imgur.com/JDjDfYw.jpg" />

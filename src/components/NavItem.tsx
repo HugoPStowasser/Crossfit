@@ -1,20 +1,14 @@
-import {
-  Flex,
-  Link,
-  Menu,
-  MenuButton,
-  Text,
-  Icon,
-} from "@chakra-ui/react";
+import { Flex, Link, Menu, MenuButton, Text, Icon } from "@chakra-ui/react";
+import { IconType } from "react-icons";
 
 type TNavItem = {
   navSize: string;
   title: string;
-  icon: any;
-  active: any;
+  icon: IconType;
+  active?: boolean;
 };
 
-const NavItem = ({ navSize, title, icon, active }: TNavItem) => {
+const NavItem = ({ navSize, title, icon, active = false }: TNavItem) => {
   return (
     <Flex
       mt={30}
@@ -24,7 +18,7 @@ const NavItem = ({ navSize, title, icon, active }: TNavItem) => {
     >
       <Menu placement="right">
         <Link
-          backgroundColor={active && "#FFD700"}
+          backgroundColor={active ? "#FFD700" : ""}
           p={3}
           borderRadius={8}
           _hover={{ textDecor: "none", backgroundColor: "#FFD700" }}
