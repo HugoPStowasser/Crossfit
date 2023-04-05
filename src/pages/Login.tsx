@@ -2,8 +2,7 @@ import {
   Button,
   Flex,
   FormControl,
-  FormLabel,
-  Heading,
+  FormErrorMessage,
   HStack,
   Image,
   Input,
@@ -11,58 +10,75 @@ import {
   Stack,
   Text,
   useMediaQuery,
+  useToast,
 } from "@chakra-ui/react";
-import { useCallback, useMemo, useState } from "react";
+import { memo } from "react";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import * as yup from "yup";
+import { UserApiToHttp } from "../mappers/user";
+import { IUserApi } from "../types/user";
+import { api } from "../services/api/axios";
+
 type TFormValues = {
   email: string;
   password: string;
 };
 
-const validationSchema = yup.object({
-  email: yup
-    .string()
-    .email("É preciso inserir um e-mail válido")
-    .required("O e-mail é obrigatório"),
-  password: yup
-    .string()
-    .min(6, "Senha mínima de 6 caracteres")
-    .required("Required"),
-});
+const validationSchema = yup
+  .object({
+    email: yup
+      .string()
+      .email("É preciso inserir um e-mail válido.")
+      .required("O E-mail é obrigatório."),
+    password: yup
+      .string()
+      .min(6, "Senha mínima de 6 caracteres.")
+      .required("A Senha é obrigratório."),
+  })
+  .required();
 
-const Login = () => {
+const LoginComponent = () => {
   const navigate = useNavigate();
   const { setCurrentUser } = useCurrentUser();
   const [isLargerThan720] = useMediaQuery("(min-width: 720px)");
+  const toast = useToast();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TFormValues>({ resolver: yupResolver(validationSchema) });
+  } = useForm<TFormValues>({
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  const onSubmitHandler = (formValues: TFormValues) => {
-    console.log(formValues);
+  const onSubmitHandler = async (formValues: TFormValues) => {
+    const { data: users } = await api.get("/user");
+    const user: IUserApi = users.find(
+      (user: { email: String }) => user.email === formValues.email
+    );
+    if (!user) {
+      toast({
+        title: `Usuário não encontrado!`,
+        status: "error",
+        isClosable: true,
+        duration: 2000,
+        position: isLargerThan720 ? "top" : "bottom",
+      });
+      return;
+    }
+
+    setCurrentUser(UserApiToHttp(user));
+    navigate("/home");
   };
-
-  // // const s = useCallback(() => {
-  // //   // TODO: Validation here, request api
-  // //   console.log(email);
-  // //   if (email !== "" && password !== "") {
-  // //     setCurrentUser({
-  // //       name: "Paulo",
-  // //       id: 1,
-  // //       email,
-  // //       perfil: "STUDENT",
-  // //     });
-  // //     navigate("/home");
-  // //   }
-  // // }, [email, password]);
 
   return (
     <HStack w="full" h="100vh">
@@ -78,30 +94,26 @@ const Login = () => {
       )}
       <Flex w="full" h="full" alignItems="center" justifyContent="center">
         <Stack pt="50px" w="full" maxWidth="md" spacing={4} p={6}>
-          {!isLargerThan720 && (
-            <Image
-              objectFit="cover"
-              w="150px"
-              h="150px"
-              src="https://i.imgur.com/wdc7IwB.png"
-              margin="auto"
-            />
-          )}
+          <Image
+            objectFit="cover"
+            w="150px"
+            h="150px"
+            src="https://i.imgur.com/wdc7IwB.png"
+            margin="auto"
+          />
           <form onSubmit={handleSubmit(onSubmitHandler)}>
-            <Heading fontSize="2xl" color="#222">
-              Faça seu login
-            </Heading>
             <FormControl id="email" mt="6">
-              <Input placeholder="E-mail" {...register("email")} />
-              <p>{errors.email?.message}</p>
+              <Input {...register("email")} placeholder="E-mail" />
+              <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
             </FormControl>
             <FormControl id="password" mt="5">
               <Input
+                autoComplete="off"
                 type="password"
                 placeholder="Senha"
-                {...register("email")}
+                {...register("password")}
               />
-              <p>{errors.password?.message}</p>
+              <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
             </FormControl>
             <Stack
               spacing={4}
@@ -113,14 +125,14 @@ const Login = () => {
               color="#222"
               colorScheme="yellow"
               size="md"
-              type="submit"
               w="100%"
               mt="5"
+              type="submit"
             >
               Login
             </Button>
           </form>
-          <Link
+          <Text
             textTransform={"none"}
             cursor={"default "}
             _hover={{
@@ -130,18 +142,23 @@ const Login = () => {
             display={"flex"}
             gap={2}
             w="100%"
-            justifyContent={"flex-end"}
+            justifyContent={"center"}
             alignItems={"center"}
           >
             Não possui conta?{" "}
-            <Text color="blue" _hover={{ opacity: 0.6 }} cursor={"pointer"}>
+            <Link
+              color="blue.600"
+              _hover={{ opacity: 0.6 }}
+              cursor={"pointer"}
+              href="/sign-up"
+            >
               Cadastrar-se
-            </Text>
-          </Link>
+            </Link>
+          </Text>
         </Stack>
       </Flex>
     </HStack>
   );
 };
 
-export { Login };
+export const Login = memo(LoginComponent);

@@ -1,19 +1,13 @@
 import { createContext, ReactNode, useState } from "react";
+import { TUserHttp } from "../types/user";
 
 type TCurrentUserProviderProps = {
   children: ReactNode;
 };
 
-type TUser = {
-  id: Number;
-  email: String;
-  name: String;
-  perfil: "ADMIN" | "STUDENT";
-};
-
 type TCurrentUserContextValues = {
-  currentUser: TUser;
-  setCurrentUser: React.Dispatch<React.SetStateAction<TUser>>;
+  currentUser: TUserHttp;
+  setCurrentUser: (T: TUserHttp) => void;
 };
 
 export const CurrentUserContext = createContext(
@@ -23,7 +17,11 @@ export const CurrentUserContext = createContext(
 export const CurrentUserProvider = ({
   children,
 }: TCurrentUserProviderProps) => {
-  const [currentUser, setCurrentUser] = useState<TUser>({} as TUser);
+  const [currentUser, setStateCurrentUser] = useState<TUserHttp>(
+    {} as TUserHttp
+  );
+
+  const setCurrentUser = (user: TUserHttp) => setStateCurrentUser(user);
 
   return (
     <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
