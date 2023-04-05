@@ -13,6 +13,7 @@
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@hookform/resolvers": "^3.0.0",
     "@types/react-router-dom": "^5.3.3",
     "framer-motion": "^10.8.5",
     "react": "^18.2.0",
@@ -20,7 +21,8 @@
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.9.0",
-    "styled-components": "^5.3.9"
+    "styled-components": "^5.3.9",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
