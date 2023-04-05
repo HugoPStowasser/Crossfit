@@ -28,6 +28,6 @@ Além disso, haverá acesso à uma plataforma exclusiva para administradores e e
 
 ## Imagens do projeto:
 
-![Application](https://raw.githubusercontent.com/HugoPStowasser/Crossfit/master/assets/crossfit-project-login.png)
+![Application](https://github.com/HugoPStowasser/Crossfit/blob/master/assets/crossfit-project-login.png?raw=true)
 
-![Application](https://raw.githubusercontent.com/HugoPStowasser/Crossfit/master/assets/crossfit-project-login-mobile.png)
+![Application](https://github.com/HugoPStowasser/Crossfit/blob/master/assets/crossfit-project-login-mobile.png?raw=true)
