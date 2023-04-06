@@ -11,9 +11,11 @@ import { MdOutlinePlayLesson } from "react-icons/md";
 import { AiOutlineTrophy } from "react-icons/ai";
 import { useState } from "react";
 import { NavItem } from "./NavItem";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 
 const Sidebar = () => {
   const [navSize, setNavSize] = useState("large");
+  const { currentUser } = useCurrentUser();
 
   return (
     <Flex
@@ -69,9 +71,9 @@ const Sidebar = () => {
             display={navSize == "small" ? "none" : "flex"}
           >
             <Heading as="h3" size="sm">
-              Hugo Stow
+              {currentUser?.name}
             </Heading>
-            <Text color="gray">Admin</Text>
+            <Text color="gray">{currentUser?.profile?.name}</Text>
           </Flex>
         </Flex>
       </Flex>
