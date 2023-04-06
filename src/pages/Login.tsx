@@ -11,7 +11,7 @@ import {
   Text,
   useMediaQuery,
   useToast,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 import { memo } from "react";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 import { useNavigate } from "react-router-dom";
@@ -88,7 +88,7 @@ const LoginComponent = () => {
             objectFit="cover"
             w="full"
             h="full"
-            src="https://i.imgur.com/2vWzkiq.jpg"
+            src="../../public/assets/LoginImage.jpg"
           />
         </Flex>
       )}
@@ -98,7 +98,7 @@ const LoginComponent = () => {
             objectFit="cover"
             w="150px"
             h="150px"
-            src="https://i.imgur.com/wdc7IwB.png"
+            src="../../public/assets/MobileLogo.png"
             margin="auto"
           />
           <form onSubmit={handleSubmit(onSubmitHandler)}>
