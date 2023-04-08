@@ -4,11 +4,15 @@ import { loginUserFormSchema } from "../schemas/schema";
 import { TLoginFormValues } from "../@types";
 import { useMemo } from "react";
 import { UseToastOptions, useMediaQuery, useToast } from "@chakra-ui/react";
-import { TUserApi } from "../../../@types/user";
-import { UserApiToHttp } from "../../../mappers/user";
+import { TUserApi } from "../../../../@types/user";
+import { UserApiToHttp } from "../../../../mappers/user";
 import { useNavigate } from "react-router-dom";
-import { useCurrentUser } from "../../../hooks/useCurrentUser";
-import { AuthService } from "../../../services/http/Auth";
+import { useCurrentUser } from "../../../../hooks/useCurrentUser";
+import { AuthService } from "../../../../services/http/Auth";
+import {
+  isAdminHandler,
+  redirectUserAuthenticatedHandler,
+} from "../../../../functions";
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -52,7 +56,10 @@ export const useLogin = () => {
       }
 
       setCurrentUser(UserApiToHttp(user));
-      navigate("/home");
+      sessionStorage.setItem(`@User:${user.id}`, JSON.stringify(user));
+
+      const path = redirectUserAuthenticatedHandler({ user });
+      navigate(path);
     } catch (err) {
       toast({
         ...toastErrorAttributes,

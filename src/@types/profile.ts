@@ -1,7 +1,7 @@
 export type TProfile = {
   id_profile: Number;
   name: String;
-  normalized_name: String;
+  normalized_name: EProfile;
   active: Boolean;
   created_at: Date;
   updated_at: Date;
@@ -9,7 +9,7 @@ export type TProfile = {
 };
 
 export enum EProfile {
-  student = "Estudante",
-  admin = "Administrador",
-  professor = "Professor",
+  student = "STUDENT",
+  admin = "ADMIN",
+  professor = "PROFESSOR",
 }

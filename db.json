@@ -7,8 +7,8 @@
       "social_name": "Paulo Vitor",
       "profile": {
         "id": 1,
-        "name": "Estudante",
-        "normalized_name": "STUDENT",
+        "name": "Administrador",
+        "normalized_name": "ADMIN",
         "active": true
       }
     }

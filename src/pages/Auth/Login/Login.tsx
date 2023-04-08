@@ -38,7 +38,6 @@ const LoginComponent = () => {
             src="https://i.imgur.com/wdc7IwB.png"
             margin="auto"
           />
-          <Text>{errors.email?.message}</Text>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <FormControl id="email" mt="6">
               <Input {...register("email")} placeholder="E-mail" />
