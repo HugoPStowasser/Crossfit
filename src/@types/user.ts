@@ -1,6 +1,6 @@
 import { TProfile } from "./profile";
 
-export interface IUserApi {
+export type TUserApi = {
   id: Number;
   profile: TProfile;
   email: String;
@@ -9,16 +9,16 @@ export interface IUserApi {
   created_at: Date;
   updated_at: Date;
   deleted_at: Date;
-}
+};
 
-export interface IStudentApi extends IUserApi {
+export type TStudentApi = TUserApi & {
   id_genre: Number;
   id_address: Number;
   birth_date: Date;
   is_blocked?: Boolean;
   block_description?: String;
   image_profile?: String;
-}
+};
 
 export type TUserHttp = {
   id: Number;

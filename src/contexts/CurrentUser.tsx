@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
-import { TUserHttp } from "../types/user";
+import { TUserHttp } from "../@types/user";
 
 type TCurrentUserProviderProps = {
   children: ReactNode;

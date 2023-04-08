@@ -1,6 +1,6 @@
-import { IUserApi, TUserHttp } from "../types/user";
+import { TUserApi, TUserHttp } from "../@types/user";
 
-export const UserApiToHttp = (user: IUserApi): TUserHttp => {
+export const UserApiToHttp = (user: TUserApi): TUserHttp => {
   return {
     id: user.id,
     email: user.email,

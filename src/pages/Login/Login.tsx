@@ -8,82 +8,14 @@ import {
   Link,
   Stack,
   Text,
-  UseToastOptions,
   useMediaQuery,
-  useToast,
 } from "@chakra-ui/react";
-import { memo, useMemo } from "react";
-import { useCurrentUser } from "../hooks/useCurrentUser";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { UserApiToHttp } from "../mappers/user";
-import { IUserApi } from "../types/user";
-import { api } from "../services/api/axios";
-import { z } from "zod";
-
-const loginUserFormSchema = z.object({
-  email: z
-    .string()
-    .nonempty("O E-mail é obrigatório.")
-    .email("É preciso inserir um e-mail válido."),
-  password: z
-    .string()
-    .min(6, "Senha mínima de 6 caracteres.")
-    .nonempty("A Senha é obrigratório."),
-});
-
-type TFormValues = z.infer<typeof loginUserFormSchema>;
+import { memo } from "react";
+import { useLogin } from "./hooks/useLogin";
 
 const LoginComponent = () => {
-  const navigate = useNavigate();
-  const { setCurrentUser } = useCurrentUser();
+  const { errors, handleSubmit, onSubmitHandler, register } = useLogin();
   const [isLargerThan720] = useMediaQuery("(min-width: 720px)");
-  const toast = useToast();
-
-  const toastErrorAttributes: UseToastOptions = useMemo(
-    () => ({
-      title: `Usuário não encontrado!`,
-      status: "error",
-      isClosable: true,
-      duration: 2000,
-      position: isLargerThan720 ? "top" : "bottom",
-    }),
-    []
-  );
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TFormValues>({
-    resolver: zodResolver(loginUserFormSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-  const onSubmitHandler = async (formValues: TFormValues) => {
-    try {
-      const { data: users } = await api.get("/user");
-      const user: IUserApi = users.find(
-        (user: { email: String }) => user.email === formValues.email
-      );
-      if (!user) {
-        toast(toastErrorAttributes);
-        return;
-      }
-
-      setCurrentUser(UserApiToHttp(user));
-      navigate("/home");
-    } catch (err) {
-      toast({
-        ...toastErrorAttributes,
-        title: `Não foi possível estabelecer conexão com o servidor`,
-      });
-    }
-  };
 
   return (
     <HStack w="full" h="100vh">
