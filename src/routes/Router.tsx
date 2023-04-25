@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Welcome } from "../pages/Welcome";
+import { LandingPage } from "../pages/LandingPage";
 import { Login, SignUp } from "../pages/Auth";
 import { Dashboard } from "../pages/Admin";
 import { Home } from "../pages/Student/Home";
@@ -9,7 +9,7 @@ import { AuthenticatedUserRedirect } from "./AuthenticatedUserRedirect";
 export const Router = () => {
   return (
     <Routes>
-      <Route index element={<Welcome />} />
+      <Route index element={<LandingPage />} />
       <Route path="" element={<AuthenticatedUserRedirect />}>
         <Route path="login" element={<Login />} />
         <Route path="sign-up" element={<SignUp />} />
@@ -20,7 +20,7 @@ export const Router = () => {
       <Route path="student" element={<ProtectedRoute />}>
         <Route path="home" element={<Home />} />
       </Route>
-      <Route path="welcome" element={<Welcome />} />
+      <Route path="landing-page" element={<LandingPage />} />
     </Routes>
   );
 };
