@@ -1,9 +1,11 @@
 import { api } from "..";
 
 export const AuthService = () => {
-  const login = () => {
-    // TODO: Pass email and password to authenticate
-    return api.get("/user");
+  const login = (email: String, password: String) => {
+    return api.post("/user/login", {
+      email,
+      password,
+    });
   };
 
   return {

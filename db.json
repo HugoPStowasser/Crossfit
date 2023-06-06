@@ -8,7 +8,7 @@
       "profile": {
         "id": 1,
         "name": "Administrador",
-        "normalized_name": "ADMIN",
+        "normalizedName": "ADMIN",
         "active": true
       }
     }
@@ -17,19 +17,19 @@
     {
       "id": 1,
       "name": "Estudante",
-      "normalized_name": "STUDENT",
+      "normalizedName": "STUDENT",
       "active": true
     },
     {
       "id": 2,
       "name": "Administrador",
-      "normalized_name": "ADMIN",
+      "normalizedName": "ADMIN",
       "active": true
     },
     {
       "id": 3,
       "name": "Professor",
-      "normalized_name": "PROFESSOR",
+      "normalizedName": "PROFESSOR",
       "active": true
     }
   ]

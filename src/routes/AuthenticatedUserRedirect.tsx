@@ -3,11 +3,12 @@ import { redirectUserAuthenticatedHandler } from "../functions";
 
 export const AuthenticatedUserRedirect = () => {
   // TODO: Valid if user is already authenticated
-  const user = JSON.parse(sessionStorage.getItem(`@User:1`) || "{}");
-  console.log("user");
+  const { normalizedName } = JSON.parse(
+    sessionStorage.getItem(`@User`) || "{}"
+  );
 
-  if (!!user?.id) {
-    const path = redirectUserAuthenticatedHandler({ user });
+  if (!!normalizedName) {
+    const path = redirectUserAuthenticatedHandler({ normalizedName });
     return <Navigate to={path} />;
   }
 

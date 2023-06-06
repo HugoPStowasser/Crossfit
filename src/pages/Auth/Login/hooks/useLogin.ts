@@ -1,18 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { loginUserFormSchema } from "../schemas/schema";
-import { TLoginFormValues } from "../@types";
+import { TLoginFormValues, TLoginResponse } from "../@types";
 import { useMemo } from "react";
 import { UseToastOptions, useMediaQuery, useToast } from "@chakra-ui/react";
-import { TUserApi } from "../../../../@types/user";
 import { UserApiToHttp } from "../../../../mappers/user";
 import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "../../../../hooks/useCurrentUser";
 import { AuthService } from "../../../../services/http/Auth";
-import {
-  isAdminHandler,
-  redirectUserAuthenticatedHandler,
-} from "../../../../functions";
+
+import { redirectUserAuthenticatedHandler } from "../../../../functions";
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -46,19 +43,24 @@ export const useLogin = () => {
   const { login } = AuthService();
   const onSubmitHandler = async (formValues: TLoginFormValues) => {
     try {
-      const { data: users } = await login();
-      const user: TUserApi = users.find(
-        (user: { email: String }) => user.email === formValues.email
+      const { data }: { data: TLoginResponse } = await login(
+        formValues.email,
+        formValues.password
       );
+      const { user } = data;
+
       if (!user) {
         toast(toastErrorAttributes);
         return;
       }
 
       setCurrentUser(UserApiToHttp(user));
-      sessionStorage.setItem(`@User:${user.id}`, JSON.stringify(user));
+      sessionStorage.setItem(`@User`, JSON.stringify(user));
+      sessionStorage.setItem(`@Token${user.idUser}`, data.token);
 
-      const path = redirectUserAuthenticatedHandler({ user });
+      const path = redirectUserAuthenticatedHandler({
+        normalizedName: user.profile.normalizedName,
+      });
       navigate(path);
     } catch (err) {
       toast({

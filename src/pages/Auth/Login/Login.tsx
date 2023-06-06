@@ -12,6 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { memo } from "react";
 import { useLogin } from "./hooks/useLogin";
+import sidebarImg from "../../../assets/login-sidebar-image.jpg";
+import logoImg from "../../../assets/login-logo-image.png";
 
 const LoginComponent = () => {
   const { errors, handleSubmit, onSubmitHandler, register } = useLogin();
@@ -21,12 +23,7 @@ const LoginComponent = () => {
     <HStack w="full" h="100vh">
       {isLargerThan720 && (
         <Flex w="full" h="full" borderRightWidth={1}>
-          <Image
-            objectFit="cover"
-            w="full"
-            h="full"
-            src="https://i.imgur.com/2vWzkiq.jpg"
-          />
+          <Image objectFit="cover" w="full" h="full" src={sidebarImg} />
         </Flex>
       )}
       <Flex w="full" h="full" alignItems="center" justifyContent="center">
@@ -35,7 +32,7 @@ const LoginComponent = () => {
             objectFit="cover"
             w="150px"
             h="150px"
-            src="https://i.imgur.com/wdc7IwB.png"
+            src={logoImg}
             margin="auto"
           />
           <form onSubmit={handleSubmit(onSubmitHandler)}>

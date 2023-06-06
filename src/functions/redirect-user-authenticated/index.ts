@@ -1,17 +1,12 @@
 import { isAdminHandler } from "../is-admin";
 
-type TRedirectUserAuthenticatedHandler = {
-  user: {
-    profile: {
-      normalized_name: String;
-    };
-  };
-};
+type TRedirectUserAuthenticatedHandler = { normalizedName: String };
 
 export const redirectUserAuthenticatedHandler = ({
-  user,
+  normalizedName,
 }: TRedirectUserAuthenticatedHandler) => {
-  const isAdmin = isAdminHandler(user.profile.normalized_name);
+  const isAdmin = isAdminHandler(normalizedName);
+  console.log("isAdmin", isAdmin);
   if (isAdmin) {
     return "/admin/dashboard";
   }

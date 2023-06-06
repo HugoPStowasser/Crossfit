@@ -5,7 +5,7 @@ export const ProtectedRoute = ({ redirectPath = "/login" }) => {
   // TODO: Validate token in backend
   // TODO: IF TRUE Renew Token and Authorize the user
   // TODO: IF FALSE redirect the user to login
-  const user = sessionStorage.getItem(`@User:1`);
+  const user = sessionStorage.getItem(`@User`);
 
   if (!user) {
     return <Navigate to={redirectPath} replace />;

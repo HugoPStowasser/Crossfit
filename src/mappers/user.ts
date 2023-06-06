@@ -2,9 +2,9 @@ import { TUserApi, TUserHttp } from "../@types/user";
 
 export const UserApiToHttp = (user: TUserApi): TUserHttp => {
   return {
-    id: user.id,
+    idUser: user.idUser,
     email: user.email,
-    name: user.social_name || user.name,
+    name: user.socialName || user.name,
     profile: user.profile,
   };
 };

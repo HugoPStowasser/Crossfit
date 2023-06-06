@@ -19,5 +19,6 @@
     "jsx": "react-jsx"
   },
   "include": ["src"],
+  "exclude": ["src/assets/**/*.jpg", "src/assets/**/*.png"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
