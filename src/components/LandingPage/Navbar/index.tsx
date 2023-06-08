@@ -1,29 +1,39 @@
 import { Box, Image, Link, Text, useMediaQuery } from "@chakra-ui/react";
 import { BsFillPersonFill } from "react-icons/bs";
+import { Link as ScrollLink } from 'react-scroll';
 
 type LinkNavBarProps = {
-  text: String;
-  _id: String;
+  text: string;
+  _id: string;
 };
+
 const LinkNavBar = ({ text, _id }: LinkNavBarProps) => {
   return (
-    <Link
-      px={2}
-      py={1}
-      rounded={"md"}
-      transition="all 0.3s ease"
-      color="#FFF"
-      _hover={{
-        textDecoration: "none",
-        opacity: 0.7,
-        color: "#FFBB00 !important",
-      }}
-      href={`#${_id}`}
+    <ScrollLink
+      activeClass="active"
+      to={_id}
+      spy={true}
+      smooth={true}
+      offset={-70}
+      duration={500}
     >
-      <Text fontFamily="Inter" fontWeight={500}>
-        {text}
-      </Text>
-    </Link>
+      <Link
+        px={2}
+        py={1}
+        rounded={"md"}
+        transition="all 0.3s ease"
+        color="#FFF"
+        _hover={{
+          textDecoration: "none",
+          opacity: 0.7,
+          color: "#FFBB00 !important",
+        }}
+      >
+        <Text fontFamily="Inter" fontWeight={500}>
+          {text}
+        </Text>
+      </Link>
+    </ScrollLink>
   );
 };
 
