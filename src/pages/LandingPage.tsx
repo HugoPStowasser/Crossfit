@@ -3,6 +3,7 @@ import { Navbar } from "../components/LandingPage/Navbar";
 import { About } from "../components/LandingPage/About";
 import { Footer } from "../components/LandingPage/Footer";
 import { WhatsappButton } from "../components/LandingPage/WhatsappButton";
+
 export const LandingPage = () => {
   return (
     <Box fontSize={"Inter"} id="start">
