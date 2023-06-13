@@ -65,6 +65,7 @@ export const useLogin = () => {
       });
       navigate(path);
     } catch (err) {
+      console.error(err);
       toast({
         ...toastErrorAttributes,
         title: `Não foi possível estabelecer conexão com o servidor`,

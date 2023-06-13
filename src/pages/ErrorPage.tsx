@@ -2,7 +2,7 @@ import { useRouteError } from "react-router-dom";
 
 type TUserRouterError = {
   statusText: any;
-  message: String;
+  message: string;
 };
 
 export const ErrorPage = () => {

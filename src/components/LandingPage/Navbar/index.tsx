@@ -1,6 +1,6 @@
 import { Box, Image, Link, Text, useMediaQuery } from "@chakra-ui/react";
 import { BsFillPersonFill } from "react-icons/bs";
-import { Link as ScrollLink } from 'react-scroll';
+import { Link as ScrollLink } from "react-scroll";
 
 type LinkNavBarProps = {
   text: string;

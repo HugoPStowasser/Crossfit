@@ -1,6 +1,6 @@
 import { isAdminHandler } from "../is-admin";
 
-type TRedirectUserAuthenticatedHandler = { normalizedName: String };
+type TRedirectUserAuthenticatedHandler = { normalizedName: string };
 
 export const redirectUserAuthenticatedHandler = ({
   normalizedName,

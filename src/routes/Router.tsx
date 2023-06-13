@@ -6,6 +6,7 @@ import { Home } from "../pages/Student/Home";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { AuthenticatedUserRedirect } from "./AuthenticatedUserRedirect";
 import { RegisterPoints } from "../pages/Student/RegisterPoints";
+import { Exercise, CreateExercise } from "../pages/Admin/Exercise";
 
 export const Router = () => {
   return (
@@ -17,6 +18,8 @@ export const Router = () => {
       </Route>
       <Route path="admin" element={<ProtectedRoute />}>
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="exercise" element={<Exercise />} />
+        <Route path="exercise/create" element={<CreateExercise />} />
       </Route>
       <Route path="student" element={<ProtectedRoute />}>
         <Route path="home" element={<Home />} />

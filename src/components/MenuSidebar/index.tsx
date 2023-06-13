@@ -25,13 +25,14 @@ import {
 } from "react-icons/tb";
 import { SidebarItem } from "../SidebarItem";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const MenuSidebar = () => {
-  const { isAdmin } = useCurrentUser();
+  const { isAdmin, currentUser } = useCurrentUser();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleGoHome = () => {
     if (isAdmin) {
@@ -39,6 +40,12 @@ export const MenuSidebar = () => {
     } else {
       navigate("/student/home");
     }
+  };
+
+  const handleGoPage = (route: string) => {
+    navigate(
+      `/${currentUser.profile.normalizedName.toLocaleLowerCase()}/${route}`
+    );
   };
   return (
     <Box>
@@ -63,21 +70,75 @@ export const MenuSidebar = () => {
           >
             {isAdmin ? (
               <>
-                <SidebarItem icon={TbCalendar} title="Aulas" />
-                <SidebarItem icon={TbUsers} title="Usuários" />
-                <SidebarItem icon={TbFileInvoice} title="Pagamentos" />
-                <SidebarItem icon={TbBarbell} title="Exercícios" />
-                <SidebarItem icon={TbCircleDashed} title="Status" />
-                <SidebarItem icon={TbLockOpen} title="Perfis" />
-                <SidebarItem icon={TbGenderAndrogyne} title="Gêneros" />
-                <SidebarItem icon={TbPigMoney} title="Tipo de Pagamento" />
-                <SidebarItem icon={TbDeviceImac} title="Página de visitação" />
+                <SidebarItem
+                  icon={TbCalendar}
+                  title="Aulas"
+                  active={pathname.includes("class")}
+                />
+                <SidebarItem
+                  icon={TbUsers}
+                  title="Usuários"
+                  active={pathname.includes("user")}
+                />
+                <SidebarItem
+                  icon={TbFileInvoice}
+                  title="Pagamentos"
+                  active={pathname.includes("payment")}
+                />
+                <SidebarItem
+                  icon={TbBarbell}
+                  title="Exercícios"
+                  active={pathname.includes("exercise")}
+                  onClick={() => handleGoPage("exercise")}
+                />
+                <SidebarItem
+                  icon={TbCircleDashed}
+                  title="Status"
+                  active={pathname.includes("status")}
+                />
+                <SidebarItem
+                  icon={TbLockOpen}
+                  title="Perfis"
+                  active={pathname.includes("profile")}
+                />
+                <SidebarItem
+                  icon={TbGenderAndrogyne}
+                  title="Gêneros"
+                  active={pathname.includes("genre")}
+                />
+                <SidebarItem
+                  icon={TbPigMoney}
+                  title="Tipo de Pagamento"
+                  active={pathname.includes("type-payment")}
+                />
+                <SidebarItem
+                  icon={TbDeviceImac}
+                  title="Página de visitação"
+                  active={pathname.includes("visit-page")}
+                />
               </>
             ) : (
               <>
-                <SidebarItem icon={TbUser} title="Perfil" />
-                <SidebarItem icon={TbPigMoney} title="Cobranças" />
-                <SidebarItem icon={TbTrophy} title="Ranking" />
+                <SidebarItem
+                  icon={TbBarbell}
+                  title="Registrar Exercício"
+                  active={pathname.includes("register-points")}
+                />
+                <SidebarItem
+                  icon={TbPigMoney}
+                  title="Cobranças"
+                  active={pathname.includes("invoices")}
+                />
+                <SidebarItem
+                  icon={TbTrophy}
+                  title="Ranking"
+                  active={pathname.includes("ranking")}
+                />
+                <SidebarItem
+                  icon={TbUser}
+                  title="Perfil"
+                  active={pathname.includes("student/profile")}
+                />
               </>
             )}
           </DrawerBody>

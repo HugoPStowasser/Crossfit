@@ -4,35 +4,39 @@ export const axiosApi = axios.create({
   baseURL: "https://localhost:7049/api",
 });
 
+const logout = () => {
+  localStorage.clear();
+  axios.interceptors.request.eject(interceptorApi);
+  window.location.reload();
+};
+
 export const interceptorApi = axiosApi.interceptors.request.use(
   async (config) => {
-    const token = localStorage.getItem("@Token" || "{}");
+    if (config.url?.includes("user")) return config;
 
+    const token = localStorage.getItem("@Token" || "{}");
     if (!token) {
-      sessionStorage.clear();
+      logout();
     } else {
       const tokenObject = JSON.parse(atob(token.split(".")[1]));
       const now = new Date();
-      if (now >= new Date(tokenObject.exp)) {
-        sessionStorage.clear();
-        axios.interceptors.request.eject(interceptorApi);
+      if (new Date(tokenObject.exp) >= now) {
+        logout();
       }
     }
-
-    config.headers["Authorization"] = `Bearer ${token}`;
-    config.headers["Content-Type"] = "application/json";
 
     const file = config.data
       ? Array.from(config.data).find((item: any) => item instanceof File)
       : null;
+
+    config.headers.setAuthorization(`Bearer ${token}`);
+    config.headers["content-type"] = !!file
+      ? "multipart/form-data"
+      : "application/json";
+
     if (!!file) {
       const bodyFormData = new FormData();
       bodyFormData.append("file", config.data[0]);
-      config.headers["Authorization"] = `Bearer ${token}`;
-      config.headers["Content-Type"] = "multipart/form-data";
-    } else {
-      config.headers["Authorization"] = `Bearer ${token}`;
-      config.headers["Content-Type"] = "application/json";
     }
     return config;
   }

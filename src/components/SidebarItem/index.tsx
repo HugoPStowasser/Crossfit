@@ -13,12 +13,14 @@ type TSidebarItem = {
   title: string;
   icon: IconType;
   active?: boolean;
+  onClick?: () => void;
 } & TextProps;
 
 const SidebarItem = ({
   title,
   icon,
   active = false,
+  onClick = () => {},
   ...props
 }: TSidebarItem) => {
   return (
@@ -30,13 +32,9 @@ const SidebarItem = ({
           _hover={{ textDecor: "none", backgroundColor: "#FFD700" }}
           w={"100%"}
         >
-          <MenuButton w="100%">
+          <MenuButton w="100%" onClick={onClick}>
             <Flex alignItems={"center"}>
-              <Icon
-                as={icon}
-                fontSize="xl"
-                color={active ? "#FFD700" : "gray.500"}
-              />
+              <Icon as={icon} fontSize="xl" />
               <Text ml={5} {...props}>
                 {title}
               </Text>

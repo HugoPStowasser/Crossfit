@@ -1,4 +1,4 @@
 import { EProfile } from "../../@types/profile";
 
-export const isAdminHandler = (normalizedName: String) =>
+export const isAdminHandler = (normalizedName: string) =>
   EProfile.admin === normalizedName;
