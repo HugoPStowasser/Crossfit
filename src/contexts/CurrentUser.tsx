@@ -1,5 +1,7 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { TUserHttp } from "../@types/user";
+import { isAdminHandler } from "../functions";
+import { UserApiToHttp } from "../mappers/user";
 
 type TCurrentUserProviderProps = {
   children: ReactNode;
@@ -8,6 +10,7 @@ type TCurrentUserProviderProps = {
 type TCurrentUserContextValues = {
   currentUser: TUserHttp;
   setCurrentUser: (T: TUserHttp) => void;
+  isAdmin: boolean;
 };
 
 export const CurrentUserContext = createContext(
@@ -21,10 +24,20 @@ export const CurrentUserProvider = ({
     {} as TUserHttp
   );
 
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("@User") || "{}");
+    setStateCurrentUser(UserApiToHttp(userInfo));
+  }, []);
+
   const setCurrentUser = (user: TUserHttp) => setStateCurrentUser(user);
 
+  const isAdmin = useMemo(() => {
+    return isAdminHandler(currentUser?.profile?.normalizedName || "");
+  }, [currentUser]);
   return (
-    <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+    <CurrentUserContext.Provider
+      value={{ currentUser, setCurrentUser, isAdmin }}
+    >
       {children}
     </CurrentUserContext.Provider>
   );

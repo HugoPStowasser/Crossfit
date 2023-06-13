@@ -9,14 +9,37 @@ import {
   DrawerOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { TbMenu2, TbUsers } from "react-icons/tb";
+import {
+  TbBarbell,
+  TbCalendar,
+  TbCircleDashed,
+  TbDeviceImac,
+  TbFileInvoice,
+  TbGenderAndrogyne,
+  TbLockOpen,
+  TbMenu2,
+  TbPigMoney,
+  TbTrophy,
+  TbUser,
+  TbUsers,
+} from "react-icons/tb";
 import { SidebarItem } from "../SidebarItem";
-import { AiOutlineTrophy } from "react-icons/ai";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { useNavigate, useNavigation } from "react-router-dom";
 
 export const MenuSidebar = () => {
+  const { isAdmin } = useCurrentUser();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+  const navigate = useNavigate();
 
+  const handleGoHome = () => {
+    if (isAdmin) {
+      navigate("/admin/dashboard");
+    } else {
+      navigate("/student/home");
+    }
+  };
   return (
     <Box>
       <Button ref={btnRef.current} onClick={onOpen} bg="yellow.400">
@@ -25,16 +48,38 @@ export const MenuSidebar = () => {
       <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px">Gladius Crossfit</DrawerHeader>
+          <DrawerHeader
+            borderBottomWidth="1px"
+            onClick={handleGoHome}
+            cursor={"pointer"}
+          >
+            Gladius Crossfit
+          </DrawerHeader>
           <DrawerBody
             p="0"
             display={"flex"}
             flexDir="column"
             alignItems={"flex-start"}
           >
-            <SidebarItem icon={TbUsers} title="Gerenciar Perfil" />
-            <SidebarItem icon={AiOutlineTrophy} title="Gerenciar Usuário" />
-            <SidebarItem icon={AiOutlineTrophy} title="Gerenciar Faturas" />
+            {isAdmin ? (
+              <>
+                <SidebarItem icon={TbCalendar} title="Aulas" />
+                <SidebarItem icon={TbUsers} title="Usuários" />
+                <SidebarItem icon={TbFileInvoice} title="Pagamentos" />
+                <SidebarItem icon={TbBarbell} title="Exercícios" />
+                <SidebarItem icon={TbCircleDashed} title="Status" />
+                <SidebarItem icon={TbLockOpen} title="Perfis" />
+                <SidebarItem icon={TbGenderAndrogyne} title="Gêneros" />
+                <SidebarItem icon={TbPigMoney} title="Tipo de Pagamento" />
+                <SidebarItem icon={TbDeviceImac} title="Página de visitação" />
+              </>
+            ) : (
+              <>
+                <SidebarItem icon={TbUser} title="Perfil" />
+                <SidebarItem icon={TbPigMoney} title="Cobranças" />
+                <SidebarItem icon={TbTrophy} title="Ranking" />
+              </>
+            )}
           </DrawerBody>
         </DrawerContent>
       </Drawer>

@@ -57,8 +57,8 @@ export const useLogin = () => {
       }
 
       setCurrentUser(UserApiToHttp(user));
+      localStorage.setItem(`@Token`, data.token);
       localStorage.setItem(`@User`, JSON.stringify(user));
-      localStorage.setItem(`@Token${user.idUser}`, data.token);
 
       const path = redirectUserAuthenticatedHandler({
         normalizedName: user.profile.normalizedName,

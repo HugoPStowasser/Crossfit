@@ -5,8 +5,7 @@ import { ClassList } from "../../../components/ClassList";
 export const Home = () => {
   return (
     <>
-      <Box minH="100vh" fontFamily={"Inter"}>
-        <Navbar />
+      <>
         <Box p="20px" gap={"20px"} display={"flex"} flexDir={"column"}>
           <Text fontWeight={"semibold"}>Aulas de Hoje:</Text>
           <ClassList />
@@ -15,7 +14,7 @@ export const Home = () => {
           <ClassList />
         </Box>
         <ButtonExercise />
-      </Box>
+      </>
     </>
   );
 };

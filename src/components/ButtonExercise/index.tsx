@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export const ButtonExercise = ({ ...props }: ButtonProps) => {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/student/exercise");
+    navigate("/student/register-points");
   };
 
   return (
