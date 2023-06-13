@@ -9,7 +9,9 @@ import {
   DrawerOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { TbMenu2, TbUsers } from "react-icons/tb";
+import { SidebarItem } from "../SidebarItem";
+import { AiOutlineTrophy } from "react-icons/ai";
 
 export const MenuSidebar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -17,17 +19,22 @@ export const MenuSidebar = () => {
 
   return (
     <Box>
-      <Button ref={btnRef.current} colorScheme="teal" onClick={onOpen}>
-        <HamburgerIcon />
+      <Button ref={btnRef.current} onClick={onOpen} bg="yellow.400">
+        <TbMenu2 color={"#000"} size={24} />
       </Button>
       <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px">Basic Drawer</DrawerHeader>
-          <DrawerBody>
-            <p>Gerenciar Perfil</p>
-            <p>Gerenciar Usuarios</p>
-            <p>Gerenciar Faturas</p>
+          <DrawerHeader borderBottomWidth="1px">Gladius Crossfit</DrawerHeader>
+          <DrawerBody
+            p="0"
+            display={"flex"}
+            flexDir="column"
+            alignItems={"flex-start"}
+          >
+            <SidebarItem icon={TbUsers} title="Gerenciar Perfil" />
+            <SidebarItem icon={AiOutlineTrophy} title="Gerenciar Usuário" />
+            <SidebarItem icon={AiOutlineTrophy} title="Gerenciar Faturas" />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

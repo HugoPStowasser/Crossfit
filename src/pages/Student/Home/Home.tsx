@@ -1,54 +1,21 @@
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Divider, Text } from "@chakra-ui/react";
 import { Navbar } from "../../../components/Navbar";
-import { AiOutlineCheckCircle } from "react-icons/ai";
+import { ButtonExercise } from "../../../components/ButtonExercise";
+import { ClassList } from "../../../components/ClassList";
 export const Home = () => {
   return (
-    <Box>
-      <Navbar />
-      <Box p="20px" gap={"20px"} display={"flex"} flexDir={"column"}>
-        <Box borderRadius={4} display={"flex"} flexDir={"column"} bg="gray.200">
-          <Box
-            display={"flex"}
-            justifyContent={"space-between"}
-            alignItems={"center"}
-            p="10px"
-          >
-            <Text>Aeróbico</Text>
-            <Text>18ABR 20h30 - 22h30</Text>
-          </Box>
-          <Box p="10px">
-            <Text>
-              Pequena descrição da aula de aeróbico que ocorrerá hoje.
-            </Text>
-            <Text>Professor: José da Silve</Text>
-          </Box>
-          <Button w="100%" bg="gray.500" gap={"10px"}>
-            <Text>Check-in</Text>
-            <AiOutlineCheckCircle color="green" size={24} />
-          </Button>
+    <>
+      <Box minH="100vh" fontFamily={"Inter"}>
+        <Navbar />
+        <Box p="20px" gap={"20px"} display={"flex"} flexDir={"column"}>
+          <Text fontWeight={"semibold"}>Aulas de Hoje:</Text>
+          <ClassList />
+          <Divider borderBottomWidth={"1.5px"} borderColor="gray.300" />
+          <Text fontWeight={"semibold"}>Próximas aulas:</Text>
+          <ClassList />
         </Box>
-        <Box borderRadius={4} display={"flex"} flexDir={"column"} bg="gray.200">
-          <Box
-            display={"flex"}
-            justifyContent={"space-between"}
-            alignItems={"center"}
-            p="10px"
-          >
-            <Text>Aeróbico</Text>
-            <Text>18ABR 20h30 - 22h30</Text>
-          </Box>
-          <Box p="10px">
-            <Text>
-              Pequena descrição da aula de aeróbico que ocorrerá hoje.
-            </Text>
-            <Text>Professor: José da Silve</Text>
-          </Box>
-          <Button w="100%" bg="gray.500" gap={"10px"}>
-            <Text>Check-in</Text>
-            <AiOutlineCheckCircle color="green" size={24} />
-          </Button>
-        </Box>
+        <ButtonExercise />
       </Box>
-    </Box>
+    </>
   );
 };

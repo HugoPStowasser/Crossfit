@@ -1,35 +1,57 @@
 import {
   Avatar,
+  Button,
   Center,
   MenuDivider,
-  MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { redirect } from "react-router-dom";
+import { useState } from "react";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { TbLogout } from "react-icons/tb";
 
 export const MenuAvatar = () => {
-  const logout = () => {
-    sessionStorage.clear();
-    console.log("teste");
+  const { currentUser } = useCurrentUser();
+  const [isLoading, setIsLoading] = useState(false);
+  const logout = async () => {
+    localStorage.clear();
     window.location.reload();
   };
+
+  const handleClickLogout = () => {
+    setIsLoading(true);
+    logout().finally(() => setIsLoading(false));
+  };
   return (
-    <MenuList alignItems={"center"}>
-      <br />
+    <MenuList alignItems={"center"} pt="5px" mt="8px">
       <Center>
         <Avatar
           size={"2xl"}
           src={"https://cdn-icons-png.flaticon.com/512/3135/3135715.png"}
         />
       </Center>
-      <br />
       <Center>
-        <p>Username</p>
+        <p>{currentUser.name}</p>
       </Center>
-      <br />
       <MenuDivider />
-      <MenuItem>Perfil</MenuItem>
-      <MenuItem onClick={logout}>Sair</MenuItem>
+      <Button
+        borderRadius={0}
+        variant={"ghost"}
+        width={"100%"}
+        justifyContent={"start"}
+      >
+        Perfil
+      </Button>
+      <Button
+        borderRadius={0}
+        justifyContent={"space-between"}
+        variant={"ghost"}
+        width={"100%"}
+        isLoading={isLoading}
+        onClick={handleClickLogout}
+        rightIcon={<TbLogout color="red" size={20} />}
+      >
+        Sair
+      </Button>
     </MenuList>
   );
 };

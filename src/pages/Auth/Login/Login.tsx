@@ -16,7 +16,8 @@ import sidebarImg from "../../../assets/login-sidebar-image.jpg";
 import logoImg from "../../../assets/login-logo-image.png";
 
 const LoginComponent = () => {
-  const { errors, handleSubmit, onSubmitHandler, register } = useLogin();
+  const { errors, handleSubmit, onSubmitHandler, register, isLoading } =
+    useLogin();
   const [isLargerThan720] = useMediaQuery("(min-width: 720px)");
 
   return (
@@ -68,6 +69,7 @@ const LoginComponent = () => {
               w="100%"
               mt="5"
               type="submit"
+              isLoading={isLoading}
             >
               Login
             </Button>

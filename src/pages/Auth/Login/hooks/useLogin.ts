@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { loginUserFormSchema } from "../schemas/schema";
 import { TLoginFormValues, TLoginResponse } from "../@types";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { UseToastOptions, useMediaQuery, useToast } from "@chakra-ui/react";
 import { UserApiToHttp } from "../../../../mappers/user";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import { redirectUserAuthenticatedHandler } from "../../../../functions";
 
 export const useLogin = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const { setCurrentUser } = useCurrentUser();
   const [isLargerThan720] = useMediaQuery("(min-width: 720px)");
   const toast = useToast();
@@ -43,6 +44,7 @@ export const useLogin = () => {
   const { login } = AuthService();
   const onSubmitHandler = async (formValues: TLoginFormValues) => {
     try {
+      setIsLoading(true);
       const { data }: { data: TLoginResponse } = await login(
         formValues.email,
         formValues.password
@@ -55,8 +57,8 @@ export const useLogin = () => {
       }
 
       setCurrentUser(UserApiToHttp(user));
-      sessionStorage.setItem(`@User`, JSON.stringify(user));
-      sessionStorage.setItem(`@Token${user.idUser}`, data.token);
+      localStorage.setItem(`@User`, JSON.stringify(user));
+      localStorage.setItem(`@Token${user.idUser}`, data.token);
 
       const path = redirectUserAuthenticatedHandler({
         normalizedName: user.profile.normalizedName,
@@ -67,6 +69,8 @@ export const useLogin = () => {
         ...toastErrorAttributes,
         title: `Não foi possível estabelecer conexão com o servidor`,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -75,5 +79,6 @@ export const useLogin = () => {
     register,
     handleSubmit,
     errors,
+    isLoading,
   };
 };

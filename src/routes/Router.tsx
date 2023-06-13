@@ -5,6 +5,7 @@ import { Dashboard } from "../pages/Admin";
 import { Home } from "../pages/Student/Home";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { AuthenticatedUserRedirect } from "./AuthenticatedUserRedirect";
+import { Exercise } from "../pages/Student/Exercise";
 
 export const Router = () => {
   return (
@@ -19,6 +20,7 @@ export const Router = () => {
       </Route>
       <Route path="student" element={<ProtectedRoute />}>
         <Route path="home" element={<Home />} />
+        <Route path="exercise" element={<Exercise />} />
       </Route>
       <Route path="landing-page" element={<LandingPage />} />
     </Routes>

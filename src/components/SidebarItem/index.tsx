@@ -1,37 +1,43 @@
-import { Flex, Link, Menu, MenuButton, Text, Icon } from "@chakra-ui/react";
+import {
+  Flex,
+  Link,
+  Menu,
+  MenuButton,
+  Text,
+  Icon,
+  TextProps,
+} from "@chakra-ui/react";
 import { IconType } from "react-icons";
 
-type TNavItem = {
-  navSize: string;
+type TSidebarItem = {
   title: string;
   icon: IconType;
   active?: boolean;
-};
+} & TextProps;
 
-const NavItem = ({ navSize, title, icon, active = false }: TNavItem) => {
+const SidebarItem = ({
+  title,
+  icon,
+  active = false,
+  ...props
+}: TSidebarItem) => {
   return (
-    <Flex
-      mt={30}
-      flexDir="column"
-      w="100%"
-      alignItems={navSize == "small" ? "center" : "flex-start"}
-    >
+    <Flex flexDir="column" w="100%" alignItems={"flex-start"}>
       <Menu placement="right">
         <Link
           backgroundColor={active ? "#FFD700" : ""}
           p={3}
-          borderRadius={8}
           _hover={{ textDecor: "none", backgroundColor: "#FFD700" }}
-          w={navSize == "large" ? "100%" : "45px"}
+          w={"100%"}
         >
           <MenuButton w="100%">
-            <Flex>
+            <Flex alignItems={"center"}>
               <Icon
                 as={icon}
                 fontSize="xl"
                 color={active ? "#FFD700" : "gray.500"}
               />
-              <Text ml={5} display={navSize == "small" ? "none" : "flex"}>
+              <Text ml={5} {...props}>
                 {title}
               </Text>
             </Flex>
@@ -42,4 +48,4 @@ const NavItem = ({ navSize, title, icon, active = false }: TNavItem) => {
   );
 };
 
-export { NavItem };
+export { SidebarItem };
