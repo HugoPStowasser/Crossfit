@@ -19,7 +19,10 @@ export const Router = () => {
       <Route path="admin" element={<ProtectedRoute />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="exercise" element={<Exercise />} />
-        <Route path="exercise/create" element={<CreateExercise />} />
+        <Route
+          path="exercise/create/:idExercise?"
+          element={<CreateExercise />}
+        />
       </Route>
       <Route path="student" element={<ProtectedRoute />}>
         <Route path="home" element={<Home />} />

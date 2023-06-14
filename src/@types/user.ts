@@ -1,7 +1,7 @@
 import { TProfile } from "./profile";
 
 export type TUserApi = {
-  idUser: Number;
+  idUser: number;
   profile: TProfile;
   email: string;
   name: string;
@@ -9,8 +9,8 @@ export type TUserApi = {
 };
 
 export type TStudentApi = TUserApi & {
-  idGenre: Number;
-  idAddress?: Number;
+  idGenre: number;
+  idAddress?: number;
   birthDate: Date;
   isBlocked: Boolean;
   blockDescription?: string;
@@ -18,7 +18,7 @@ export type TStudentApi = TUserApi & {
 };
 
 export type TUserHttp = {
-  idUser: Number;
+  idUser: number;
   email: string;
   name: string;
   profile: TProfile;

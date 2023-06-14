@@ -4,7 +4,7 @@ import { TProfile } from "../../../../@types/profile";
 
 export type TLoginResponse = {
   user: {
-    idUser: Number;
+    idUser: number;
     email: string;
     name: string;
     socialName?: string;

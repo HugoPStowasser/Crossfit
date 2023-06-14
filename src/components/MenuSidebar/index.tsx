@@ -46,6 +46,7 @@ export const MenuSidebar = () => {
     navigate(
       `/${currentUser.profile.normalizedName.toLocaleLowerCase()}/${route}`
     );
+    onClose();
   };
   return (
     <Box>

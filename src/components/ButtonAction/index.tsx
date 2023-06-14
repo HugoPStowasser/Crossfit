@@ -1,27 +1,42 @@
-import { Button, ButtonProps } from "@chakra-ui/react";
+import { useState } from "react";
+import { Button, ButtonProps, Text } from "@chakra-ui/react";
 import { TbEye, TbPencil, TbTrash } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
+import { Modal as ModalAntd } from "antd";
 
 export enum EActionButton {
   edit = "edit",
   delete = "delete",
-  view = "view",
 }
 
 type TButtonAction = Omit<ButtonProps, "id"> & {
   id: number;
   actionType: EActionButton;
+  deleteFn?: (id: number) => Promise<void>;
 };
 
-export const ButtonAction = ({ id, actionType, ...props }: TButtonAction) => {
-  const handleGoToPage = () => {
-    console.log(id);
-  };
-  const handleDelete = () => {
-    console.log(id);
+export const ButtonAction = ({
+  id,
+  actionType,
+  deleteFn,
+  ...props
+}: TButtonAction) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    navigate(`create/${id}`);
   };
 
-  const handleView = () => {
-    console.log(id);
+  const handleDelete = async () => {
+    setIsLoading(true);
+    if (deleteFn) {
+      await deleteFn(id);
+    }
+    setIsModalOpen(false);
+    setIsLoading(false);
   };
 
   if (actionType === EActionButton.edit) {
@@ -30,35 +45,41 @@ export const ButtonAction = ({ id, actionType, ...props }: TButtonAction) => {
         _hover={{ opacity: 0.7 }}
         transition={"all 0.3s ease"}
         variant="unstyled"
-        onClick={handleGoToPage}
+        onClick={handleEdit}
         {...props}
       >
         <TbPencil size={22} />
       </Button>
     );
-  } else if (actionType === EActionButton.delete) {
-    return (
-      <Button
-        _hover={{ opacity: 0.7 }}
-        transition={"all 0.3s ease"}
-        variant="unstyled"
-        onClick={handleDelete}
-        {...props}
-      >
-        <TbTrash size={22} />
-      </Button>
-    );
   } else {
     return (
-      <Button
-        _hover={{ opacity: 0.7 }}
-        transition={"all 0.3s ease"}
-        variant="unstyled"
-        onClick={handleView}
-        {...props}
-      >
-        <TbEye size={22} />
-      </Button>
+      <>
+        <Button
+          _hover={{ opacity: 0.7 }}
+          transition={"all 0.3s ease"}
+          variant="unstyled"
+          onClick={() => setIsModalOpen(true)}
+          {...props}
+        >
+          <TbTrash size={22} />
+        </Button>
+        <ModalAntd
+          closeIcon
+          destroyOnClose
+          title="Exclusão"
+          open={isModalOpen}
+          onOk={handleDelete}
+          onCancel={() => setIsModalOpen(false)}
+          okText="Confirmar"
+          cancelText="Cancelar"
+          confirmLoading={isLoading}
+          okButtonProps={{
+            style: { backgroundColor: "red" },
+          }}
+        >
+          <Text>Você realmente deseja deletar este item?</Text>
+        </ModalAntd>
+      </>
     );
   }
 };

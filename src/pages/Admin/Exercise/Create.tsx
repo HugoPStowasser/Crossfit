@@ -1,10 +1,24 @@
 import { Box, Button, FormControl, Input, Text } from "@chakra-ui/react";
 import { useExercise } from "./hooks/useExercise";
 import { TitleWithBackButton } from "../../../components/TitleWithBackButton";
+import { useEffect } from "react";
 
 export const CreateExercise = () => {
-  const { errors, handleSubmit, onSubmitHandler, register, isLoading } =
-    useExercise();
+  const {
+    errors,
+    handleSubmit,
+    onSubmitHandler,
+    register,
+    isLoading,
+    setValue,
+    exercise,
+  } = useExercise();
+
+  useEffect(() => {
+    if (exercise.idExercise) {
+      setValue("description", exercise.description);
+    }
+  }, [exercise]);
 
   return (
     <Box p="15px">

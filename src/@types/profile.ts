@@ -1,5 +1,5 @@
 export type TProfile = {
-  id_profile: Number;
+  id_profile: number;
   name: string;
   normalizedName: EProfile;
   active: Boolean;
