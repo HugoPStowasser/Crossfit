@@ -7,10 +7,12 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import { AuthenticatedUserRedirect } from "./AuthenticatedUserRedirect";
 import { RegisterPoints } from "../pages/Student/RegisterPoints";
 import { Exercise, CreateExercise } from "../pages/Admin/Exercise";
+import { NotFound } from "../pages/Errors/NotFound";
 
 export const Router = () => {
   return (
     <Routes>
+      <Route path="*" element={<NotFound />} />
       <Route index element={<LandingPage />} />
       <Route path="" element={<AuthenticatedUserRedirect />}>
         <Route path="login" element={<Login />} />

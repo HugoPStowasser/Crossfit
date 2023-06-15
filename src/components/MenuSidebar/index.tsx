@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Button,
@@ -30,7 +29,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 export const MenuSidebar = () => {
   const { isAdmin, currentUser } = useCurrentUser();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -50,9 +48,12 @@ export const MenuSidebar = () => {
   };
   return (
     <Box>
-      <Button ref={btnRef.current} onClick={onOpen} bg="yellow.400">
-        <TbMenu2 color={"#000"} size={24} />
-      </Button>
+      <TbMenu2
+        size={32}
+        onClick={onOpen}
+        color="#ECC94B"
+        style={{ cursor: "pointer" }}
+      />
       <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
