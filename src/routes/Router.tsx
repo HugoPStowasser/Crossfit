@@ -8,6 +8,7 @@ import { AuthenticatedUserRedirect } from "./AuthenticatedUserRedirect";
 import { RegisterPoints } from "../pages/Student/RegisterPoints";
 import { Exercise, CreateExercise } from "../pages/Admin/Exercise";
 import { NotFound } from "../pages/Errors/NotFound";
+import { User } from "../pages/Admin/User";
 
 export const Router = () => {
   return (
@@ -25,6 +26,7 @@ export const Router = () => {
           path="exercise/create/:idExercise?"
           element={<CreateExercise />}
         />
+        <Route path="user" element={<User />} />
       </Route>
       <Route path="student" element={<ProtectedRoute />}>
         <Route path="home" element={<Home />} />

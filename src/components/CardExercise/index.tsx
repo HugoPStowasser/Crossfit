@@ -63,15 +63,15 @@ export const CardExercise = ({
         <Button
           onClick={handleClickCheckout}
           w="100%"
-          bg="gray.400"
+          bg="green.400"
           gap={"10px"}
           borderTopRadius={0}
           borderBottomRadius={4}
         >
-          <Text fontWeight="semibold" color="black">
+          <Text fontWeight="semibold" color="white">
             Presença Confirmada
           </Text>
-          <TbCheck color="#000" size={24} />
+          <TbCheck color="#FFF" size={24} />
         </Button>
       ) : (
         <Button

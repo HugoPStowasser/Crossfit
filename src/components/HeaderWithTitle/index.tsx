@@ -25,7 +25,7 @@ export const HeaderWithTitle = ({ title, createRoute }: THeaderWithTitle) => {
         onClick={handleGoToCreatePage}
         display={"flex"}
         alignItems={"center"}
-        _hover={{ backgroundColor: "yellow.400" }}
+        _hover={{ backgroundColor: "yellow.400", color: "black" }}
         bg="blackAlpha.900"
         color="whiteAlpha.900"
         leftIcon={<TbSquareRoundedPlus size={20} />}
