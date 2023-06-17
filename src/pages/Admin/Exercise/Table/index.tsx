@@ -62,17 +62,12 @@ const columns = ({ deleteFn }: TColumns): ColumnsType<TData> => {
   ];
 };
 export const ExerciseTable = () => {
-  const { getAllExercises, deleteById } = useExercise();
-  const { data, isLoading } = useQuery({
-    queryKey: ["exercise"],
-    queryFn: getAllExercises,
-  });
-
+  const { isLoading, deleteById, allExercises } = useExercise();
   return (
     <Box m="20px" mt="100px">
       <Table
         loading={isLoading}
-        dataSource={data}
+        dataSource={allExercises}
         columns={columns({ deleteFn: deleteById })}
         rowKey={(data) => data.idExercise}
       />

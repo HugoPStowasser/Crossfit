@@ -44,17 +44,20 @@ export const useExercise = () => {
 
   const getAllExercises = async () => {
     try {
+      setIsLoading(true);
       const { data }: { data: TExerciseHttp[] } = await apiExercise.getAll();
       return mapperHttpToTable(data);
     } catch (error) {
       errorToast({
         title: `Não foi possível encontrar os exercícios!`,
       });
+    } finally {
+      setIsLoading(false);
     }
     return [];
   };
 
-  const { refetch } = useQuery({
+  const { refetch, data: allExercises } = useQuery({
     queryKey: ["exercise"],
     queryFn: getAllExercises,
   });
@@ -109,10 +112,11 @@ export const useExercise = () => {
     register,
     handleSubmit,
     errors,
-    isLoading,
+    allExercises,
     getAllExercises,
     exercise,
     setValue,
     deleteById,
+    isLoading
   };
 };

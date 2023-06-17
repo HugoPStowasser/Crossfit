@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, Input, Text } from "@chakra-ui/react";
-import { useExercise } from "./hooks/useExercise";
-import { TitleWithBackButton } from "../../../components/TitleWithBackButton";
+import { useExercise } from "../hooks/useExercise";
+import { TitleWithBackButton } from "../../../../components/TitleWithBackButton";
 import { useEffect } from "react";
 
 export const CreateExercise = () => {
