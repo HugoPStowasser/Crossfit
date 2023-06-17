@@ -12,6 +12,7 @@ export enum EActionButton {
 type TButtonAction = Omit<ButtonProps, "id"> & {
   id: number;
   actionType: EActionButton;
+  prefRoute?: string;
   deleteFn?: (id: number) => Promise<void>;
 };
 
@@ -19,6 +20,7 @@ export const ButtonAction = ({
   id,
   actionType,
   deleteFn,
+  prefRoute,
   ...props
 }: TButtonAction) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,7 +29,11 @@ export const ButtonAction = ({
   const navigate = useNavigate();
 
   const handleEdit = () => {
-    navigate(`create/${id}`);
+    if (prefRoute) {
+      navigate(`${prefRoute}/create/${id}`);
+    } else {
+      navigate(`create/${id}`);
+    }
   };
 
   const handleDelete = async () => {

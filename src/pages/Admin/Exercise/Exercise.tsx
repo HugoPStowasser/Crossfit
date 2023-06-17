@@ -5,7 +5,7 @@ import { HeaderWithTitle } from "../../../components/HeaderWithTitle";
 export const Exercise = () => {
   return (
     <Box>
-      <HeaderWithTitle title="Exercício" createRoute="/admin/exercise/create" />
+      <HeaderWithTitle title="Exercício" createRoute="create" />
       <ExerciseTable />
     </Box>
   );

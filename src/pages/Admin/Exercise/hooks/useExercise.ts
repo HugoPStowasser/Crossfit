@@ -66,9 +66,12 @@ export const useExercise = () => {
     try {
       await apiExercise.deleteById(id);
       refetch();
+      successToast({
+        title: `Exercício deletado com sucesso!`,
+      });
     } catch (error) {
       errorToast({
-        title: `Não foi possível delete o exercício!`,
+        title: `Não foi possível deletar o exercício!`,
       });
     }
   };
@@ -117,6 +120,6 @@ export const useExercise = () => {
     exercise,
     setValue,
     deleteById,
-    isLoading
+    isLoading,
   };
 };

@@ -14,7 +14,7 @@ export const interceptorApi = axiosApi.interceptors.request.use(
   async (config) => {
     if (config.url?.includes("user")) return config;
 
-    const token = localStorage.getItem("@Token" || "{}");
+    const token = localStorage.getItem("@Token" || "");
     if (!token) {
       logout();
     } else {
@@ -29,7 +29,7 @@ export const interceptorApi = axiosApi.interceptors.request.use(
       ? Array.from(config.data).find((item: any) => item instanceof File)
       : null;
 
-    config.headers.setAuthorization(`Bearer ${token}`);
+    config.headers["authorization"] = `Bearer ${token}`;
     config.headers["content-type"] = !!file
       ? "multipart/form-data"
       : "application/json";

@@ -10,8 +10,15 @@ import {
 import { TitleWithBackButton } from "../../../components/TitleWithBackButton";
 import { TbChevronDown, TbLock, TbSchool, TbUserPlus } from "react-icons/tb";
 import { UserTable } from "./Table";
+import { useNavigate } from "react-router-dom";
 
 export const User = () => {
+  const navigate = useNavigate();
+
+  const handleGoToCreatePage = (router: string) => {
+    navigate(router);
+  };
+
   return (
     <Box>
       <Box
@@ -42,7 +49,12 @@ export const User = () => {
             <MenuItem display={"flex"} alignItems={"center"} gap={2}>
               <TbUserPlus size={20} /> <Text>Estudante</Text>
             </MenuItem>
-            <MenuItem display={"flex"} alignItems={"center"} gap={2}>
+            <MenuItem
+              display={"flex"}
+              alignItems={"center"}
+              gap={2}
+              onClick={() => handleGoToCreatePage("professor/create")}
+            >
               <TbSchool size={20} /> <Text>Professor</Text>
             </MenuItem>
           </MenuList>

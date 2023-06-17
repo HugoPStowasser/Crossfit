@@ -9,6 +9,7 @@ import { RegisterPoints } from "../pages/Student/RegisterPoints";
 import { Exercise, CreateExercise } from "../pages/Admin/Exercise";
 import { NotFound } from "../pages/Errors/NotFound";
 import { User } from "../pages/Admin/User";
+import { CreateProfessor } from "../pages/Admin/User/Form/CreateProfessor";
 
 export const Router = () => {
   return (
@@ -27,6 +28,10 @@ export const Router = () => {
           element={<CreateExercise />}
         />
         <Route path="user" element={<User />} />
+        <Route
+          path="user/professor/create/:idProfessor?"
+          element={<CreateProfessor />}
+        />
       </Route>
       <Route path="student" element={<ProtectedRoute />}>
         <Route path="home" element={<Home />} />

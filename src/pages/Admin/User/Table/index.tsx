@@ -44,10 +44,14 @@ const columns = ({
       dataIndex: "",
       key: "x",
       width: "15%",
-      render: (rowData: { idUser: number }) => {
+      render: (rowData: { idUser: number; profile: string }) => {
         return (
           <>
-            <ButtonAction id={rowData.idUser} actionType={EActionButton.edit} />
+            <ButtonAction
+              id={rowData.idUser}
+              actionType={EActionButton.edit}
+              prefRoute={rowData.profile.toLowerCase()}
+            />
             <ButtonAction
               id={rowData.idUser}
               actionType={EActionButton.delete}
@@ -60,14 +64,14 @@ const columns = ({
   ];
 };
 export const UserTable = () => {
-  const { isLoading, allUsers } = useUser();
+  const { isLoading, allUsers, deleteById } = useUser();
 
   return (
     <Box m="20px" mt="100px">
       <Table
         loading={isLoading}
         dataSource={allUsers}
-        columns={columns({})}
+        columns={columns({ deleteFn: deleteById })}
         rowKey={(data) => data.idUser}
       />
     </Box>

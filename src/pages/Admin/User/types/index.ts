@@ -13,3 +13,17 @@ export type TUserHttp = {
     updatedAt: string;
   };
 };
+
+export type TProfessorHttp = {
+  idProfessor: number;
+  name: string;
+  socialName: string;
+};
+
+export type TProfessorData = {
+  idProfessor: number;
+  name: string;
+  socialName?: string;
+};
+
+export type TProfessorFormValues = Omit<TProfessorData, "idProfessor">;

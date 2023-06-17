@@ -6,7 +6,7 @@ import { TUserHttp } from "../types";
 import { mapperHttpToTable } from "../mappers";
 export const useUser = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { errorToast } = useCustomToast();
+  const { errorToast, successToast } = useCustomToast();
   const apiUser = useUserRequest();
 
   const getAllUsers = async () => {
@@ -24,7 +24,21 @@ export const useUser = () => {
     return [];
   };
 
-  const { data: allUsers } = useQuery({
+  const deleteById = async (id: number) => {
+    try {
+      await apiUser.deleteUserById(id);
+      refetch();
+      successToast({
+        title: `Usuário deletado com sucesso!`,
+      });
+    } catch (error) {
+      errorToast({
+        title: `Não foi possível deletar o usuário!`,
+      });
+    }
+  };
+
+  const { data: allUsers, refetch } = useQuery({
     queryKey: ["user"],
     queryFn: getAllUsers,
   });
@@ -32,5 +46,7 @@ export const useUser = () => {
   return {
     isLoading,
     allUsers,
+    refetch,
+    deleteById,
   };
 };
