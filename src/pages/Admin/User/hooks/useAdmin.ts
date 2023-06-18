@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { TAdminData, TAdminFormValues, TAdminHttp } from "../types";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCustomToast } from "../../../../hooks/useCustomToast";
@@ -10,8 +10,10 @@ import {
   adminCreateFormSchema,
   adminUpdateFormSchema,
 } from "../schemas/schema";
+import { TLoadingRef } from "../../../../components/Loading";
 
 export const useAdmin = () => {
+  const loadingRef = useRef<TLoadingRef>(null);
   const { idAdmin } = useParams();
   const [admin, setAdmin] = useState<TAdminData>({} as TAdminData);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +24,7 @@ export const useAdmin = () => {
 
   const getAdminById = async (id: number) => {
     try {
+      loadingRef.current?.onOpenLoading();
       const { data }: { data: TAdminHttp } = await apiUser.getAdminById(id);
       setAdmin(mapperAdminHttpToForm(data));
       return mapperAdminHttpToForm(data);
@@ -29,17 +32,13 @@ export const useAdmin = () => {
       errorToast({
         title: `Não foi possível encontrar o admin!`,
       });
+    } finally {
+      loadingRef.current?.onCloseLoading();
     }
     return {};
   };
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    formState: { errors },
-  } = useForm<TAdminFormValues>({
+  const formMethods = useForm<TAdminFormValues>({
     resolver: idAdmin
       ? zodResolver(adminUpdateFormSchema)
       : zodResolver(adminCreateFormSchema),
@@ -61,6 +60,7 @@ export const useAdmin = () => {
 
   const onSubmitHandler = async () => {
     try {
+      const { getValues } = formMethods;
       setIsLoading(true);
       const { name, socialName, password, email } = getValues();
       if (admin.idAdmin) {
@@ -91,11 +91,10 @@ export const useAdmin = () => {
   };
 
   return {
-    register,
-    onSubmit: handleSubmit(onSubmitHandler),
-    errors,
+    onSubmit: formMethods.handleSubmit(onSubmitHandler),
+    formMethods,
     admin,
-    setValue,
     isLoading,
+    loadingRef,
   };
 };

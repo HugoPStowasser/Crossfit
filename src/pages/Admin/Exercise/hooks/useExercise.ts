@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TExerciseData, TExerciseFormValues, TExerciseHttp } from "../types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,7 +8,9 @@ import { mapperHttpToForm, mapperHttpToTable } from "../mappers";
 import { useCustomToast } from "../../../../hooks/useCustomToast";
 import { useQuery } from "react-query";
 import { useExerciseRequest } from "./useExerciseRequest";
+import { TLoadingRef } from "../../../../components/Loading";
 export const useExercise = () => {
+  const loadingRef = useRef<TLoadingRef>(null);
   const [exercise, setExercise] = useState<TExerciseData>({} as TExerciseData);
   const { idExercise } = useParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -16,13 +18,7 @@ export const useExercise = () => {
   const { errorToast, successToast } = useCustomToast();
   const apiExercise = useExerciseRequest();
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    formState: { errors },
-  } = useForm<TExerciseFormValues>({
+  const formMethods = useForm<TExerciseFormValues>({
     resolver: zodResolver(exerciseFormSchema),
     defaultValues: {
       description: "",
@@ -32,6 +28,7 @@ export const useExercise = () => {
 
   const getExerciseById = async (id: number) => {
     try {
+      loadingRef.current?.onOpenLoading();
       const { data }: { data: TExerciseHttp } = await apiExercise.getById(id);
       setExercise(mapperHttpToForm(data));
       return mapperHttpToForm(data);
@@ -39,6 +36,8 @@ export const useExercise = () => {
       errorToast({
         title: `Não foi possível encontrar o exercício!`,
       });
+    } finally {
+      loadingRef.current?.onCloseLoading();
     }
     return {};
   };
@@ -85,6 +84,7 @@ export const useExercise = () => {
 
   const onSubmitHandler = async () => {
     try {
+      const { getValues } = formMethods;
       setIsLoading(true);
       const { description } = getValues();
       if (exercise.idExercise) {
@@ -112,15 +112,13 @@ export const useExercise = () => {
   };
 
   return {
-    onSubmitHandler,
-    register,
-    handleSubmit,
-    errors,
+    onSubmit: formMethods.handleSubmit(onSubmitHandler),
     allExercises,
     getAllExercises,
     exercise,
-    setValue,
     deleteById,
     isLoading,
+    loadingRef,
+    formMethods,
   };
 };

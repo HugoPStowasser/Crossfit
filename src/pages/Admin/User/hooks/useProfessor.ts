@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TProfessorData, TProfessorFormValues, TProfessorHttp } from "../types";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCustomToast } from "../../../../hooks/useCustomToast";
@@ -7,8 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { professorFormSchema } from "../schemas/schema";
 import { mapperProfessorHttpToForm } from "../mappers";
 import { useForm } from "react-hook-form";
+import { TLoadingRef } from "../../../../components/Loading";
 
 export const useProfessor = () => {
+  const loadingRef = useRef<TLoadingRef>(null);
   const { idProfessor } = useParams();
   const [professor, setProfessor] = useState<TProfessorData>(
     {} as TProfessorData
@@ -21,6 +23,7 @@ export const useProfessor = () => {
 
   const getProfessorById = async (id: number) => {
     try {
+      loadingRef.current?.onOpenLoading();
       const { data }: { data: TProfessorHttp } = await apiUser.getProfessorById(
         id
       );
@@ -30,17 +33,13 @@ export const useProfessor = () => {
       errorToast({
         title: `Não foi possível encontrar o professor!`,
       });
+    } finally {
+      loadingRef.current?.onCloseLoading();
     }
     return {};
   };
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    getValues,
-    formState: { errors },
-  } = useForm<TProfessorFormValues>({
+  const formMethods = useForm<TProfessorFormValues>({
     resolver: zodResolver(professorFormSchema),
     defaultValues: {
       name: "",
@@ -57,6 +56,7 @@ export const useProfessor = () => {
 
   const onSubmitHandler = async () => {
     try {
+      const { getValues } = formMethods;
       setIsLoading(true);
       const { name, socialName } = getValues();
       if (professor.idProfessor) {
@@ -85,11 +85,10 @@ export const useProfessor = () => {
   };
 
   return {
-    register,
-    onSubmit: handleSubmit(onSubmitHandler),
-    errors,
+    onSubmit: formMethods.handleSubmit(onSubmitHandler),
     professor,
-    setValue,
+    formMethods,
     isLoading,
+    loadingRef,
   };
 };

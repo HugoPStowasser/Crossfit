@@ -1,47 +1,44 @@
 import { useEffect, useState } from "react";
-import { Box, Button, FormControl, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import { TitleWithBackButton } from "../../../../components/TitleWithBackButton";
 import { useAdmin } from "../hooks/useAdmin";
-import { FieldErrors } from "react-hook-form";
+import { FieldErrors, FormProvider, useFormContext } from "react-hook-form";
 import { TAdminFormValues } from "../types";
 import { TbLockOpen, TbX } from "react-icons/tb";
+import { InputBase } from "../../../../components/InputBase";
+import { Loading } from "../../../../components/Loading";
 
 const PasswordInputs = ({
-  register,
   errors,
 }: {
-  register: any;
   errors: FieldErrors<TAdminFormValues>;
 }) => {
   return (
     <>
-      <FormControl mt="6">
-        <Input {...register("password")} placeholder="Senha" type="password" />
-        {errors.password && (
-          <Text color="red.500" fontSize={"sm"} pt="5px">
-            {errors.password?.message}
-          </Text>
-        )}
-      </FormControl>
-      <FormControl mt="6">
-        <Input
-          {...register("confirmPassword")}
-          placeholder="Confirmar Senha"
-          type="password"
-        />
-        {errors.confirmPassword && (
-          <Text color="red.500" fontSize={"sm"} pt="5px">
-            {errors.confirmPassword?.message}
-          </Text>
-        )}
-      </FormControl>
+      <InputBase
+        inputName="password"
+        placeholder="Senha"
+        errorMessage={errors.password?.message}
+        type="password"
+      />
+      <InputBase
+        inputName="confirmPassword"
+        placeholder="Confirmar Senha"
+        errorMessage={errors.confirmPassword?.message}
+        type="password"
+      />
     </>
   );
 };
 
 export const CreateAdmin = () => {
   const [changePassword, setChangePassword] = useState(false);
-  const { onSubmit, register, errors, isLoading, admin, setValue } = useAdmin();
+  const { onSubmit, isLoading, admin, formMethods, loadingRef } = useAdmin();
+
+  const {
+    setValue,
+    formState: { errors },
+  } = formMethods;
 
   useEffect(() => {
     if (admin.idAdmin) {
@@ -60,6 +57,7 @@ export const CreateAdmin = () => {
 
   return (
     <Box p="15px">
+      <Loading ref={loadingRef} />
       <TitleWithBackButton title="Cadastrar Admin" />
       <Box
         display={"flex"}
@@ -70,71 +68,58 @@ export const CreateAdmin = () => {
       >
         <Box width={"80%"} maxW={"720px"}>
           <Box mt="100px">
-            <form onSubmit={onSubmit}>
-              <FormControl mt="6">
-                <Input {...register("name")} placeholder="Nome" />
-                {errors.name && (
-                  <Text color="red.500" fontSize={"sm"} pt="5px">
-                    {errors.name?.message}
-                  </Text>
-                )}
-              </FormControl>
-              <FormControl mt="6">
-                <Input {...register("socialName")} placeholder="Nome Social" />
-                {errors.socialName && (
-                  <Text color="red.500" fontSize={"sm"} pt="5px">
-                    {errors.socialName?.message}
-                  </Text>
-                )}
-              </FormControl>
-              <FormControl mt="6">
-                <Input
-                  {...register("email")}
-                  placeholder="E-mail"
-                  type="email"
+            <FormProvider {...formMethods}>
+              <form onSubmit={onSubmit}>
+                <InputBase
+                  inputName="name"
+                  placeholder="Nome"
+                  errorMessage={errors.name?.message}
                 />
-                {errors.email && (
-                  <Text color="red.500" fontSize={"sm"} pt="5px">
-                    {errors.email?.message}
-                  </Text>
+                <InputBase
+                  inputName="socialName"
+                  placeholder="Nome social"
+                  errorMessage={errors.socialName?.message}
+                />
+                <InputBase
+                  inputName="email"
+                  placeholder="E-mail"
+                  errorMessage={errors.email?.message}
+                />
+                {admin.idAdmin ? (
+                  <Box mt="10px">
+                    <Text
+                      display="flex"
+                      alignItems={"center"}
+                      gap={3}
+                      cursor={"pointer"}
+                      _hover={{ opacity: 0.7 }}
+                      onClick={() =>
+                        setChangePassword((beforeState) => !beforeState)
+                      }
+                    >
+                      {!changePassword ? <TbLockOpen /> : <TbX />}
+                      {!changePassword
+                        ? "Deseja Editar a senha?"
+                        : "Cancelar edição de senha."}
+                    </Text>
+                    {changePassword ? <PasswordInputs errors={errors} /> : null}
+                  </Box>
+                ) : (
+                  <PasswordInputs errors={errors} />
                 )}
-              </FormControl>
-              {admin.idAdmin ? (
-                <Box mt="10px">
-                  <Text
-                    display="flex"
-                    alignItems={"center"}
-                    gap={3}
-                    cursor={"pointer"}
-                    _hover={{ opacity: 0.7 }}
-                    onClick={() =>
-                      setChangePassword((beforeState) => !beforeState)
-                    }
-                  >
-                    {!changePassword ? <TbLockOpen /> : <TbX />}
-                    {!changePassword
-                      ? "Deseja Editar a senha?"
-                      : "Cancelar edição de senha."}
-                  </Text>
-                  {changePassword ? (
-                    <PasswordInputs register={register} errors={errors} />
-                  ) : null}
-                </Box>
-              ) : (
-                <PasswordInputs register={register} errors={errors} />
-              )}
-              <Button
-                color="#222"
-                colorScheme="yellow"
-                size="md"
-                w="100%"
-                mt="5"
-                type="submit"
-                isLoading={isLoading}
-              >
-                {admin.idAdmin ? "Salvar" : "Cadastrar"}
-              </Button>
-            </form>
+                <Button
+                  color="#222"
+                  colorScheme="yellow"
+                  size="md"
+                  w="100%"
+                  mt="5"
+                  type="submit"
+                  isLoading={isLoading}
+                >
+                  {admin.idAdmin ? "Salvar" : "Cadastrar"}
+                </Button>
+              </form>
+            </FormProvider>
           </Box>
         </Box>
       </Box>
