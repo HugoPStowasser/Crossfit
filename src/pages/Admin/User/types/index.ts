@@ -27,3 +27,26 @@ export type TProfessorData = {
 };
 
 export type TProfessorFormValues = Omit<TProfessorData, "idProfessor">;
+
+export type TAdminHttp = {
+  idAdmin: number;
+  name: string;
+  socialName: string;
+  email: string;
+  password: string;
+};
+
+export type TAdminData = {
+  idAdmin: number;
+  name: string;
+  socialName?: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
+export type TAdminFormValues = Omit<TAdminData, "idAdmin">;
+export type TAdminUpdateFormValues = Omit<
+  TAdminData,
+  "idAdmin" | "confirmPassword"
+>;

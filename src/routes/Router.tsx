@@ -10,6 +10,7 @@ import { Exercise, CreateExercise } from "../pages/Admin/Exercise";
 import { NotFound } from "../pages/Errors/NotFound";
 import { User } from "../pages/Admin/User";
 import { CreateProfessor } from "../pages/Admin/User/Form/CreateProfessor";
+import { CreateAdmin } from "../pages/Admin/User/Form/CreateAdmin";
 
 export const Router = () => {
   return (
@@ -32,6 +33,7 @@ export const Router = () => {
           path="user/professor/create/:idProfessor?"
           element={<CreateProfessor />}
         />
+        <Route path="user/admin/create/:idAdmin?" element={<CreateAdmin />} />
       </Route>
       <Route path="student" element={<ProtectedRoute />}>
         <Route path="home" element={<Home />} />

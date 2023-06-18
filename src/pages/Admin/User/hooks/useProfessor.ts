@@ -7,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { professorFormSchema } from "../schemas/schema";
 import { mapperProfessorHttpToForm } from "../mappers";
 import { useForm } from "react-hook-form";
-import { useUser } from "./useUser";
 
 export const useProfessor = () => {
   const { idProfessor } = useParams();
@@ -17,7 +16,6 @@ export const useProfessor = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { errorToast, successToast } = useCustomToast();
-  const {} = useUser();
 
   const apiUser = useUserRequest();
 

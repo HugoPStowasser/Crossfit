@@ -1,5 +1,10 @@
 import { api } from "../../../../services/http";
-import { TProfessorFormValues, TProfessorHttp } from "../types";
+import {
+  TAdminHttp,
+  TAdminUpdateFormValues,
+  TProfessorFormValues,
+  TProfessorHttp,
+} from "../types";
 
 export const useUserRequest = () => {
   const getAll = () => {
@@ -10,8 +15,16 @@ export const useUserRequest = () => {
     return api.post("/professor", data);
   };
 
+  const insertAdmin = (data: TAdminUpdateFormValues) => {
+    return api.post("/admin", data);
+  };
+
   const getProfessorById = (id: number) => {
     return api.get(`/user/professor/${id}`);
+  };
+
+  const getAdminById = (id: number) => {
+    return api.get(`/user/admin/${id}`);
   };
 
   const updateProfessor = ({
@@ -22,15 +35,22 @@ export const useUserRequest = () => {
     return api.put(`/professor/${idProfessor}`, { name, socialName });
   };
 
+  const updateAdmin = (data: TAdminHttp) => {
+    return api.put(`/admin/${data.idAdmin}`, data);
+  };
+
   const deleteUserById = (id: number) => {
     return api.delete(`/user/${id}`);
   };
 
   return {
     getAll,
-    insertProfessor,
+    getAdminById,
     getProfessorById,
+    insertProfessor,
+    insertAdmin,
     updateProfessor,
+    updateAdmin,
     deleteUserById,
   };
 };
