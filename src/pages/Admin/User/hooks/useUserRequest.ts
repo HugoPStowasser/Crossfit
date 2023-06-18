@@ -11,7 +11,7 @@ export const useUserRequest = () => {
   };
 
   const getProfessorById = (id: number) => {
-    return api.get(`/professor/${id}`);
+    return api.get(`/user/professor/${id}`);
   };
 
   const updateProfessor = ({

@@ -1,9 +1,19 @@
+import { useEffect } from "react";
 import { Box, Button, FormControl, Input, Text } from "@chakra-ui/react";
 import { TitleWithBackButton } from "../../../../components/TitleWithBackButton";
 import { useProfessor } from "../hooks/useProfessor";
 
 export const CreateProfessor = () => {
-  const { onSubmit, register, errors, isLoading } = useProfessor();
+  const { onSubmit, register, errors, isLoading, professor, setValue } =
+    useProfessor();
+
+  useEffect(() => {
+    if (professor.idProfessor) {
+      setValue("name", professor.name);
+      setValue("socialName", professor.socialName);
+    }
+  }, [professor]);
+
   return (
     <Box p="15px">
       <TitleWithBackButton title="Cadastrar Professor" />
@@ -42,7 +52,7 @@ export const CreateProfessor = () => {
                 type="submit"
                 isLoading={isLoading}
               >
-                Cadastrar
+                {professor.idProfessor ? "Salvar" : "Cadastrar"}
               </Button>
             </form>
           </Box>

@@ -20,6 +20,7 @@ export const useExercise = () => {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<TExerciseFormValues>({
     resolver: zodResolver(exerciseFormSchema),
@@ -82,10 +83,10 @@ export const useExercise = () => {
     }
   }, [idExercise]);
 
-  const onSubmitHandler = async (formValues: TExerciseFormValues) => {
+  const onSubmitHandler = async () => {
     try {
       setIsLoading(true);
-      const { description } = formValues;
+      const { description } = getValues();
       if (exercise.idExercise) {
         await apiExercise.update({
           description,

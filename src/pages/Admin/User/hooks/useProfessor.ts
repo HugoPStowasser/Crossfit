@@ -40,6 +40,7 @@ export const useProfessor = () => {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<TProfessorFormValues>({
     resolver: zodResolver(professorFormSchema),
@@ -56,10 +57,10 @@ export const useProfessor = () => {
     }
   }, [idProfessor]);
 
-  const onSubmitHandler = async (formValues: TProfessorFormValues) => {
+  const onSubmitHandler = async () => {
     try {
       setIsLoading(true);
-      const { name, socialName } = formValues;
+      const { name, socialName } = getValues();
       if (professor.idProfessor) {
         await apiUser.updateProfessor({
           name,
@@ -70,7 +71,7 @@ export const useProfessor = () => {
           title: `Professor editado com sucesso!`,
         });
       } else {
-        await apiUser.insertProfessor(formValues);
+        await apiUser.insertProfessor(getValues());
         successToast({
           title: `Professor cadastrado com sucesso!`,
         });

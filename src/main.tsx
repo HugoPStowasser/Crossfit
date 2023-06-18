@@ -10,14 +10,14 @@ const rootElement = document.getElementById("root")!;
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider resetCSS>
-        <BrowserRouter>
+    <ChakraProvider resetCSS>
+      <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
           <CurrentUserProvider>
             <Router />
           </CurrentUserProvider>
-        </BrowserRouter>
-      </ChakraProvider>
-    </QueryClientProvider>
+        </QueryClientProvider>
+      </BrowserRouter>
+    </ChakraProvider>
   </React.StrictMode>
 );
