@@ -44,13 +44,13 @@ const columns = ({
       dataIndex: "",
       key: "x",
       width: "15%",
-      render: (rowData: { idUser: number; profile: string }) => {
+      render: (rowData: { idUser: number; normalizedNameProfile: string }) => {
         return (
           <>
             <ButtonAction
               id={rowData.idUser}
               actionType={EActionButton.edit}
-              prefRoute={rowData.profile.toLowerCase()}
+              prefRoute={rowData.normalizedNameProfile.toLowerCase()}
             />
             <ButtonAction
               id={rowData.idUser}

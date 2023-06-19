@@ -4,6 +4,8 @@ import {
   TAdminUpdateFormValues,
   TProfessorFormValues,
   TProfessorHttp,
+  TStudentFormValues,
+  TStudentHttp,
 } from "../types";
 
 export const useUserRequest = () => {
@@ -19,12 +21,20 @@ export const useUserRequest = () => {
     return api.post("/admin", data);
   };
 
+  const insertStudent = (data: TStudentFormValues) => {
+    return api.post("/student", data);
+  };
+
   const getProfessorById = (id: number) => {
     return api.get(`/user/professor/${id}`);
   };
 
   const getAdminById = (id: number) => {
     return api.get(`/user/admin/${id}`);
+  };
+
+  const getStudentById = (id: number) => {
+    return api.get(`/user/student/${id}`);
   };
 
   const updateProfessor = ({
@@ -39,6 +49,10 @@ export const useUserRequest = () => {
     return api.put(`/admin/${data.idAdmin}`, data);
   };
 
+  const updateStudent = (data: TStudentHttp) => {
+    return api.put(`/student/${data.idStudent}`, data);
+  };
+
   const deleteUserById = (id: number) => {
     return api.delete(`/user/${id}`);
   };
@@ -47,10 +61,13 @@ export const useUserRequest = () => {
     getAll,
     getAdminById,
     getProfessorById,
+    getStudentById,
     insertProfessor,
     insertAdmin,
+    insertStudent,
     updateProfessor,
     updateAdmin,
+    updateStudent,
     deleteUserById,
   };
 };

@@ -1,4 +1,4 @@
-import { TAdminHttp, TProfessorHttp, TUserHttp } from "../types";
+import { TAdminHttp, TProfessorHttp, TStudentHttp, TUserHttp } from "../types";
 
 export const mapperHttpToTable = (data: TUserHttp[]) => {
   return data.map((user, index) => {
@@ -6,6 +6,7 @@ export const mapperHttpToTable = (data: TUserHttp[]) => {
       ...user,
       index: index + 1,
       profile: user.profile.name,
+      normalizedNameProfile: user.profile.normalizedName,
     };
   });
 };
@@ -24,6 +25,19 @@ export const mapperAdminHttpToForm = (data: TAdminHttp) => {
     name: data.name,
     socialName: data.socialName,
     email: data.email,
+    password: "",
+    confirmPassword: "",
+  };
+};
+
+export const mapperStudentHttpToForm = (data: TStudentHttp) => {
+  return {
+    idStudent: data.idStudent,
+    name: data.name,
+    socialName: data.socialName,
+    email: data.email,
+    birthDate: data.birthDate,
+    idGenre: data.idGenre,
     password: "",
     confirmPassword: "",
   };

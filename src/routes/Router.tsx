@@ -11,6 +11,7 @@ import { NotFound } from "../pages/Errors/NotFound";
 import { User } from "../pages/Admin/User";
 import { CreateProfessor } from "../pages/Admin/User/Form/CreateProfessor";
 import { CreateAdmin } from "../pages/Admin/User/Form/CreateAdmin";
+import { CreateStudent } from "../pages/Admin/User/Form/CreateStudent";
 
 export const Router = () => {
   return (
@@ -34,6 +35,10 @@ export const Router = () => {
           element={<CreateProfessor />}
         />
         <Route path="user/admin/create/:idAdmin?" element={<CreateAdmin />} />
+        <Route
+          path="user/student/create/:idStudent?"
+          element={<CreateStudent />}
+        />
       </Route>
       <Route path="student" element={<ProtectedRoute />}>
         <Route path="home" element={<Home />} />

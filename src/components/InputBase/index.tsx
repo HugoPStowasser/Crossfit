@@ -18,7 +18,7 @@ export const InputBase = ({
   return (
     <FormControl mt="6">
       <Input {...register(inputName)} {...props} />
-      {errors.root && (
+      {errors && (
         <Text color="red.500" fontSize={"sm"} pt="5px">
           {errorMessage}
         </Text>

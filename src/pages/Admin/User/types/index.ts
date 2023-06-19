@@ -1,3 +1,17 @@
+type THttpUserBase = {
+  name: string;
+  socialName: string;
+  email: string;
+  password: string;
+};
+type TUserDataBase = {
+  name: string;
+  socialName?: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
 export type TUserHttp = {
   idUser: number;
   idProfile: number;
@@ -16,37 +30,45 @@ export type TUserHttp = {
 
 export type TProfessorHttp = {
   idProfessor: number;
-  name: string;
-  socialName: string;
-};
+} & Omit<THttpUserBase, "email" | "password">;
 
 export type TProfessorData = {
   idProfessor: number;
-  name: string;
-  socialName?: string;
-};
+} & Omit<TUserDataBase, "email" | "password" | "confirmPassword">;
 
 export type TProfessorFormValues = Omit<TProfessorData, "idProfessor">;
 
 export type TAdminHttp = {
   idAdmin: number;
-  name: string;
-  socialName: string;
-  email: string;
-  password: string;
-};
+} & THttpUserBase;
 
 export type TAdminData = {
   idAdmin: number;
-  name: string;
-  socialName?: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+} & TUserDataBase;
 
 export type TAdminFormValues = Omit<TAdminData, "idAdmin">;
 export type TAdminUpdateFormValues = Omit<
   TAdminData,
   "idAdmin" | "confirmPassword"
+>;
+
+export type TStudentHttp = {
+  idStudent: number;
+  birthDate: string;
+  idGenre: number;
+} & THttpUserBase;
+
+export type TStudentData = {
+  idStudent: number;
+  birthDate: string;
+  idGenre: number;
+} & TUserDataBase;
+
+export type TStudentFormValues = {
+  birthDate: string;
+  genre: string[];
+} & Omit<TStudentData, "idStudent">;
+export type TStudentUpdateFormValues = Omit<
+  TStudentData,
+  "idStudent" | "confirmPassword"
 >;
