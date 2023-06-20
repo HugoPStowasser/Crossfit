@@ -76,6 +76,7 @@ export const MenuSidebar = () => {
                   icon={TbCalendar}
                   title="Aulas"
                   active={pathname.includes("class")}
+                  onClick={() => handleGoPage("class")}
                 />
                 <SidebarItem
                   icon={TbUsers}
