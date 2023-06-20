@@ -35,8 +35,15 @@ const PasswordInputs = ({
 
 export const CreateStudent = () => {
   const [changePassword, setChangePassword] = useState(false);
-  const { onSubmit, isLoading, student, formMethods, loadingRef, allGenres } =
-    useStudent();
+  const {
+    onSubmit,
+    isLoading,
+    student,
+    formMethods,
+    loadingRef,
+    allGenres,
+    getAllGenre,
+  } = useStudent();
 
   const {
     setValue,
@@ -71,7 +78,6 @@ export const CreateStudent = () => {
         justifyContent={"center"}
         alignItems={"center"}
         flexDir={"column"}
-        pt="100px"
       >
         <Box width={"80%"} maxW={"720px"}>
           <Box mt="100px">
@@ -99,6 +105,7 @@ export const CreateStudent = () => {
                   errorMessage={errors.birthDate?.message}
                 />
                 <SelectBase
+                  onFocus={getAllGenre}
                   options={allGenres}
                   inputName="genre"
                   errorMessage={errors.genre?.message}

@@ -129,5 +129,6 @@ export const useStudent = () => {
     isLoading,
     loadingRef,
     allGenres,
+    getAllGenre: idStudent ? () => Promise<void> : getAllGenre
   };
 };

@@ -64,7 +64,6 @@ export const CreateAdmin = () => {
         justifyContent={"center"}
         alignItems={"center"}
         flexDir={"column"}
-        pt="100px"
       >
         <Box width={"80%"} maxW={"720px"}>
           <Box mt="100px">
