@@ -36,7 +36,7 @@ export const CreateExercise = () => {
               <form onSubmit={onSubmit}>
                 <InputBase
                   inputName="description"
-                  placeholder="Nome"
+                  placeholder="Nome do Exercício"
                   errorMessage={errors.description?.message}
                 />
                 <Button
