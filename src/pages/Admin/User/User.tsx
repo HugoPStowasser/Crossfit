@@ -43,10 +43,20 @@ export const User = () => {
             <Text>Adicionar Usuário</Text>
           </MenuButton>
           <MenuList>
-            <MenuItem display={"flex"} alignItems={"center"} gap={2}>
+            <MenuItem
+              display={"flex"}
+              alignItems={"center"}
+              gap={2}
+              onClick={() => handleGoToCreatePage("admin/create")}
+            >
               <TbLock size={20} /> <Text>Administrador</Text>
             </MenuItem>
-            <MenuItem display={"flex"} alignItems={"center"} gap={2}>
+            <MenuItem
+              display={"flex"}
+              alignItems={"center"}
+              gap={2}
+              onClick={() => handleGoToCreatePage("student/create")}
+            >
               <TbUserPlus size={20} /> <Text>Estudante</Text>
             </MenuItem>
             <MenuItem

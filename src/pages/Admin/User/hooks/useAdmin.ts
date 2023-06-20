@@ -1,37 +1,36 @@
-import { useEffect, useRef, useState } from "react";
-import { TProfessorData, TProfessorFormValues, TProfessorHttp } from "../types";
+import { useState, useEffect, useRef } from "react";
+import { TAdminData, TAdminFormValues, TAdminHttp } from "../types";
 import { useNavigate, useParams } from "react-router-dom";
 import { useCustomToast } from "../../../../hooks/useCustomToast";
 import { useUserRequest } from "./useUserRequest";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { professorFormSchema } from "../schemas/schema";
-import { mapperProfessorHttpToForm } from "../mappers";
+import { mapperAdminHttpToForm } from "../mappers";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  adminCreateFormSchema,
+  adminUpdateFormSchema,
+} from "../schemas/schema";
 import { TLoadingRef } from "../../../../components/Loading";
 
-export const useProfessor = () => {
+export const useAdmin = () => {
   const loadingRef = useRef<TLoadingRef>(null);
-  const { idProfessor } = useParams();
-  const [professor, setProfessor] = useState<TProfessorData>(
-    {} as TProfessorData
-  );
+  const { idAdmin } = useParams();
+  const [admin, setAdmin] = useState<TAdminData>({} as TAdminData);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { errorToast, successToast } = useCustomToast();
 
   const apiUser = useUserRequest();
 
-  const getProfessorById = async (id: number) => {
+  const getAdminById = async (id: number) => {
     try {
       loadingRef.current?.onOpenLoading();
-      const { data }: { data: TProfessorHttp } = await apiUser.getProfessorById(
-        id
-      );
-      setProfessor(mapperProfessorHttpToForm(data));
-      return mapperProfessorHttpToForm(data);
+      const { data }: { data: TAdminHttp } = await apiUser.getAdminById(id);
+      setAdmin(mapperAdminHttpToForm(data));
+      return mapperAdminHttpToForm(data);
     } catch (error) {
       errorToast({
-        title: `Não foi possível encontrar o professor!`,
+        title: `Não foi possível encontrar o admin!`,
       });
     } finally {
       loadingRef.current?.onCloseLoading();
@@ -39,39 +38,46 @@ export const useProfessor = () => {
     return {};
   };
 
-  const formMethods = useForm<TProfessorFormValues>({
-    resolver: zodResolver(professorFormSchema),
+  const formMethods = useForm<TAdminFormValues>({
+    resolver: idAdmin
+      ? zodResolver(adminUpdateFormSchema)
+      : zodResolver(adminCreateFormSchema),
     defaultValues: {
       name: "",
       socialName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
     shouldUnregister: false,
   });
 
   useEffect(() => {
-    if (idProfessor) {
-      getProfessorById(Number(idProfessor));
+    if (idAdmin) {
+      getAdminById(Number(idAdmin));
     }
-  }, [idProfessor]);
+  }, [idAdmin]);
 
   const onSubmitHandler = async () => {
     try {
       const { getValues } = formMethods;
       setIsLoading(true);
-      const { name, socialName } = getValues();
-      if (professor.idProfessor) {
-        await apiUser.updateProfessor({
+      const { name, socialName, password, email } = getValues();
+      if (admin.idAdmin) {
+        await apiUser.updateAdmin({
           name,
           socialName: socialName || "",
-          idProfessor: professor.idProfessor,
+          idAdmin: admin.idAdmin,
+          password,
+          email,
         });
         successToast({
-          title: `Professor editado com sucesso!`,
+          title: `Admin editado com sucesso!`,
         });
       } else {
-        await apiUser.insertProfessor(getValues());
+        await apiUser.insertAdmin(getValues());
         successToast({
-          title: `Professor cadastrado com sucesso!`,
+          title: `Admin cadastrado com sucesso!`,
         });
       }
       navigate("/admin/user");
@@ -86,8 +92,8 @@ export const useProfessor = () => {
 
   return {
     onSubmit: formMethods.handleSubmit(onSubmitHandler),
-    professor,
     formMethods,
+    admin,
     isLoading,
     loadingRef,
   };

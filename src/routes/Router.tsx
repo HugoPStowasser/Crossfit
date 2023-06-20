@@ -10,6 +10,11 @@ import { Exercise, CreateExercise } from "../pages/Admin/Exercise";
 import { NotFound } from "../pages/Errors/NotFound";
 import { User } from "../pages/Admin/User";
 import { CreateProfessor } from "../pages/Admin/User/Form/CreateProfessor";
+import { CreateAdmin } from "../pages/Admin/User/Form/CreateAdmin";
+import { CreateStudent } from "../pages/Admin/User/Form/CreateStudent";
+import { Payment } from "../pages/Admin/Payment";
+import { CreatePayment } from "../pages/Admin/Payment/form/PaymentCreate";
+import { Class } from "../pages/Admin/Class/Class";
 
 export const Router = () => {
   return (
@@ -23,6 +28,9 @@ export const Router = () => {
       <Route path="admin" element={<ProtectedRoute />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="exercise" element={<Exercise />} />
+        <Route path="class" element={<Class />} />
+        <Route path="payment" element={<Payment />} />
+        <Route path="payment/create/:idPayment" element={<CreatePayment />} />
         <Route
           path="exercise/create/:idExercise?"
           element={<CreateExercise />}
@@ -31,6 +39,11 @@ export const Router = () => {
         <Route
           path="user/professor/create/:idProfessor?"
           element={<CreateProfessor />}
+        />
+        <Route path="user/admin/create/:idAdmin?" element={<CreateAdmin />} />
+        <Route
+          path="user/student/create/:idStudent?"
+          element={<CreateStudent />}
         />
       </Route>
       <Route path="student" element={<ProtectedRoute />}>

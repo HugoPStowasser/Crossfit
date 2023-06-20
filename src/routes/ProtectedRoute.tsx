@@ -15,7 +15,11 @@ export const ProtectedRoute = ({ redirectPath = "/login" }) => {
   } else {
     const { pathname } = location;
     const tokenObject = JSON.parse(atob(token.split(".")[1]));
-    if (pathname.includes("student") && tokenObject.role === EProfile.admin) {
+    if (
+      pathname.includes("student") &&
+      !pathname.includes("admin") &&
+      tokenObject.role === EProfile.admin
+    ) {
       return <Navigate to={"/admin/dashboard"} replace />;
     } else if (
       pathname.includes("admin") &&

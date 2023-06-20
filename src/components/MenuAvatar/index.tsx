@@ -8,17 +8,11 @@ import {
 import { useState } from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { TbLogout } from "react-icons/tb";
-import axios from "axios";
-import { interceptorApi } from "../../services/http/Api/axios";
+import { logout } from "../../services/http/Api/axios";
 
 export const MenuAvatar = () => {
   const { currentUser } = useCurrentUser();
   const [isLoading, setIsLoading] = useState(false);
-  const logout = async () => {
-    localStorage.clear();
-    window.location.reload();
-    axios.interceptors.request.eject(interceptorApi);
-  };
 
   const handleClickLogout = () => {
     setIsLoading(true);
