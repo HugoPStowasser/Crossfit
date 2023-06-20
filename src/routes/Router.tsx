@@ -12,6 +12,8 @@ import { User } from "../pages/Admin/User";
 import { CreateProfessor } from "../pages/Admin/User/Form/CreateProfessor";
 import { CreateAdmin } from "../pages/Admin/User/Form/CreateAdmin";
 import { CreateStudent } from "../pages/Admin/User/Form/CreateStudent";
+import { Payment } from "../pages/Admin/Payment";
+import { CreatePayment } from "../pages/Admin/Payment/form/PaymentCreate";
 
 export const Router = () => {
   return (
@@ -25,6 +27,8 @@ export const Router = () => {
       <Route path="admin" element={<ProtectedRoute />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="exercise" element={<Exercise />} />
+        <Route path="payment" element={<Payment />} />
+        <Route path="payment/create/:idPayment" element={<CreatePayment />} />
         <Route
           path="exercise/create/:idExercise?"
           element={<CreateExercise />}

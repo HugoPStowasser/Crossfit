@@ -9,3 +9,13 @@ export const useGenreRequest = () => {
     getAll,
   };
 };
+
+export const usePaymentTypeRequest = () => {
+  const getAll = () => {
+    return api.get("/paymentType");
+  };
+
+  return {
+    getAll,
+  };
+};

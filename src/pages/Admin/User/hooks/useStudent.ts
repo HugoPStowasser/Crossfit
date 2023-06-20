@@ -11,7 +11,7 @@ import {
   studentUpdateFormSchema,
 } from "../schemas/schema";
 import { TLoadingRef } from "../../../../components/Loading";
-import { useGenreRequest } from "../../../../hooks/useGenreRequest";
+import { useGenreRequest } from "../../../../hooks/useSelectsRequest";
 import { TSelect } from "../../../../@types/select";
 
 export const useStudent = () => {
@@ -63,8 +63,16 @@ export const useStudent = () => {
 
   const formMethods = useForm<TStudentFormValues>({
     resolver: idStudent
-      ? zodResolver(studentUpdateFormSchema({ genreIds: [1, 2, 3] }))
-      : zodResolver(studentCreateFormSchema({ genreIds: [1, 2, 3] })),
+      ? zodResolver(
+          studentUpdateFormSchema({
+            genreIds: allGenres.map((item) => item.value),
+          })
+        )
+      : zodResolver(
+          studentCreateFormSchema({
+            genreIds: allGenres.map((item) => item.value),
+          })
+        ),
     defaultValues: {
       name: "",
       socialName: "",
@@ -129,6 +137,6 @@ export const useStudent = () => {
     isLoading,
     loadingRef,
     allGenres,
-    getAllGenre: idStudent ? () => Promise<void> : getAllGenre
+    getAllGenre: idStudent ? () => Promise<void> : getAllGenre,
   };
 };

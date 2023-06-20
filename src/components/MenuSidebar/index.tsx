@@ -87,6 +87,7 @@ export const MenuSidebar = () => {
                   icon={TbFileInvoice}
                   title="Pagamentos"
                   active={pathname.includes("payment")}
+                  onClick={() => handleGoPage("payment")}
                 />
                 <SidebarItem
                   icon={TbBarbell}
