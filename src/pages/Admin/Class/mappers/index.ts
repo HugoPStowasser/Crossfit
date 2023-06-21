@@ -8,7 +8,7 @@ export const mapperHttpToTable = (data: TClassHttp[]) => {
       "H'h'mm"
     );
     const endHourFormatted = format(
-      new Date(`2000-01-01T${exercise.startHour}`),
+      new Date(`2000-01-01T${exercise.endHour}`),
       "H'h'mm"
     );
 
@@ -25,7 +25,7 @@ export const mapperHttpToTable = (data: TClassHttp[]) => {
   });
 };
 export const mapperHttpToForm = (data: TClassHttp): TClassData => {
-  const dateClass = formatISO(parseISO(new Date().toISOString()), {
+  const dateClass = formatISO(parseISO(new Date(data.date).toISOString()), {
     representation: "date",
   });
   return {

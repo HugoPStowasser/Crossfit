@@ -1,15 +1,17 @@
-import { isAfter, isBefore, parse, parseISO } from "date-fns";
+import { isBefore, parseISO, subDays } from "date-fns";
 import { z } from "zod";
 
 const validateHours = (startHour: string, endHour: string) => {
-  const startTime = parse(startHour, "HH:mm", new Date());
-  const endTime = parse(endHour, "HH:mm", new Date());
-
-  return isAfter(startTime, endTime);
+  const horaInicial = startHour;
+  const horaFinal = endHour;
+  const horaInicialNumerica = parseInt(horaInicial.replace(":", ""), 10);
+  const horaFinalNumerica = parseInt(horaFinal.replace(":", ""), 10);
+  const isValid = horaFinalNumerica > horaInicialNumerica;
+  return isValid;
 };
 
 type TProfessorsIds = { professors: number[] };
-export const classUpdateFormSchema = ({ professors }: TProfessorsIds) =>
+export const classFormSchema = ({ professors }: TProfessorsIds) =>
   z
     .object({
       name: z.string().nonempty("O nome da aula é obrigatório.").max(255),
@@ -17,27 +19,8 @@ export const classUpdateFormSchema = ({ professors }: TProfessorsIds) =>
         .string()
         .nonempty("A descrição da aula é obrigatória.")
         .max(255),
-      startHour: z.string({ description: "Insiria uma hora válida." }).refine(
-        (value) => {
-          const regex = /^\d{2}:\d{2}$/;
-          return regex.test(value);
-        },
-        {
-          message: "Insira uma hora inicial válida.",
-          path: ["startHour"],
-        }
-      ),
-      endHour: z.string().refine(
-        (value) => {
-          // Adicione aqui a lógica de validação para a hora final
-          const regex = /^\d{2}:\d{2}$/;
-          return regex.test(value);
-        },
-        {
-          message: "A hora final deve ser maior que a hora inicial.",
-          path: ["endHour"],
-        }
-      ),
+      startHour: z.string(),
+      endHour: z.string(),
       date: z
         .string()
         .refine((value) => {
@@ -45,7 +28,7 @@ export const classUpdateFormSchema = ({ professors }: TProfessorsIds) =>
           return regex.test(value);
         }, "Insira uma data válida.")
         .refine((value) => {
-          return isBefore(new Date(), parseISO(value));
+          return isBefore(subDays(new Date(), 1), parseISO(value));
         }, "A data da aula não pode ser anterior a data de hoje."),
       professor: z
         .string()

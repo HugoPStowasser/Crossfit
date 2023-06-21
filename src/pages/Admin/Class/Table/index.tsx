@@ -40,8 +40,8 @@ const columns = ({ deleteFn }: TColumns): ColumnsType<TData> => {
     },
     {
       title: "Hora de fim",
-      dataIndex: "startHour",
-      key: "startHour",
+      dataIndex: "endHour",
+      key: "endHour",
       width: "8%",
     },
     {

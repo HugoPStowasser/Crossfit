@@ -5,7 +5,7 @@ import { HeaderWithTitle } from "../../../components/HeaderWithTitle";
 export const Class = () => {
   return (
     <Box>
-      <HeaderWithTitle title="Aulas" createRoute="create" />
+      <HeaderWithTitle title="Aula" createRoute="create" />
       <ClassTable />
     </Box>
   );

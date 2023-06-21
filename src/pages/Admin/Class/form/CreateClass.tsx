@@ -29,9 +29,11 @@ export const CreateClass = () => {
     if (classData.idClass) {
       setValue("name", classData.name);
       setValue("description", classData.description);
+      console.log(classData);
       setValue("date", classData.date);
       setValue("startHour", classData.startHour);
       setValue("endHour", classData.endHour);
+      setValue("professor", classData.idProfessor);
     }
   }, [classData]);
 
@@ -81,7 +83,11 @@ export const CreateClass = () => {
                         <TimePicker
                           style={{ width: "100%", height: "40px" }}
                           format={"HH:mm"}
-                          onChange={onChange}
+                          onChange={(value) => {
+                            onChange(
+                              dayjs(value, "HH:mm:ss").format("HH:mm:ss")
+                            );
+                          }}
                           value={value ? dayjs(value, "HH:mm") : null}
                         />
                         {errors && (
@@ -101,7 +107,11 @@ export const CreateClass = () => {
                         <TimePicker
                           style={{ width: "100%", height: "40px" }}
                           format={"HH:mm"}
-                          onChange={onChange}
+                          onChange={(value) => {
+                            onChange(
+                              dayjs(value, "HH:mm:ss").format("HH:mm:ss")
+                            );
+                          }}
                           value={value ? dayjs(value, "HH:mm") : null}
                         />
                         {errors && (
@@ -116,8 +126,8 @@ export const CreateClass = () => {
                 <SelectBase
                   onFocus={getAllProfessors}
                   options={allProfessors}
-                  inputName="professors"
-                  errorMessage={errors.professors?.message}
+                  inputName="professor"
+                  errorMessage={errors.professor?.message}
                 />
                 <Button
                   color="#222"

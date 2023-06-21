@@ -35,5 +35,5 @@ export type TClassFormValues = {
   startHour: string;
   endHour: string;
   description: string;
-  professors: string[];
+  professor: string;
 };

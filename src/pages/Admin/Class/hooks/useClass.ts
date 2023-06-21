@@ -9,7 +9,7 @@ import { useQuery } from "react-query";
 import { useClassRequest } from "./useClassRequest";
 import { TLoadingRef } from "../../../../components/Loading";
 import { TSelect } from "../../../../@types/select";
-import { classUpdateFormSchema } from "../schema/schema";
+import { classFormSchema } from "../schema/schema";
 import { addHours, format } from "date-fns";
 import { useProfessorsRequest } from "../../../../hooks/useSelectsRequest";
 import { useCurrentUser } from "../../../../hooks/useCurrentUser";
@@ -49,11 +49,11 @@ export const useClass = () => {
   };
 
   const formMethods = useForm<TClassFormValues>({
-    // resolver: zodResolver(
-    //   classUpdateFormSchema({
-    //     professors: allProfessors.map((item) => Number(item.value)),
-    //   })
-    // ),
+    resolver: zodResolver(
+      classFormSchema({
+        professors: allProfessors.map((item) => Number(item.value)),
+      })
+    ),
     defaultValues: {
       date: new Date().toDateString(),
       startHour: format(new Date(), "HH:mm:ss"),
@@ -137,7 +137,7 @@ export const useClass = () => {
         endHour: formValues.endHour,
         startHour: formValues.startHour,
         date: formValues.date,
-        idProfessor: Number(formValues.professors),
+        idProfessor: Number(formValues.professor),
         idStatus: 1,
       };
       if (classData.idClass) {
