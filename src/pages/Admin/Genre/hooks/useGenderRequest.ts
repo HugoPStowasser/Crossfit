@@ -1,30 +1,30 @@
 import { api } from "../../../../services/http";
 
-export const useGenreRequest = () => {
+export const useGenderRequest = () => {
   const getAll = () => {
-    return api.get("/genre");
+    return api.get("/gender");
   };
 
   const getById = (id: number) => {
-    return api.get(`/genre/${id}`);
+    return api.get(`/gender/${id}`);
   };
 
   const insert = ({ name }: { name: string }) => {
-    return api.post("/genre", { name });
+    return api.post("/gender", { name });
   };
 
   const deleteById = (id: number) => {
-    return api.delete(`/genre/${id}`);
+    return api.delete(`/gender/${id}`);
   };
 
   const update = ({
     name,
-    idGenre,
+    idGender,
   }: {
     name: string;
-    idGenre: number;
+    idGender: number;
   }) => {
-    return api.put(`/genre/${idGenre}`, { name });
+    return api.put(`/gender/${idGender}`, { name });
   };
 
   return {

@@ -1,6 +1,6 @@
 import { Table } from "antd";
 import { useQuery } from "react-query";
-import { useGenre } from "../hooks/useGender";
+import { useGender } from "../hooks/useGender";
 import { Box } from "@chakra-ui/react";
 import { ColumnsType } from "antd/lib/table";
 import {
@@ -43,15 +43,15 @@ const columns = ({ deleteFn }: TColumns): ColumnsType<TData> => {
       dataIndex: "",
       key: "x",
       width: "15%",
-      render: (rowData: { idGenre: number }) => {
+      render: (rowData: { idGender: number }) => {
         return (
           <>
             <ButtonAction
-              id={rowData.idGenre}
+              id={rowData.idGender}
               actionType={EActionButton.edit}
             />
             <ButtonAction
-              id={rowData.idGenre}
+              id={rowData.idGender}
               actionType={EActionButton.delete}
               deleteFn={deleteFn}
             />
@@ -62,15 +62,15 @@ const columns = ({ deleteFn }: TColumns): ColumnsType<TData> => {
   ];
 };
 
-export const GenreTable = () => {
-  const { isLoading, deleteById, allGenres } = useGenre();
+export const GenderTable = () => {
+  const { isLoading, deleteById, allGenders } = useGender();
   return (
     <Box m="20px" mt="100px">
       <Table
         loading={isLoading}
-        dataSource={allGenres}
+        dataSource={allGenders}
         columns={columns({ deleteFn: deleteById })}
-        rowKey={(data) => data.idGenre}
+        rowKey={(data) => data.idGender}
       />
     </Box>
   );

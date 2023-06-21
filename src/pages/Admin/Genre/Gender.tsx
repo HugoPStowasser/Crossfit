@@ -1,12 +1,12 @@
 import { Box } from "@chakra-ui/react";
-import { GenreTable } from "./Table";
+import { GenderTable } from "./Table";
 import { HeaderWithTitle } from "../../../components/HeaderWithTitle";
 
-export const Genre = () => {
+export const Gender = () => {
   return (
     <Box>
       <HeaderWithTitle title="Gênero" createRoute="create" />
-      <GenreTable />
+      <GenderTable />
     </Box>
   );
 };

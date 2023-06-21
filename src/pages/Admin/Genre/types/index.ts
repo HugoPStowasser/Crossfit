@@ -1,20 +1,20 @@
-export type TGenreHttp = {
+export type TGenderHttp = {
     createdAt: string;
     updatedAt: string;
     deletedAt?: string;
-    idGenre: number;
+    idGender: number;
     name: string;
     normalizedName: string;
     active: boolean;
   };
   
-  export type TGenreData = {
-    idGenre: number;
+  export type TGenderData = {
+    idGender: number;
     name: string;
     normalizedName: string;
     active: boolean;
   };
   
-  export type TGenreFormValues = {
+  export type TGenderFormValues = {
     name: string;
   };

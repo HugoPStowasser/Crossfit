@@ -1,9 +1,9 @@
 import { Box, Button, FormControl, Input, Text } from "@chakra-ui/react";
-import { useGenre } from "../hooks/useGender";
+import { useGender } from "../hooks/useGender";
 import { TitleWithBackButton } from "../../../../components/TitleWithBackButton";
 import { useEffect } from "react";
 
-export const CreateGenre = () => {
+export const CreateGender = () => {
   const {
     errors,
     handleSubmit,
@@ -11,14 +11,14 @@ export const CreateGenre = () => {
     register,
     isLoading,
     setValue,
-    genre,
-  } = useGenre();
+    gender,
+  } = useGender();
 
   useEffect(() => {
-    if (genre.idGenre) {
-      setValue("name", genre.name);
+    if (gender.idGender) {
+      setValue("name", gender.name);
     }
-  }, [genre]);
+  }, [gender]);
 
   return (
     <Box p="15px">

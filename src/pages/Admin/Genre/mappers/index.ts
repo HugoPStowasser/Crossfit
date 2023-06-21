@@ -1,20 +1,20 @@
 import { httpDateToClient } from "../../../../utils/date";
-import { TGenreHttp } from "../types";
+import { TGenderHttp } from "../types";
 
-export const mapperHttpToTable = (data: TGenreHttp[]) => {
-  return data.map((genre, index) => {
+export const mapperHttpToTable = (data: TGenderHttp[]) => {
+  return data.map((gender, index) => {
     return {
-      ...genre,
+      ...gender,
       index: index + 1,
-      createdAt: httpDateToClient(genre.createdAt),
-      updatedAt: httpDateToClient(genre.updatedAt),
+      createdAt: httpDateToClient(gender.createdAt),
+      updatedAt: httpDateToClient(gender.updatedAt),
     };
   });
 };
 
-export const mapperHttpToForm = (data: TGenreHttp) => {
+export const mapperHttpToForm = (data: TGenderHttp) => {
   return {
-    idGenre: data.idGenre,
+    idGender: data.idGender,
     name: data.name,
     normalizedName: data.normalizedName,
     active: data.active,

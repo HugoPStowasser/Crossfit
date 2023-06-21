@@ -1,39 +1,39 @@
 import { useEffect, useState } from "react";
-import { TGenreData, TGenreFormValues, TGenreHttp } from "../types";
+import { TGenderData, TGenderFormValues, TGenderHttp } from "../types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { genreFormSchema } from "../schemas/schema";
+import { genderFormSchema } from "../schemas/schema";
 import { useNavigate, useParams } from "react-router-dom";
 import { mapperHttpToForm, mapperHttpToTable } from "../mappers";
 import { useCustomToast } from "../../../../hooks/useCustomToast";
 import { useQuery } from "react-query";
-import { useGenreRequest } from "./useGenreRequest";
+import { useGenderRequest } from "./useGenderRequest";
 
-export const useGenre = () => {
-  const [genre, setGenre] = useState<TGenreData>({} as TGenreData);
-  const { idGenre } = useParams();
+export const useGender = () => {
+  const [gender, setGender] = useState<TGenderData>({} as TGenderData);
+  const { idGender } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { errorToast, successToast } = useCustomToast();
-  const apiGenre = useGenreRequest();
+  const apiGender = useGenderRequest();
 
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<TGenreFormValues>({
-    resolver: zodResolver(genreFormSchema),
+  } = useForm<TGenderFormValues>({
+    resolver: zodResolver(genderFormSchema),
     defaultValues: {
       name: "",
     },
     shouldUnregister: false,
   });
 
-  const getGenreById = async (id: number) => {
+  const getGenderById = async (id: number) => {
     try {
-      const { data }: { data: TGenreHttp } = await apiGenre.getById(id);
-      setGenre(mapperHttpToForm(data));
+      const { data }: { data: TGenderHttp } = await apiGender.getById(id);
+      setGender(mapperHttpToForm(data));
       return mapperHttpToForm(data);
     } catch (error) {
       errorToast({
@@ -43,10 +43,10 @@ export const useGenre = () => {
     return {};
   };
 
-  const getAllGenres = async () => {
+  const getAllGenders = async () => {
     try {
       setIsLoading(true);
-      const { data }: { data: TGenreHttp[] } = await apiGenre.getAll();
+      const { data }: { data: TGenderHttp[] } = await apiGender.getAll();
       return mapperHttpToTable(data);
     } catch (error) {
       errorToast({
@@ -58,14 +58,14 @@ export const useGenre = () => {
     return [];
   };
 
-  const { refetch, data: allGenres } = useQuery({
-    queryKey: ["genre"],
-    queryFn: getAllGenres,
+  const { refetch, data: allGenders } = useQuery({
+    queryKey: ["gender"],
+    queryFn: getAllGenders,
   });
 
   const deleteById = async (id: number) => {
     try {
-      await apiGenre.deleteById(id);
+      await apiGender.deleteById(id);
       refetch();
       successToast({
         title: `Gênero deletado com sucesso!`,
@@ -78,30 +78,30 @@ export const useGenre = () => {
   };
 
   useEffect(() => {
-    if (idGenre) {
-      getGenreById(Number(idGenre));
+    if (idGender) {
+      getGenderById(Number(idGender));
     }
-  }, [idGenre]);
+  }, [idGender]);
 
-  const onSubmitHandler = async (formValues: TGenreFormValues) => {
+  const onSubmitHandler = async (formValues: TGenderFormValues) => {
     try {
       setIsLoading(true);
       const { name } = formValues;
-      if (genre.idGenre) {
-        await apiGenre.update({
+      if (gender.idGender) {
+        await apiGender.update({
           name,
-          idGenre: genre.idGenre,
+          idGender: gender.idGender,
         });
         successToast({
           title: `Gênero editado com sucesso!`,
         });
       } else {
-        await apiGenre.insert({ name });
+        await apiGender.insert({ name });
         successToast({
           title: `Gênero cadastrado com sucesso!`,
         });
       }
-      navigate("/admin/genre");
+      navigate("/admin/gender");
     } catch (err) {
       errorToast({
         title: `Não foi possível estabelecer conexão com o servidor`,
@@ -116,9 +116,9 @@ export const useGenre = () => {
     register,
     handleSubmit,
     errors,
-    allGenres,
-    getAllGenres,
-    genre,
+    allGenders,
+    getAllGenders,
+    gender,
     setValue,
     deleteById,
     isLoading,
