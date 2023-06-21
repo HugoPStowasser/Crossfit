@@ -13,8 +13,9 @@ import { CreateProfessor } from "../pages/Admin/User/Form/CreateProfessor";
 import { CreateAdmin } from "../pages/Admin/User/Form/CreateAdmin";
 import { CreateStudent } from "../pages/Admin/User/Form/CreateStudent";
 import { Payment } from "../pages/Admin/Payment";
-import { CreatePayment } from "../pages/Admin/Payment/form/PaymentCreate";
+import { CreatePayment } from "../pages/Admin/Payment/form/CreatePayment";
 import { Class } from "../pages/Admin/Class/Class";
+import { CreateClass } from "../pages/Admin/Class/form/CreateClass";
 
 export const Router = () => {
   return (
@@ -29,6 +30,7 @@ export const Router = () => {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="exercise" element={<Exercise />} />
         <Route path="class" element={<Class />} />
+        <Route path="class/create/:idClass?" element={<CreateClass />} />
         <Route path="payment" element={<Payment />} />
         <Route path="payment/create/:idPayment" element={<CreatePayment />} />
         <Route

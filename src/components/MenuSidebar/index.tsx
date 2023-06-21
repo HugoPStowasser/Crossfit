@@ -109,7 +109,7 @@ export const MenuSidebar = () => {
                 <SidebarItem
                   icon={TbGenderAndrogyne}
                   title="Gêneros"
-                  active={pathname.includes("genre")}
+                  active={pathname.includes("gender")}
                 />
                 <SidebarItem
                   icon={TbPigMoney}

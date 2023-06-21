@@ -1,5 +1,5 @@
-import { format } from "date-fns";
-import { TClassHttp } from "../types";
+import { format, formatISO, parseISO } from "date-fns";
+import { TClassData, TClassHttp } from "../types";
 
 export const mapperHttpToTable = (data: TClassHttp[]) => {
   return data.map((exercise, index) => {
@@ -24,9 +24,14 @@ export const mapperHttpToTable = (data: TClassHttp[]) => {
     };
   });
 };
-// export const mapperHttpToForm = (data: TClassHttp) => {
-//   return {
-//     idClass: data.idClass,
-//     description: data.description,
-//   };
-// };
+export const mapperHttpToForm = (data: TClassHttp): TClassData => {
+  const dateClass = formatISO(parseISO(new Date().toISOString()), {
+    representation: "date",
+  });
+  return {
+    ...data,
+    idProfessor: data.professor.idProfessor || 0,
+    idStatus: data.status.idStatus,
+    date: dateClass,
+  };
+};

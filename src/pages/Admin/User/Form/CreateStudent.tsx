@@ -41,8 +41,8 @@ export const CreateStudent = () => {
     student,
     formMethods,
     loadingRef,
-    allGenres,
-    getAllGenre,
+    allGenders,
+    getAllGender,
   } = useStudent();
 
   const {
@@ -105,10 +105,10 @@ export const CreateStudent = () => {
                   errorMessage={errors.birthDate?.message}
                 />
                 <SelectBase
-                  onFocus={getAllGenre}
-                  options={allGenres}
-                  inputName="genre"
-                  errorMessage={errors.genre?.message}
+                  onFocus={getAllGender}
+                  options={allGenders}
+                  inputName="gender"
+                  errorMessage={errors.gender?.message}
                 />
                 {student.idStudent ? (
                   <Box mt="10px">

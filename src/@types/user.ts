@@ -9,7 +9,7 @@ export type TUserApi = {
 };
 
 export type TStudentApi = TUserApi & {
-  idGenre: number;
+  idGender: number;
   idAddress?: number;
   birthDate: Date;
   isBlocked: Boolean;

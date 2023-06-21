@@ -32,8 +32,8 @@ export const adminUpdateFormSchema = z.object({
     .max(100),
 });
 
-type TGenreIds = { genreIds: number[] };
-export const studentCreateFormSchema = ({ genreIds }: TGenreIds) =>
+type TGenderIds = { genderIds: number[] };
+export const studentCreateFormSchema = ({ genderIds }: TGenderIds) =>
   z
     .object({
       name: z.string().nonempty("O nome é obrigatório.").max(255),
@@ -50,7 +50,7 @@ export const studentCreateFormSchema = ({ genreIds }: TGenreIds) =>
       confirmPassword: z
         .string()
         .min(4, "A senha deve ter mais de 4 caracteres"),
-      genre: z.string().refine((value) => genreIds.includes(Number(value)), {
+      gender: z.string().refine((value) => genderIds.includes(Number(value)), {
         message: "Por favor, selecione um gênero válido.",
       }),
     })
@@ -63,14 +63,14 @@ export const studentCreateFormSchema = ({ genreIds }: TGenreIds) =>
       }
     });
 
-export const studentUpdateFormSchema = ({ genreIds }: TGenreIds) =>
+export const studentUpdateFormSchema = ({ genderIds }: TGenderIds) =>
   z.object({
     name: z.string().nonempty("O nome é obrigatório.").max(255),
     birthDate: z.string().refine((value) => {
       const regex = /^\d{4}-\d{2}-\d{2}$/;
       return regex.test(value);
     }, "Data de nascimento inválida"),
-    genre: z.string().refine((value) => genreIds.includes(Number(value)), {
+    gender: z.string().refine((value) => genderIds.includes(Number(value)), {
       message: "Por favor, selecione um gênero válido.",
     }),
     email: z

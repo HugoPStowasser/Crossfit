@@ -55,18 +55,18 @@ export type TAdminUpdateFormValues = Omit<
 export type TStudentHttp = {
   idStudent: number;
   birthDate: string;
-  idGenre: number;
+  idGender: number;
 } & THttpUserBase;
 
 export type TStudentData = {
   idStudent: number;
   birthDate: string;
-  idGenre: number;
+  idGender: number;
 } & TUserDataBase;
 
 export type TStudentFormValues = {
   birthDate: string;
-  genre: string[];
+  gender: string[];
 } & Omit<TStudentData, "idStudent">;
 export type TStudentUpdateFormValues = Omit<
   TStudentData,
