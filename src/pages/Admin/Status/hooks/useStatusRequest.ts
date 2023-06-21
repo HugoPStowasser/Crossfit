@@ -1,31 +1,30 @@
 import { api } from "../../../../services/http";
 
-export const useGenderRequest = () => {
+export const useStatusRequest = () => {
   const getAll = () => {
-    return api.get("/gender");
+    return api.get("/status");
   };
 
   const getById = (id: number) => {
-    return api.get(`/gender/${id}`);
+    return api.get(`/status/${id}`);
   };
 
   const insert = ({ name }: { name: string }) => {
-    var normalizedName = name.toLocaleUpperCase();
-    return api.post("/gender", { name });
+    return api.post("/status", { name });
   };
 
   const deleteById = (id: number) => {
-    return api.delete(`/gender/${id}`);
+    return api.delete(`/status/${id}`);
   };
 
   const update = ({
     name,
-    idGender,
+    idStatus,
   }: {
     name: string;
-    idGender: number;
+    idStatus: number;
   }) => {
-    return api.put(`/gender/${idGender}`, { name });
+    return api.put(`/status/${idStatus}`, { name });
   };
 
   return {
