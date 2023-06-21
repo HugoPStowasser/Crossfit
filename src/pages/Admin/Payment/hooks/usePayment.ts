@@ -140,7 +140,7 @@ export const usePayment = () => {
     isLoading,
     loadingRef,
     formMethods,
-    getAllPaymentTypes,
     allPaymentTypes,
+    getAllPaymentTypes: idPayment ? () => Promise<void> : getAllPaymentTypes,
   };
 };

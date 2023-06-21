@@ -59,6 +59,7 @@ export const CreateStudent = () => {
         representation: "date",
       });
       setValue("birthDate", formattedBirthDate);
+      setValue("gender", String(student.idGender));
     }
   }, [student]);
 

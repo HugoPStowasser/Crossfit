@@ -45,7 +45,7 @@ export type TPaymentFormValues = {
   studentName: string;
   dueDate: string;
   status: string;
-  paymentType: string[];
+  paymentType: string;
 };
 
 export type TPaymentToHttp = {

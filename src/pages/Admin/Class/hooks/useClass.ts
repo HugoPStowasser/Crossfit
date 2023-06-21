@@ -174,6 +174,6 @@ export const useClass = () => {
     loadingRef,
     formMethods,
     allProfessors,
-    getAllProfessors,
+    getAllProfessors: idClass ? () => Promise<void> : getAllProfessors,
   };
 };

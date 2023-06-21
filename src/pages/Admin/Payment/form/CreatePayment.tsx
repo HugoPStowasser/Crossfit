@@ -42,6 +42,7 @@ export const CreatePayment = () => {
         representation: "date",
       });
       setValue("dueDate", formattedDueDate);
+      setValue("paymentType", String(payment.idPaymentType));
     }
   }, [payment]);
 

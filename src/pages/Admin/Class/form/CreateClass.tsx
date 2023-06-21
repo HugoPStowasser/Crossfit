@@ -29,11 +29,10 @@ export const CreateClass = () => {
     if (classData.idClass) {
       setValue("name", classData.name);
       setValue("description", classData.description);
-      console.log(classData);
       setValue("date", classData.date);
       setValue("startHour", classData.startHour);
       setValue("endHour", classData.endHour);
-      setValue("professor", classData.idProfessor);
+      setValue("professor", String(classData.idProfessor));
     }
   }, [classData]);
 

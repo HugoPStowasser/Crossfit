@@ -48,7 +48,7 @@ export const CreateExercise = () => {
                   type="submit"
                   isLoading={isLoading}
                 >
-                  Cadastrar
+                  {exercise.idExercise ? "Salvar" : "Cadastrar"}
                 </Button>
               </form>
             </FormProvider>

@@ -66,7 +66,7 @@ export type TStudentData = {
 
 export type TStudentFormValues = {
   birthDate: string;
-  gender: string[];
+  gender: string;
 } & Omit<TStudentData, "idStudent">;
 export type TStudentUpdateFormValues = Omit<
   TStudentData,
