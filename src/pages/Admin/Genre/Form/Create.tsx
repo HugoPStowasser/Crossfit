@@ -1,5 +1,5 @@
 import { Box, Button, FormControl, Input, Text } from "@chakra-ui/react";
-import { useGenre } from "../hooks/useGenre";
+import { useGenre } from "../hooks/useGender";
 import { TitleWithBackButton } from "../../../../components/TitleWithBackButton";
 import { useEffect } from "react";
 

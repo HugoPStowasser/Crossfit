@@ -1,6 +1,6 @@
 import { Table } from "antd";
 import { useQuery } from "react-query";
-import { useGenre } from "../hooks/useGenre";
+import { useGenre } from "../hooks/useGender";
 import { Box } from "@chakra-ui/react";
 import { ColumnsType } from "antd/lib/table";
 import {
