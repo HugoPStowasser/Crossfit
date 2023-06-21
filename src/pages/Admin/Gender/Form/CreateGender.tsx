@@ -47,7 +47,7 @@ export const CreateGender = () => {
                   type="submit"
                   isLoading={isLoading}
                 >
-                  Cadastrar
+                  {gender.idGender ? "Salvar" : "Cadastrar"}
                 </Button>
               </form>
             </FormProvider>

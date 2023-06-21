@@ -47,7 +47,7 @@ export const CreateStatus = () => {
                   type="submit"
                   isLoading={isLoading}
                 >
-                  Cadastrar
+                  {status.idStatus ? "Salvar" : "Cadastrar"}
                 </Button>
               </form>
             </FormProvider>

@@ -137,7 +137,7 @@ export const CreateClass = () => {
                   type="submit"
                   isLoading={isLoading}
                 >
-                  Cadastrar
+                  {classData.idClass ? "Salvar" : "Cadastrar"}
                 </Button>
               </form>
             </FormProvider>
