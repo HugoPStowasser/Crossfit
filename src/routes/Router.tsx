@@ -16,6 +16,8 @@ import { Payment } from "../pages/Admin/Payment";
 import { CreatePayment } from "../pages/Admin/Payment/form/CreatePayment";
 import { Class } from "../pages/Admin/Class/Class";
 import { CreateClass } from "../pages/Admin/Class/form/CreateClass";
+import { Gender } from "../pages/Admin/Gender/Gender";
+import { CreateGender } from "../pages/Admin/Gender/Form/CreateGender";
 
 export const Router = () => {
   return (
@@ -31,6 +33,8 @@ export const Router = () => {
         <Route path="exercise" element={<Exercise />} />
         <Route path="class" element={<Class />} />
         <Route path="class/create/:idClass?" element={<CreateClass />} />
+        <Route path="gender" element={<Gender />} />
+        <Route path="gender/create/:idGender?" element={<CreateGender />} />
         <Route path="payment" element={<Payment />} />
         <Route path="payment/create/:idPayment" element={<CreatePayment />} />
         <Route

@@ -110,6 +110,7 @@ export const MenuSidebar = () => {
                   icon={TbGenderAndrogyne}
                   title="Gêneros"
                   active={pathname.includes("gender")}
+                  onClick={() => handleGoPage("gender")}
                 />
                 <SidebarItem
                   icon={TbPigMoney}
