@@ -28,11 +28,11 @@ export const usePayment = () => {
     try {
       const { data } = await apiPaymentType.getAll();
       setAllPaymentTypes(
-        data.map((paymentType: { idPayment: number; name: string }) => {
+        data.map((paymentType: { idPaymentType: number; name: string }) => {
           return {
-            value: paymentType.idPayment,
+            value: paymentType.idPaymentType,
             label: paymentType.name,
-            selected: payment.idPaymentType === paymentType.idPayment,
+            selected: payment.idPaymentType === paymentType.idPaymentType,
           };
         })
       );
@@ -101,10 +101,15 @@ export const usePayment = () => {
     }
   }, [idPayment]);
 
+  useEffect(() => {
+    if (payment.idPaymentType) {
+      getAllPaymentTypes();
+    }
+  }, [payment.idPaymentType]);
+
   const onSubmitHandler = async () => {
     try {
       const { getValues } = formMethods;
-      console.log(getValues());
       setIsLoading(true);
       const { datePayment, invoice, paymentType } = getValues();
       await apiPayment.update({

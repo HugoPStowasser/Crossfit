@@ -1,5 +1,5 @@
 import { Table } from "antd";
-import { useClass } from "../hooks/useClasse";
+import { useClass } from "../hooks/useClass";
 import { Box } from "@chakra-ui/react";
 import { ColumnsType } from "antd/lib/table";
 import {

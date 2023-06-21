@@ -11,29 +11,29 @@ import {
   studentUpdateFormSchema,
 } from "../schemas/schema";
 import { TLoadingRef } from "../../../../components/Loading";
-import { useGenreRequest } from "../../../../hooks/useSelectsRequest";
+import { useGenderRequest } from "../../../../hooks/useSelectsRequest";
 import { TSelect } from "../../../../@types/select";
 
 export const useStudent = () => {
   const loadingRef = useRef<TLoadingRef>(null);
   const { idStudent } = useParams();
   const [student, setStudent] = useState<TStudentData>({} as TStudentData);
-  const [allGenres, setAllGenres] = useState<TSelect[]>([]);
+  const [allGenders, setAllGenders] = useState<TSelect[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { errorToast, successToast } = useCustomToast();
-  const apiGenre = useGenreRequest();
+  const apiGender = useGenderRequest();
   const apiUser = useUserRequest();
 
-  const getAllGenre = async () => {
+  const getAllGender = async () => {
     try {
-      const { data } = await apiGenre.getAll();
-      setAllGenres(
-        data.map((genre: { idGenre: number; name: string }) => {
+      const { data } = await apiGender.getAll();
+      setAllGenders(
+        data.map((gender: { idGender: number; name: string }) => {
           return {
-            value: genre.idGenre,
-            label: genre.name,
-            selected: student.idGenre === genre.idGenre,
+            value: gender.idGender,
+            label: gender.name,
+            selected: student.idGender === gender.idGender,
           };
         })
       );
@@ -65,12 +65,12 @@ export const useStudent = () => {
     resolver: idStudent
       ? zodResolver(
           studentUpdateFormSchema({
-            genreIds: allGenres.map((item) => item.value),
+            genderIds: allGenders.map((item) => item.value),
           })
         )
       : zodResolver(
           studentCreateFormSchema({
-            genreIds: allGenres.map((item) => item.value),
+            genderIds: allGenders.map((item) => item.value),
           })
         ),
     defaultValues: {
@@ -91,10 +91,10 @@ export const useStudent = () => {
   }, [idStudent]);
 
   useEffect(() => {
-    if (student.idGenre) {
-      getAllGenre();
+    if (student.idGender) {
+      getAllGender();
     }
-  }, [student.idGenre]);
+  }, [student.idGender]);
 
   const onSubmitHandler = async () => {
     try {
@@ -103,7 +103,7 @@ export const useStudent = () => {
       const values = getValues();
       const data = {
         ...values,
-        idGenre: Number(values.genre),
+        idGender: Number(values.gender),
       };
       if (student.idStudent) {
         await apiUser.updateStudent({
@@ -136,7 +136,7 @@ export const useStudent = () => {
     student,
     isLoading,
     loadingRef,
-    allGenres,
-    getAllGenre: idStudent ? () => Promise<void> : getAllGenre,
+    allGenders,
+    getAllGender: idStudent ? () => Promise<void> : getAllGender,
   };
 };

@@ -37,7 +37,7 @@ export const mapperStudentHttpToForm = (data: TStudentHttp) => {
     socialName: data.socialName,
     email: data.email,
     birthDate: data.birthDate,
-    idGenre: data.idGenre,
+    idGender: data.idGender,
     password: "",
     confirmPassword: "",
   };

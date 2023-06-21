@@ -1,8 +1,8 @@
 import { api } from "../services/http";
 
-export const useGenreRequest = () => {
+export const useGenderRequest = () => {
   const getAll = () => {
-    return api.get("/genre");
+    return api.get("/gender");
   };
 
   return {
@@ -13,6 +13,16 @@ export const useGenreRequest = () => {
 export const usePaymentTypeRequest = () => {
   const getAll = () => {
     return api.get("/paymentType");
+  };
+
+  return {
+    getAll,
+  };
+};
+
+export const useProfessorsRequest = () => {
+  const getAll = () => {
+    return api.get("/professor");
   };
 
   return {
