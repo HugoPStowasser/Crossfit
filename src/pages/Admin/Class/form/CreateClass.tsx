@@ -52,7 +52,7 @@ export const CreateClass = () => {
               <form onSubmit={onSubmit}>
                 <InputBase
                   inputName="name"
-                  placeholder="Nome do Aula"
+                  placeholder="Nome da Aula"
                   errorMessage={errors.name?.message}
                 />
                 <InputBase

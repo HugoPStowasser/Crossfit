@@ -100,6 +100,7 @@ export const MenuSidebar = () => {
                   icon={TbCircleDashed}
                   title="Status"
                   active={pathname.includes("status")}
+                  onClick={() => handleGoPage("status")}
                 />
                 <SidebarItem
                   icon={TbLockOpen}
@@ -110,6 +111,7 @@ export const MenuSidebar = () => {
                   icon={TbGenderAndrogyne}
                   title="Gêneros"
                   active={pathname.includes("gender")}
+                  onClick={() => handleGoPage("gender")}
                 />
                 <SidebarItem
                   icon={TbPigMoney}
