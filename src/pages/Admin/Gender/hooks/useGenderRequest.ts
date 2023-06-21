@@ -10,7 +10,6 @@ export const useGenderRequest = () => {
   };
 
   const insert = ({ name }: { name: string }) => {
-    var normalizedName = name.toLocaleUpperCase();
     return api.post("/gender", { name });
   };
 
