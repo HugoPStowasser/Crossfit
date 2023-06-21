@@ -1,19 +1,17 @@
-import { Box, Button, FormControl, Input, Text } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { useGender } from "../hooks/useGender";
 import { TitleWithBackButton } from "../../../../components/TitleWithBackButton";
 import { useEffect } from "react";
+import { InputBase } from "../../../../components/InputBase";
+import { FormProvider } from "react-hook-form";
+import { Loading } from "../../../../components/Loading";
 
 export const CreateGender = () => {
+  const { formMethods, onSubmit, isLoading, gender, loadingRef } = useGender();
   const {
-    errors,
-    handleSubmit,
-    onSubmitHandler,
-    register,
-    isLoading,
     setValue,
-    gender,
-  } = useGender();
-
+    formState: { errors },
+  } = formMethods;
   useEffect(() => {
     if (gender.idGender) {
       setValue("name", gender.name);
@@ -22,6 +20,7 @@ export const CreateGender = () => {
 
   return (
     <Box p="15px">
+      <Loading ref={loadingRef} />
       <TitleWithBackButton title="Cadastrar Gênero" />
       <Box
         display={"flex"}
@@ -32,27 +31,26 @@ export const CreateGender = () => {
       >
         <Box width={"80%"} maxW={"720px"}>
           <Box mt="100px">
-            <form onSubmit={handleSubmit(onSubmitHandler)}>
-              <FormControl mt="6">
-                <Input {...register("name")} placeholder="Nome" />
-                {errors.name && (
-                  <Text color="red.500" fontSize={"sm"} pt="5px">
-                    {errors.name?.message}
-                  </Text>
-                )}
-              </FormControl>
-              <Button
-                color="#222"
-                colorScheme="yellow"
-                size="md"
-                w="100%"
-                mt="5"
-                type="submit"
-                isLoading={isLoading}
-              >
-                Cadastrar
-              </Button>
-            </form>
+            <FormProvider {...formMethods}>
+              <form onSubmit={onSubmit}>
+                <InputBase
+                  inputName="name"
+                  placeholder="Nome do Gênero"
+                  errorMessage={errors.name?.message}
+                />
+                <Button
+                  color="#222"
+                  colorScheme="yellow"
+                  size="md"
+                  w="100%"
+                  mt="5"
+                  type="submit"
+                  isLoading={isLoading}
+                >
+                  Cadastrar
+                </Button>
+              </form>
+            </FormProvider>
           </Box>
         </Box>
       </Box>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TGenderData, TGenderFormValues, TGenderHttp } from "../types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,8 +8,10 @@ import { mapperHttpToForm, mapperHttpToTable } from "../mappers";
 import { useCustomToast } from "../../../../hooks/useCustomToast";
 import { useQuery } from "react-query";
 import { useGenderRequest } from "./useGenderRequest";
+import { TLoadingRef } from "../../../../components/Loading";
 
 export const useGender = () => {
+  const loadingRef = useRef<TLoadingRef>(null);
   const [gender, setGender] = useState<TGenderData>({} as TGenderData);
   const { idGender } = useParams();
   const [isLoading, setIsLoading] = useState(false);
@@ -17,12 +19,7 @@ export const useGender = () => {
   const { errorToast, successToast } = useCustomToast();
   const apiGender = useGenderRequest();
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<TGenderFormValues>({
+  const formMethods = useForm<TGenderFormValues>({
     resolver: zodResolver(genderFormSchema),
     defaultValues: {
       name: "",
@@ -32,6 +29,7 @@ export const useGender = () => {
 
   const getGenderById = async (id: number) => {
     try {
+      loadingRef.current?.onOpenLoading();
       const { data }: { data: TGenderHttp } = await apiGender.getById(id);
       setGender(mapperHttpToForm(data));
       return mapperHttpToForm(data);
@@ -39,6 +37,8 @@ export const useGender = () => {
       errorToast({
         title: `Não foi possível encontrar o gênero!`,
       });
+    } finally {
+      loadingRef.current?.onCloseLoading();
     }
     return {};
   };
@@ -83,10 +83,11 @@ export const useGender = () => {
     }
   }, [idGender]);
 
-  const onSubmitHandler = async (formValues: TGenderFormValues) => {
+  const onSubmitHandler = async () => {
     try {
+      const { getValues } = formMethods;
       setIsLoading(true);
-      const { name } = formValues;
+      const { name } = getValues();
       if (gender.idGender) {
         await apiGender.update({
           name,
@@ -112,15 +113,13 @@ export const useGender = () => {
   };
 
   return {
-    onSubmitHandler,
-    register,
-    handleSubmit,
-    errors,
+    onSubmit: formMethods.handleSubmit(onSubmitHandler),
     allGenders,
     getAllGenders,
     gender,
-    setValue,
     deleteById,
     isLoading,
+    loadingRef,
+    formMethods,
   };
 };
