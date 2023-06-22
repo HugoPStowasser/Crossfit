@@ -117,7 +117,8 @@ export const MenuSidebar = () => {
                 <SidebarItem
                   icon={TbPigMoney}
                   title="Tipo de Pagamento"
-                  active={pathname.includes("type-payment")}
+                  active={pathname.includes("paymentType")}
+                  onClick={() => handleGoPage("paymentType")}
                 />
                 <SidebarItem
                   icon={TbDeviceImac}

@@ -22,6 +22,8 @@ import { CreateStatus } from "../pages/Admin/Status/Form/CreateStatus";
 import { Status } from "../pages/Admin/Status/Status";
 import { CreateProfile } from "../pages/Admin/Profile/Form/CreateProfile";
 import { Profile } from "../pages/Admin/Profile/Profile";
+import { PaymentType } from "../pages/Admin/PaymentType/PaymentType";
+import { CreatePaymentType } from "../pages/Admin/PaymentType/Form/CreatePaymentType";
 
 export const Router = () => {
   return (
@@ -45,6 +47,8 @@ export const Router = () => {
         <Route path="profile/create/:idProfile?" element={<CreateProfile />} />
         <Route path="payment" element={<Payment />} />
         <Route path="payment/create/:idPayment" element={<CreatePayment />} />
+        <Route path="paymentType" element={<PaymentType />} />
+        <Route path="paymentType/create/:idPaymentType?" element={<CreatePaymentType />} />
         <Route
           path="exercise/create/:idExercise?"
           element={<CreateExercise />}
