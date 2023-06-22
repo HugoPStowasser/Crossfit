@@ -102,7 +102,7 @@ export const useProfile = () => {
           title: `Perfil cadastrado com sucesso!`,
         });
       }
-      navigate("/admin/profiles");
+      navigate("/admin/profile");
     } catch (err) {
       errorToast({
         title: `Não foi possível estabelecer conexão com o servidor`,
