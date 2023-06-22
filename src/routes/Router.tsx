@@ -20,6 +20,8 @@ import { Gender } from "../pages/Admin/Gender/Gender";
 import { CreateGender } from "../pages/Admin/Gender/Form/CreateGender";
 import { CreateStatus } from "../pages/Admin/Status/Form/CreateStatus";
 import { Status } from "../pages/Admin/Status/Status";
+import { CreateProfile } from "../pages/Admin/Profile/Form/CreateProfile";
+import { Profile } from "../pages/Admin/Profile/Profile";
 
 export const Router = () => {
   return (
@@ -39,6 +41,8 @@ export const Router = () => {
         <Route path="gender/create/:idGender?" element={<CreateGender />} />
         <Route path="status" element={<Status />} />
         <Route path="status/create/:idStatus?" element={<CreateStatus />} />
+        <Route path="profile" element={<Profile />} />
+        <Route path="profile/create/:idProfile?" element={<CreateProfile />} />
         <Route path="payment" element={<Payment />} />
         <Route path="payment/create/:idPayment" element={<CreatePayment />} />
         <Route

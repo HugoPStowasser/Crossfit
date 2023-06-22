@@ -106,6 +106,7 @@ export const MenuSidebar = () => {
                   icon={TbLockOpen}
                   title="Perfis"
                   active={pathname.includes("profile")}
+                  onClick={() => handleGoPage("profile")}
                 />
                 <SidebarItem
                   icon={TbGenderAndrogyne}
