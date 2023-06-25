@@ -5,7 +5,7 @@ import { Dashboard } from "../pages/Admin";
 import { Home } from "../pages/Student/Home";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { AuthenticatedUserRedirect } from "./AuthenticatedUserRedirect";
-import { RegisterPoints } from "../pages/Student/RegisterPoints";
+import { StudentPoints } from "../pages/Student/StudentPoints";
 import { Exercise, CreateExercise } from "../pages/Admin/Exercise";
 import { NotFound } from "../pages/Errors/NotFound";
 import { User } from "../pages/Admin/User";
@@ -66,7 +66,7 @@ export const Router = () => {
       </Route>
       <Route path="student" element={<ProtectedRoute />}>
         <Route path="home" element={<Home />} />
-        <Route path="register-points" element={<RegisterPoints />} />
+        <Route path="register-points" element={<StudentPoints />} />
       </Route>
       <Route path="landing-page" element={<LandingPage />} />
     </Routes>
