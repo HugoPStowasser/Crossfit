@@ -14,10 +14,12 @@ import {
 } from "@chakra-ui/react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { TitleWithBackButton } from "../../../components/TitleWithBackButton";
+import { useNavigate } from "react-router-dom";
 
 export const StudentPoints = () => {
   const [exercise, setExercise] = useState<string>("");
   const [score, setScore] = useState<number>(0);
+  const navigate = useNavigate();
 
   const handleExerciseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setExercise(e.target.value);
@@ -50,6 +52,7 @@ export const StudentPoints = () => {
   const handleSaveAndExit = () => {
     // Lógica de salvar e sair
     console.log("Save and exit clicked");
+    navigate(-1)
   };
 
   return (
