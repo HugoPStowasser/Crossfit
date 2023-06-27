@@ -1,13 +1,14 @@
 import { Box, Button, Link, Spinner, Text } from "@chakra-ui/react";
 import { CardClass } from "../../../../components/CardClass";
-import { useClass } from "../../Class/hooks/useClass";
 import dayjs from "dayjs";
 import { TbList } from "react-icons/tb";
+import { useDashboard } from "../hooks/useDashboard";
+import { useNavigate } from "react-router-dom";
 
 export const NextClassesInfo = () => {
-  const { allClasses, isLoading } = useClass();
-
-  if (isLoading) {
+  const { allClasses, classesIsLoading } = useDashboard();
+  const navigate = useNavigate();
+  if (classesIsLoading) {
     return <Spinner />;
   }
 
@@ -28,7 +29,7 @@ export const NextClassesInfo = () => {
             color: "white",
           }}
           p="2px 5px"
-          bg="yellow.500"
+          bg="yellow.400"
           borderRadius={4}
           color="black"
           fontWeight={"semibold"}
@@ -38,25 +39,24 @@ export const NextClassesInfo = () => {
         </Link>
       </Box>
       <Box display="flex" flexDir={"column"} gap={2}>
-        {allClasses
-          ?.slice(0, 2)
-          .sort(
-            (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-          )
-          .map((item) => (
-            <CardClass
-              key={item.idClass}
-              title={item.name}
-              description={item.description}
-              // datetime="18 Abril 20h30 - 22h30"
-              datetime={`${dayjs(item.date, "DD/MM/YYYY").format("D [de] MMMM")}
+        {allClasses?.map((item) => (
+          <CardClass
+            key={item.idClass}
+            title={item.name}
+            description={item.description}
+            datetime={`${dayjs(item.date, "DD/MM/YYYY").format("D [de] MMMM")}
                ${item.startHour} - ${item.endHour}`}
-              professor={item.professor}
-              withCheckinButton={false}
-            />
-          ))}
+            professor={item.professor}
+            withCheckinButton={false}
+          />
+        ))}
       </Box>
-      <Button mt="16px" w="100%" leftIcon={<TbList size={18} />}>
+      <Button
+        mt="16px"
+        w="100%"
+        leftIcon={<TbList size={18} />}
+        onClick={() => navigate("/admin/class")}
+      >
         Todas as Aulas
       </Button>
     </>

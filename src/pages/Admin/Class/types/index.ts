@@ -16,6 +16,7 @@ export type TClassHttp = {
     idStatus: number;
     name: string;
   };
+  checkin?: boolean;
 };
 
 export type TClassData = {
@@ -48,4 +49,5 @@ export type TMapperHttpToTable = {
   idClass: number;
   name: string;
   description: string;
+  checkin?: boolean;
 };

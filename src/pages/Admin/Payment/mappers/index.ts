@@ -38,3 +38,5 @@ export const mapperHttpToForm = (data: TPaymentHttp): TPaymentData => {
     },
   };
 };
+
+export default { mapperHttpToTable, mapperHttpToForm };

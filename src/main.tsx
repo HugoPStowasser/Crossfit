@@ -14,13 +14,13 @@ dayjs.locale("pt-br");
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <ChakraProvider resetCSS>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <CurrentUserProvider>
+      <CurrentUserProvider>
+        <BrowserRouter>
+          <QueryClientProvider client={queryClient}>
             <Router />
-          </CurrentUserProvider>
-        </QueryClientProvider>
-      </BrowserRouter>
+          </QueryClientProvider>
+        </BrowserRouter>
+      </CurrentUserProvider>
     </ChakraProvider>
   </React.StrictMode>
 );

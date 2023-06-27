@@ -8,6 +8,9 @@ type TCardClass = {
   professor: string;
   description: string;
   withCheckinButton?: boolean;
+  checkin?: boolean;
+  checkinFn?: () => Promise<boolean>;
+  checkoutFn?: () => Promise<boolean>;
 };
 export const CardClass = ({
   title,
@@ -15,14 +18,27 @@ export const CardClass = ({
   description,
   professor,
   withCheckinButton = true,
+  checkin = false,
+  checkinFn = async () => true,
+  checkoutFn = async () => true,
 }: TCardClass) => {
-  const [toggleConfirm, setToggleConfirm] = useState(false);
+  const [toggleConfirm, setToggleConfirm] = useState(checkin);
 
   const handleClickCheckin = () => {
     setToggleConfirm(true);
+    checkinFn().then((res) => {
+      if (!res) {
+        setToggleConfirm(false);
+      }
+    });
   };
   const handleClickCheckout = () => {
     setToggleConfirm(false);
+    checkoutFn().then((res) => {
+      if (!res) {
+        setToggleConfirm(true);
+      }
+    });
   };
   return (
     <Box

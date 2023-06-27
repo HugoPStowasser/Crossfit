@@ -35,3 +35,5 @@ export const mapperHttpToForm = (data: TClassHttp): TClassData => {
     date: dateClass,
   };
 };
+
+export default { mapperHttpToForm, mapperHttpToTable };
