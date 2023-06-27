@@ -37,3 +37,15 @@ export type TClassFormValues = {
   description: string;
   professor: string;
 };
+
+export type TMapperHttpToTable = {
+  index: number;
+  professor: string;
+  status: string;
+  date: string;
+  startHour: string;
+  endHour: string;
+  idClass: number;
+  name: string;
+  description: string;
+};

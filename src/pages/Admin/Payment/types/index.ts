@@ -37,6 +37,9 @@ export type TPaymentData = {
   dueDate: string;
   status: string;
   studentName: string;
+  paymentType: {
+    name: string;
+  };
 };
 
 export type TPaymentFormValues = {

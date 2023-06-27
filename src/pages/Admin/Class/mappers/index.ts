@@ -1,7 +1,7 @@
 import { format, formatISO, parseISO } from "date-fns";
-import { TClassData, TClassHttp } from "../types";
+import { TClassData, TClassHttp, TMapperHttpToTable } from "../types";
 
-export const mapperHttpToTable = (data: TClassHttp[]) => {
+export const mapperHttpToTable = (data: TClassHttp[]): TMapperHttpToTable[] => {
   return data.map((exercise, index) => {
     const startHourFormatted = format(
       new Date(`2000-01-01T${exercise.startHour}`),

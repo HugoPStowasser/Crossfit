@@ -20,10 +20,15 @@ export const SelectBase = ({
     register,
     formState: { errors },
   } = useFormContext();
+
   return (
     <>
-      <Select {...register(inputName)} mt="1.5rem" {...props}>
-        <option value="">Selecione</option>
+      <Select
+        {...register(inputName)}
+        placeholder="Selecione"
+        mt="1.5rem"
+        {...props}
+      >
         {options.map(({ value, label, selected }) => (
           <option key={value} value={value} selected={selected}>
             {label}

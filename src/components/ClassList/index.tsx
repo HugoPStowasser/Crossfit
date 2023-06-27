@@ -1,11 +1,11 @@
 import { Box, Button, Text } from "@chakra-ui/react";
 import { TbChevronDown } from "react-icons/tb";
-import { CardExercise } from "../CardExercise";
+import { CardClass } from "../CardClass";
 
 export const ClassList = () => {
   return (
     <>
-      <CardExercise
+      <CardClass
         title="Aeróbico"
         description="Pequena descrição da aula de aeróbico que ocorrerá hoje. Pequena
         descrição da aula de aeróbico que ocorrerá hoje."

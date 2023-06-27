@@ -2,18 +2,20 @@ import { Box, Button, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { TbCalendarTime, TbCheck, TbSchool } from "react-icons/tb";
 
-type TCardExercise = {
+type TCardClass = {
   title: string;
   datetime: string;
   professor: string;
   description: string;
+  withCheckinButton?: boolean;
 };
-export const CardExercise = ({
+export const CardClass = ({
   title,
   datetime,
   description,
   professor,
-}: TCardExercise) => {
+  withCheckinButton = true,
+}: TCardClass) => {
   const [toggleConfirm, setToggleConfirm] = useState(false);
 
   const handleClickCheckin = () => {
@@ -59,35 +61,39 @@ export const CardExercise = ({
           {description}
         </Text>
       </Box>
-      {toggleConfirm ? (
-        <Button
-          onClick={handleClickCheckout}
-          w="100%"
-          bg="green.400"
-          gap={"10px"}
-          borderTopRadius={0}
-          borderBottomRadius={4}
-        >
-          <Text fontWeight="semibold" color="white">
-            Presença Confirmada
-          </Text>
-          <TbCheck color="#FFF" size={24} />
-        </Button>
-      ) : (
-        <Button
-          onClick={handleClickCheckin}
-          w="100%"
-          _hover={{ backgroundColor: "yellow.500" }}
-          bg="yellow.400"
-          gap={"10px"}
-          borderTopRadius={0}
-          borderBottomRadius={4}
-        >
-          <Text fontWeight="semibold" color="black">
-            Confirmar Presença
-          </Text>
-          <TbCheck color="#000" size={24} />
-        </Button>
+      {withCheckinButton && (
+        <>
+          {toggleConfirm ? (
+            <Button
+              onClick={handleClickCheckout}
+              w="100%"
+              bg="green.400"
+              gap={"10px"}
+              borderTopRadius={0}
+              borderBottomRadius={4}
+            >
+              <Text fontWeight="semibold" color="white">
+                Presença Confirmada
+              </Text>
+              <TbCheck color="#FFF" size={24} />
+            </Button>
+          ) : (
+            <Button
+              onClick={handleClickCheckin}
+              w="100%"
+              _hover={{ backgroundColor: "yellow.500" }}
+              bg="yellow.400"
+              gap={"10px"}
+              borderTopRadius={0}
+              borderBottomRadius={4}
+            >
+              <Text fontWeight="semibold" color="black">
+                Confirmar Presença
+              </Text>
+              <TbCheck color="#000" size={24} />
+            </Button>
+          )}
+        </>
       )}
     </Box>
   );
