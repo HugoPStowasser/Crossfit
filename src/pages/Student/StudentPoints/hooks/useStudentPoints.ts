@@ -32,4 +32,8 @@ export const useStudentPoints = () => {
         }
         return [];
       };
+
+      return {
+        getAllExercises,
+      };
 }
