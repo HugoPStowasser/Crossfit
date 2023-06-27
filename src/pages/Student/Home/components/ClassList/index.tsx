@@ -6,6 +6,8 @@ import { TbChevronDown, TbChevronUp } from "react-icons/tb";
 import { useEffect, useRef, useState } from "react";
 import { useStudent } from "../../../../../hooks/useStudent";
 import { Loading, TLoadingRef } from "../../../../../components/Loading";
+import { useCurrentUser } from "../../../../../hooks/useCurrentUser";
+import { useCustomToast } from "../../../../../hooks/useCustomToast";
 type TClassList = {
   classesData: TMapperHttpToTable[];
 };
@@ -13,6 +15,9 @@ export const ClassList = ({ classesData }: TClassList) => {
   const loadingRef = useRef<TLoadingRef>(null);
   const { checkin, checkout, isLoading } = useStudent();
   const [allData, setAllData] = useState(classesData.slice(0, 1));
+  const { block } = useCurrentUser();
+  const { alertToast } = useCustomToast();
+
   if (classesData.length === 0) return <></>;
 
   const handleSeeMore = () => {
@@ -24,6 +29,12 @@ export const ClassList = ({ classesData }: TClassList) => {
   };
 
   const handleCheckin = async (idClass: number) => {
+    if (block.isBlocked) {
+      alertToast({
+        title: block.blockDescription,
+      });
+      return false;
+    }
     return checkin(idClass);
   };
   const handleCheckout = async (idClass: number) => {

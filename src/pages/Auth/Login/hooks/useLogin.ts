@@ -10,11 +10,14 @@ import { useCurrentUser } from "../../../../hooks/useCurrentUser";
 import { AuthService } from "../../../../services/http/Auth";
 
 import { redirectUserAuthenticatedHandler } from "../../../../functions";
+import { useUserRequest } from "../../../Admin/User/hooks/useUserRequest";
+import { EProfile } from "../../../../@types/profile";
 
 export const useLogin = () => {
   const navigate = useNavigate();
+  const apiUser = useUserRequest();
   const [isLoading, setIsLoading] = useState(false);
-  const { setCurrentUser } = useCurrentUser();
+  const { setCurrentUser, setBlock } = useCurrentUser();
   const [isLargerThan720] = useMediaQuery("(min-width: 720px)");
   const toast = useToast();
 
@@ -59,6 +62,15 @@ export const useLogin = () => {
       setCurrentUser(UserApiToHttp(user));
       localStorage.setItem(`@Token`, data.token);
       localStorage.setItem(`@User`, JSON.stringify(user));
+
+      if (user?.idUser && user.profile.normalizedName == EProfile.student) {
+        apiUser.getStudentById(user?.idUser).then(({ data }) => {
+          setBlock({
+            blockDescription: data.blockDescription,
+            isBlocked: data.isBlocked,
+          });
+        });
+      }
 
       const path = redirectUserAuthenticatedHandler({
         normalizedName: user.profile.normalizedName,

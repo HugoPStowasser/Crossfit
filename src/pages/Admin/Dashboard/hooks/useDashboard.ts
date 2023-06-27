@@ -15,7 +15,7 @@ export const useDashboard = () => {
   const apiClass = useClassRequest();
   const apiDasbhoard = useDashboardRequest();
 
-  const { errorToast } = useCustomToast();
+  const { errorToast, successToast } = useCustomToast();
 
   const getAllClasses = async () => {
     try {
@@ -59,7 +59,7 @@ export const useDashboard = () => {
   const getAllPayments = async () => {
     try {
       const { data }: { data: TPaymentHttp[] } = await apiPayment.getAll();
-      return paymentMappers.mapperHttpToTable(data.slice(0, 10));
+      return paymentMappers.mapperHttpToTable(data.slice(0, 3));
     } catch (error) {
       errorToast({
         title: `Não foi possível encontrar os pagamentos!`,
@@ -72,11 +72,14 @@ export const useDashboard = () => {
     queryKey: ["payment"],
     queryFn: getAllPayments,
   });
-  const { data: allStudentsNonPaying, isLoading: studentsNonPayingIsLoading } =
-    useQuery({
-      queryKey: ["students-non-paying"],
-      queryFn: getAllStudentNonPaying,
-    });
+  const {
+    data: allStudentsNonPaying,
+    isLoading: studentsNonPayingIsLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["students-non-paying"],
+    queryFn: getAllStudentNonPaying,
+  });
 
   const { data: allClasses, isLoading: classesIsLoading } = useQuery<
     any,
@@ -87,6 +90,23 @@ export const useDashboard = () => {
     queryFn: getAllClasses,
   });
 
+  const unblock = async (idStudent: number) => {
+    let result = true;
+    try {
+      await apiDasbhoard.unblockStudent(idStudent);
+      refetch();
+      successToast({
+        title: "Usuário desbloqueado com sucesso!",
+      });
+    } catch (error) {
+      result = false;
+      errorToast({
+        title: `Não foi possível desbloquear este usuário!`,
+      });
+    }
+    return result;
+  };
+
   return {
     paymentIsLoading,
     classesIsLoading,
@@ -94,5 +114,6 @@ export const useDashboard = () => {
     allPayments,
     allClasses,
     allStudentsNonPaying,
+    unblock,
   };
 };
