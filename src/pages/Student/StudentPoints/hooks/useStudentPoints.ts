@@ -11,29 +11,10 @@ import { TLoadingRef } from "../../../../components/Loading";
 
 export const useStudentPoints = () => {
     const loadingRef = useRef<TLoadingRef>(null);
-    const [exercise, setExercise] = useState<TExerciseData>({} as TExerciseData);
-    const { idExercise } = useParams();
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { errorToast, successToast } = useCustomToast();
     const apiStudentPoints = useStudentPointsRequest();
 
-    const getAllExercises = async () => {
-        try {
-          setIsLoading(true);
-          const { data }: { data: TExerciseHttp[] } = await apiStudentPoints.getAllExercises();
-          return mapperHttpToTable(data);
-        } catch (error) {
-          errorToast({
-            title: `Não foi possível encontrar os exercícios!`,
-          });
-        } finally {
-          setIsLoading(false);
-        }
-        return [];
-      };
-
-      return {
-        getAllExercises,
-      };
+    
 }

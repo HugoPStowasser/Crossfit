@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -15,14 +15,38 @@ import {
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { TitleWithBackButton } from "../../../components/TitleWithBackButton";
 import { useNavigate } from "react-router-dom";
+import { TExerciseData, TExerciseHttp } from "../../Admin/Exercise/types";
+import { useExercise } from "../../Admin/Exercise/hooks/useExercise";
+import { useStudentPoints } from "./hooks/useStudentPoints";
 
 export const StudentPoints = () => {
-  const [exercise, setExercise] = useState<string>("");
+  const [exercise, setExercise] = useState<TExerciseData[]>([]);
+  const [selectedExercise, setSelectedExercise] = useState<number | undefined>(undefined);
   const [score, setScore] = useState<number>(0);
   const navigate = useNavigate();
+  const apiExercise = useExercise();
+  const apiStudentPoints = useStudentPoints();
 
-  const handleExerciseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setExercise(e.target.value);
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const responseData: TExerciseHttp[] = await apiExercise.getAllExercises();
+      const transformedData: TExerciseData[] = responseData.map((item) => ({
+        idExercise: item.idExercise,
+        description: item.description,
+      }));
+      setExercise(transformedData);
+    } catch (error) {
+      console.error('Erro ao buscar dados do backend:', error);
+    }
+  };
+
+  const handleExerciseChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedIdExercise = parseInt(event.target.value);
+    setSelectedExercise(selectedIdExercise);
   };
 
   const handleScoreChange = (valueString: string, valueNumber: number) => {
@@ -44,7 +68,6 @@ export const StudentPoints = () => {
   };
 
   const handleSaveAndContinue = () => {
-    setExercise("");
     setScore(0);
     console.log("Save and continue clicked");
   };
@@ -69,13 +92,15 @@ export const StudentPoints = () => {
         <Box mt="100px">
           <FormControl mb={4} pt={20}>
             <FormLabel>Exercício</FormLabel>
-            <Select value={exercise} onChange={handleExerciseChange}>
-              <option value="exercicio1">Exercício 1</option>
-              <option value="exercicio2">Exercício 2</option>
-              <option value="exercicio3">Exercício 3</option>
-            </Select>
+              <Select value={selectedExercise || ''} onChange={handleExerciseChange}>
+                {exercise.map((exercise) => (
+                  <option key={exercise.idExercise} value={exercise.idExercise}>
+                    {exercise.description}
+                  </option>
+                ))}
+              </Select>
           </FormControl>
-  
+
           <FormControl mb={4}>
             <FormLabel>Pontuação</FormLabel>
             <Flex align="center">

@@ -6,10 +6,6 @@ export const useStudentPointsRequest = () => {
     return api.get("/class");
   };
 
-  const getAllExercises = () => {
-    return api.get("/exercises");
-  };
-
   const getById = (idStudent: number, idExercise: number) => {
     return api.get(`/class/${idStudent}/${idExercise}`);
   };
@@ -28,7 +24,6 @@ export const useStudentPointsRequest = () => {
 
   return {
     getAll,
-    getAllExercises,
     getById,
     insert,
     deleteById,
