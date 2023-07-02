@@ -17,7 +17,8 @@ import { TitleWithBackButton } from "../../../components/TitleWithBackButton";
 import { useNavigate } from "react-router-dom";
 import { TExerciseData, TExerciseHttp } from "../../Admin/Exercise/types";
 import { useExercise } from "../../Admin/Exercise/hooks/useExercise";
-import { useStudentPoints } from "./hooks/useStudentPoints";
+import { useStudentPointsRequest } from "./hooks/useStudentPointsRequest";
+import { TStudentPointsData } from "./types";
 
 export const StudentPoints = () => {
   const [exercise, setExercise] = useState<TExerciseData[]>([]);
@@ -25,7 +26,7 @@ export const StudentPoints = () => {
   const [score, setScore] = useState<number>(0);
   const navigate = useNavigate();
   const apiExercise = useExercise();
-  const apiStudentPoints = useStudentPoints();
+  const apiStudentPoints = useStudentPointsRequest();
 
   useEffect(() => {
     fetchData();
@@ -67,15 +68,32 @@ export const StudentPoints = () => {
     }
   };
 
-  const handleSaveAndContinue = () => {
-    setScore(0);
-    console.log("Save and continue clicked");
+  const handleSaveAndContinue = async () => {
+    try {
+      const studentPointsData: TStudentPointsData = {
+        IdStudent: 1,
+        IdExercise: selectedExercise || 0,
+        Points: score,
+      };
+      await apiStudentPoints.insert(studentPointsData);
+      setScore(0);
+    } catch (error) {
+      console.error("Erro ao salvar pontos do estudante:", error);
+    }
   };
 
-  const handleSaveAndExit = () => {
-    // Lógica de salvar e sair
-    console.log("Save and exit clicked");
-    navigate(-1)
+  const handleSaveAndExit = async () => {
+    try {
+      const studentPointsData: TStudentPointsData = {
+        IdStudent: 1,
+        IdExercise: selectedExercise || 0,
+        Points: score,
+      };
+      await apiStudentPoints.insert(studentPointsData);
+      navigate(-1);
+    } catch (error) {
+      console.error("Erro ao salvar pontos do estudante:", error);
+    }
   };
 
   return (
