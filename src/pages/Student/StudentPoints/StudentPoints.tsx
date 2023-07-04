@@ -19,12 +19,14 @@ import { TExerciseData, TExerciseHttp } from "../../Admin/Exercise/types";
 import { useExercise } from "../../Admin/Exercise/hooks/useExercise";
 import { useStudentPointsRequest } from "./hooks/useStudentPointsRequest";
 import { TStudentPointsData } from "./types";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
 
 export const StudentPoints = () => {
   const [exercise, setExercise] = useState<TExerciseData[]>([]);
   const [selectedExercise, setSelectedExercise] = useState<number | undefined>(undefined);
   const [score, setScore] = useState<number>(0);
   const navigate = useNavigate();
+  const { currentUser } = useCurrentUser();
   const apiExercise = useExercise();
   const apiStudentPoints = useStudentPointsRequest();
 
@@ -71,7 +73,7 @@ export const StudentPoints = () => {
   const handleSaveAndContinue = async () => {
     try {
       const studentPointsData: TStudentPointsData = {
-        IdStudent: 1,
+        IdStudent: currentUser.idUser,
         IdExercise: selectedExercise || 0,
         Points: score,
       };
@@ -85,7 +87,7 @@ export const StudentPoints = () => {
   const handleSaveAndExit = async () => {
     try {
       const studentPointsData: TStudentPointsData = {
-        IdStudent: 1,
+        IdStudent: currentUser.idUser,
         IdExercise: selectedExercise || 0,
         Points: score,
       };
