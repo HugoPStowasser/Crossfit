@@ -19,8 +19,8 @@ Além disso, haverá acesso à uma plataforma exclusiva para administradores e e
 - Yup
 
 ## Requisitos do projeto?
-1. Node.JS
-2. Visual Studio Code
+- Node.JS
+- Visual Studio Code
 
 ## Como testar o projeto?
 
