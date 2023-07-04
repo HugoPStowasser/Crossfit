@@ -1,4 +1,4 @@
-import { Box, Button, Link, Spinner, Text } from "@chakra-ui/react";
+import { Box, Button, Link, Skeleton, SkeletonText, Text } from "@chakra-ui/react";
 import { CardClass } from "../../../../components/CardClass";
 import dayjs from "dayjs";
 import { TbList } from "react-icons/tb";
@@ -8,9 +8,6 @@ import { useNavigate } from "react-router-dom";
 export const NextClassesInfo = () => {
   const { allClasses, classesIsLoading } = useDashboard();
   const navigate = useNavigate();
-  if (classesIsLoading) {
-    return <Spinner />;
-  }
 
   return (
     <>
@@ -38,27 +35,33 @@ export const NextClassesInfo = () => {
           Criar Aula
         </Link>
       </Box>
-      <Box display="flex" flexDir={"column"} gap={2}>
-        {allClasses?.map((item) => (
-          <CardClass
-            key={item.idClass}
-            title={item.name}
-            description={item.description}
-            datetime={`${dayjs(item.date, "DD/MM/YYYY").format("D [de] MMMM")}
-               ${item.startHour} - ${item.endHour}`}
-            professor={item.professor}
-            withCheckinButton={false}
-          />
-        ))}
-      </Box>
-      <Button
-        mt="16px"
-        w="100%"
-        leftIcon={<TbList size={18} />}
-        onClick={() => navigate("/admin/class")}
-      >
-        Todas as Aulas
-      </Button>
+      {classesIsLoading ? (
+        <SkeletonText mt="6" noOfLines={4} spacing="4" />
+      ) : (
+        <>
+          <Box display="flex" flexDir={"column"} gap={2}>
+            {allClasses?.map((item) => (
+              <CardClass
+                key={item.idClass}
+                title={item.name}
+                description={item.description}
+                datetime={`${dayjs(item.date, "DD/MM/YYYY").format("D [de] MMMM")}
+                   ${item.startHour} - ${item.endHour}`}
+                professor={item.professor}
+                withCheckinButton={false}
+              />
+            ))}
+          </Box>
+          <Button
+            mt="16px"
+            w="100%"
+            leftIcon={<TbList size={18} />}
+            onClick={() => navigate("/admin/class")}
+          >
+            Todas as Aulas
+          </Button>
+        </>
+      )}
     </>
   );
 };
