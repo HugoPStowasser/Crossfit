@@ -9,10 +9,18 @@ import { useState } from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { TbLogout } from "react-icons/tb";
 import { logout } from "../../services/http/Api/axios";
+import { useNavigate } from "react-router-dom";
 
 export const MenuAvatar = () => {
   const { currentUser } = useCurrentUser();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleGoPage = (route: string) => {
+    navigate(
+      `/${currentUser.profile.normalizedName.toLocaleLowerCase()}/${route}`
+    );
+  };
 
   const handleClickLogout = () => {
     setIsLoading(true);
@@ -35,6 +43,7 @@ export const MenuAvatar = () => {
         variant={"ghost"}
         width={"100%"}
         justifyContent={"start"}
+        onClick={() => handleGoPage("profile")}
       >
         Perfil
       </Button>

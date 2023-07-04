@@ -1,22 +1,23 @@
-import { useState, useEffect, useRef } from "react";
-import { TStudentData, TStudentFormValues, TStudentHttp } from "../types";
-import { useNavigate, useParams } from "react-router-dom";
-import { useCustomToast } from "../../../../hooks/useCustomToast";
-import { useUserRequest } from "./useUserRequest";
-import { mapperStudentHttpToForm } from "../mappers";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  studentCreateFormSchema,
-  studentUpdateFormSchema,
-} from "../schemas/schema";
+import { useEffect, useRef, useState } from "react";
 import { TLoadingRef } from "../../../../components/Loading";
-import { useGenderRequest } from "../../../../hooks/useSelectsRequest";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import {
+  TStudentData,
+  TStudentHttp,
+  TStudentUpdateFormValues,
+} from "../../../Admin/User/types";
 import { TSelect } from "../../../../@types/select";
+import { useCustomToast } from "../../../../hooks/useCustomToast";
+import { useGenderRequest } from "../../../../hooks/useSelectsRequest";
+import { useUserRequest } from "../../../Admin/User/hooks/useUserRequest";
+import { mapperStudentHttpToForm } from "../../../Admin/User/mappers";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { studentUpdateFormSchema } from "../../../Admin/User/schemas/schema";
+import { useCurrentUser } from "../../../../hooks/useCurrentUser";
 
-export const useStudent = () => {
+export const useEditProfile = () => {
   const loadingRef = useRef<TLoadingRef>(null);
-  const { idStudent } = useParams();
   const [student, setStudent] = useState<TStudentData>({} as TStudentData);
   const [allGenders, setAllGenders] = useState<TSelect[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +25,7 @@ export const useStudent = () => {
   const { errorToast, successToast } = useCustomToast();
   const apiGender = useGenderRequest();
   const apiUser = useUserRequest();
+  const { currentUser } = useCurrentUser();
 
   const getAllGender = async () => {
     try {
@@ -63,40 +65,21 @@ export const useStudent = () => {
     return result;
   };
 
-  const formMethods = useForm<TStudentFormValues>({
-    resolver: idStudent
-      ? zodResolver(
-          studentUpdateFormSchema({
-            genderIds: allGenders.map((item) => item.value),
-          })
-        )
-      : zodResolver(
-          studentCreateFormSchema({
-            genderIds: allGenders.map((item) => item.value),
-          })
-        ),
+  const formMethods = useForm<TStudentUpdateFormValues>({
+    resolver: zodResolver(
+      studentUpdateFormSchema({
+        genderIds: allGenders.map((item) => item.value),
+      })
+    ),
     defaultValues: {
       name: "",
       socialName: "",
       email: "",
       password: "",
-      confirmPassword: "",
       birthDate: "",
     },
     shouldUnregister: false,
   });
-
-  useEffect(() => {
-    if (idStudent) {
-      getStudentById(Number(idStudent));
-    }
-  }, [idStudent]);
-
-  useEffect(() => {
-    if (student.idGender) {
-      getAllGender();
-    }
-  }, [student.idGender]);
 
   const onSubmitHandler = async () => {
     try {
@@ -107,22 +90,14 @@ export const useStudent = () => {
         ...values,
         idGender: Number(values.gender),
       };
-      if (student.idStudent) {
-        await apiUser.updateStudent({
-          ...data,
-          socialName: data.socialName || "",
-          idStudent: student.idStudent,
-        });
-        successToast({
-          title: `Estudante editado com sucesso!`,
-        });
-      } else {
-        await apiUser.insertStudent(data);
-        successToast({
-          title: `Estudante cadastrado com sucesso!`,
-        });
-      }
-      navigate("/admin/user");
+      await apiUser.updateStudent({
+        ...data,
+        socialName: data.socialName || "",
+        idStudent: student.idStudent,
+      });
+      successToast({
+        title: `Suas alterações foram salvas com sucesso!`,
+      });
     } catch (err) {
       errorToast({
         title: `Não foi possível estabelecer conexão com o servidor`,
@@ -132,6 +107,18 @@ export const useStudent = () => {
     }
   };
 
+  useEffect(() => {
+    if (currentUser.idUser) {
+      getStudentById(Number(currentUser.idUser));
+    }
+  }, [currentUser.idUser]);
+
+  useEffect(() => {
+    if (student.idGender) {
+      getAllGender();
+    }
+  }, [student.idGender]);
+
   return {
     onSubmit: formMethods.handleSubmit(onSubmitHandler),
     formMethods,
@@ -139,6 +126,6 @@ export const useStudent = () => {
     isLoading,
     loadingRef,
     allGenders,
-    getAllGender: idStudent ? () => Promise<void> : getAllGender,
+    getAllGender: currentUser.idUser ? () => Promise<void> : getAllGender,
   };
 };

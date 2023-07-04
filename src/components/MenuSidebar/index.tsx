@@ -149,6 +149,7 @@ export const MenuSidebar = () => {
                   icon={TbUser}
                   title="Perfil"
                   active={pathname.includes("student/profile")}
+                  onClick={() => handleGoPage("profile")}
                 />
               </>
             )}

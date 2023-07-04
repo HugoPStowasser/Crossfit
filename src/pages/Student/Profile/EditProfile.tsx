@@ -1,32 +1,31 @@
-import { useEffect, useState } from "react";
 import { Box, Button, Text } from "@chakra-ui/react";
-import { TitleWithBackButton } from "../../../../components/TitleWithBackButton";
-import { useStudent } from "../hooks/useStudent";
+import { Loading } from "../../../components/Loading";
+import { TitleWithBackButton } from "../../../components/TitleWithBackButton";
 import { FormProvider } from "react-hook-form";
+import { InputBase } from "../../../components/InputBase";
+import { SelectBase } from "../../../components/SelectBase";
+import { PasswordInputs } from "../../../components/PasswordInputs";
+import { useEffect, useState } from "react";
 import { TbLockOpen, TbX } from "react-icons/tb";
-import { InputBase } from "../../../../components/InputBase";
-import { Loading } from "../../../../components/Loading";
+import { useEditProfile } from "./hooks/useEditProfile";
 import { formatISO, parseISO } from "date-fns";
-import { SelectBase } from "../../../../components/SelectBase";
-import { PasswordInputs } from "../../../../components/PasswordInputs";
 
-export const CreateStudent = () => {
+export const EditProfile = () => {
   const [changePassword, setChangePassword] = useState(false);
   const {
+    loadingRef,
+    formMethods,
     onSubmit,
     isLoading,
-    student,
-    formMethods,
-    loadingRef,
-    allGenders,
     getAllGender,
-  } = useStudent();
+    allGenders,
+    student,
+  } = useEditProfile();
 
   const {
     setValue,
     formState: { errors },
   } = formMethods;
-
   useEffect(() => {
     if (student.idStudent) {
       setValue("name", student.name);
@@ -40,17 +39,10 @@ export const CreateStudent = () => {
     }
   }, [student]);
 
-  useEffect(() => {
-    if (!changePassword) {
-      setValue("password", "");
-      setValue("confirmPassword", "");
-    }
-  }, [changePassword]);
-
   return (
     <Box p="15px">
       <Loading ref={loadingRef} />
-      <TitleWithBackButton title="Cadastrar Estudante" />
+      <TitleWithBackButton title="Editar Perfil" />
       <Box
         display={"flex"}
         justifyContent={"center"}
@@ -119,7 +111,7 @@ export const CreateStudent = () => {
                   type="submit"
                   isLoading={isLoading}
                 >
-                  {student.idStudent ? "Salvar" : "Cadastrar"}
+                  Salvar
                 </Button>
               </form>
             </FormProvider>
