@@ -1,8 +1,9 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Icon, Text } from "@chakra-ui/react";
 import { TitleWithBackButton } from "../../../components/TitleWithBackButton";
 import { usePayments } from "./hooks/usePayments";
 import { Loading } from "../../../components/Loading";
 import { TPaymentHttpToList } from "./types";
+import { statusName } from "./utils";
 
 export const Payments = () => {
   const { loadingRef, allPayments } = usePayments();
@@ -25,11 +26,7 @@ export const Payments = () => {
             <Box
               borderRadius={4}
               w="100%"
-              backgroundColor={
-                item.normalizedStatus === "PAYMENT_DONE"
-                  ? "gray.300"
-                  : "yellow.300"
-              }
+              backgroundColor={"yellow.300"}
               padding={"15px"}
             >
               <Box display={"flex"} flexDir={"column"} gap={3}>
@@ -60,20 +57,19 @@ export const Payments = () => {
                 </Text>
                 <Text
                   fontSize={"12px"}
-                  backgroundColor={
-                    item.normalizedStatus === "PAYMENT_DONE"
-                      ? "gray.500"
-                      : "yellow.500"
-                  }
-                  color={
-                    item.normalizedStatus === "PAYMENT_DONE"
-                      ? "gray.100"
-                      : "yellow.100"
-                  }
+                  backgroundColor={"#7B702F"}
+                  color={"gray.100"}
                   p="5px 10px"
-                  borderRadius={12}
+                  borderRadius={64}
+                  display={"flex"}
+                  alignItems={"center"}
+                  gap={1}
                 >
-                  {item.status}
+                  <Icon
+                    as={statusName(item.normalizedStatus).icon}
+                    style={{ fontSize: "16px" }}
+                  />
+                  {statusName(item.normalizedStatus).status}
                 </Text>
               </Box>
             </Box>

@@ -31,7 +31,7 @@ export const usePayments = () => {
         (a: TPaymentHttp, b: TPaymentHttp) =>
           new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()
       );
-      return data.map((item: TPaymentHttp) => {
+      return dataSortted.map((item: TPaymentHttp) => {
         return {
           datePayment: item.datePayment
             ? dayjs(item.datePayment).locale("pt-br").format("DD/MM/YYYY")
@@ -45,7 +45,9 @@ export const usePayments = () => {
           }),
           paymentType: item.paymentType?.name,
           status: item.status.name,
-          normalizedStatus: item.status.normalizedName,
+          normalizedStatus: dayjs(item.dueDate).isBefore(new Date())
+            ? "OVERDUE"
+            : item.status.normalizedName,
         };
       });
     } catch (error) {
