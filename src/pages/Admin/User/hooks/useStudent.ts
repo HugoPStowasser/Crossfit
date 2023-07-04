@@ -48,7 +48,9 @@ export const useStudent = () => {
     let result = {};
     try {
       loadingRef.current?.onOpenLoading();
-      const { data }: { data: TStudentHttp } = await apiUser.getStudentById(id);
+      const { data }: { data: TStudentHttp } = await apiUser.getStudentByUserId(
+        id
+      );
       setStudent(mapperStudentHttpToForm(data));
       result = mapperStudentHttpToForm(data);
     } catch (error) {

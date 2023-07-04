@@ -25,15 +25,15 @@ export const useUserRequest = () => {
     return api.post("/student", data);
   };
 
-  const getProfessorById = (id: number) => {
+  const getProfessorByUserId = (id: number) => {
     return api.get(`/user/professor/${id}`);
   };
 
-  const getAdminById = (id: number) => {
+  const getAdminByUserId = (id: number) => {
     return api.get(`/user/admin/${id}`);
   };
 
-  const getStudentById = (id: number) => {
+  const getStudentByUserId = (id: number) => {
     return api.get(`/user/student/${id}`);
   };
 
@@ -59,9 +59,9 @@ export const useUserRequest = () => {
 
   return {
     getAll,
-    getAdminById,
-    getProfessorById,
-    getStudentById,
+    getAdminByUserId,
+    getProfessorByUserId,
+    getStudentByUserId,
     insertProfessor,
     insertAdmin,
     insertStudent,

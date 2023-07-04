@@ -30,7 +30,7 @@ export const useStudent = () => {
     try {
       setIsloading(true);
       const { data }: { data: { idStudent: number } } =
-        await apiUser.getStudentById(currentUser.idUser);
+        await apiUser.getStudentByUserId(currentUser.idUser);
       await apiStudent.checkinClass(data.idStudent, idClass);
       successToast({
         title: "Check-in realizado com sucesso, não se atrase!",
@@ -51,7 +51,7 @@ export const useStudent = () => {
     try {
       setIsloading(true);
       const { data }: { data: { idStudent: number } } =
-        await apiUser.getStudentById(currentUser.idUser);
+        await apiUser.getStudentByUserId(currentUser.idUser);
       await apiStudent.checkoutClass(data.idStudent, idClass);
       successToast({
         title: "Checkout realizado!",

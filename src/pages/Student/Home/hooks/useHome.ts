@@ -20,7 +20,7 @@ export const useHome = () => {
     if (idUser) {
       try {
         const { data: studentData }: { data: { idStudent: number } } =
-          await apiUser.getStudentById(idUser);
+          await apiUser.getStudentByUserId(idUser);
         const { data }: { data: TClassHttp[] } = await apiClass.getAll(
           studentData.idStudent
         );

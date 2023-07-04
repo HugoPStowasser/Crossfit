@@ -43,7 +43,7 @@ export const CurrentUserProvider = ({
       userInfo.profile.normalizedName == EProfile.student
     ) {
       apiUser
-        .getStudentById(userInfo?.idUser)
+        .getStudentByUserId(userInfo?.idUser)
         .then(({ data }: { data: TBlock }) => {
           setBlock({
             blockDescription: data.blockDescription,

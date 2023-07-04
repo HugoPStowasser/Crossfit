@@ -48,7 +48,10 @@ export const Router = () => {
         <Route path="payment" element={<Payment />} />
         <Route path="payment/create/:idPayment" element={<CreatePayment />} />
         <Route path="paymentType" element={<PaymentType />} />
-        <Route path="paymentType/create/:idPaymentType?" element={<CreatePaymentType />} />
+        <Route
+          path="paymentType/create/:idPaymentType?"
+          element={<CreatePaymentType />}
+        />
         <Route
           path="exercise/create/:idExercise?"
           element={<CreateExercise />}

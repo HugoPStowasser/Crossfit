@@ -21,12 +21,11 @@ export const useProfessor = () => {
 
   const apiUser = useUserRequest();
 
-  const getProfessorById = async (id: number) => {
+  const getProfessorByUserId = async (id: number) => {
     try {
       loadingRef.current?.onOpenLoading();
-      const { data }: { data: TProfessorHttp } = await apiUser.getProfessorById(
-        id
-      );
+      const { data }: { data: TProfessorHttp } =
+        await apiUser.getProfessorByUserId(id);
       setProfessor(mapperProfessorHttpToForm(data));
       return mapperProfessorHttpToForm(data);
     } catch (error) {
@@ -50,7 +49,7 @@ export const useProfessor = () => {
 
   useEffect(() => {
     if (idProfessor) {
-      getProfessorById(Number(idProfessor));
+      getProfessorByUserId(Number(idProfessor));
     }
   }, [idProfessor]);
 

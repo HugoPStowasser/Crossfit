@@ -155,7 +155,7 @@ export const useClass = () => {
           title: `Aula editado com sucesso!`,
         });
       } else {
-        const { data: dataAdmin } = await apiUser.getAdminById(
+        const { data: dataAdmin } = await apiUser.getAdminByUserId(
           currentUser.idUser
         );
         await apiClass.insert(data, dataAdmin.idAdmin);

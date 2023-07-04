@@ -64,7 +64,7 @@ export const useLogin = () => {
       localStorage.setItem(`@User`, JSON.stringify(user));
 
       if (user?.idUser && user.profile.normalizedName == EProfile.student) {
-        apiUser.getStudentById(user?.idUser).then(({ data }) => {
+        apiUser.getStudentByUserId(user?.idUser).then(({ data }) => {
           setBlock({
             blockDescription: data.blockDescription,
             isBlocked: data.isBlocked,
