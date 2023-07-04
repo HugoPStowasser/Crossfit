@@ -13,7 +13,7 @@ export const ButtonExercise = ({ ...props }: ButtonProps) => {
       boxShadow={"xl"}
       bg="yellow.400"
       _hover={{ backgroundColor: "yellow.500" }}
-      position={"absolute"}
+      position={"fixed"}
       right={"5%"}
       bottom={"10%"}
       width={"64px"}

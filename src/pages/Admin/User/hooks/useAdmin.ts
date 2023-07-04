@@ -22,10 +22,10 @@ export const useAdmin = () => {
 
   const apiUser = useUserRequest();
 
-  const getAdminById = async (id: number) => {
+  const getAdminByUserId = async (id: number) => {
     try {
       loadingRef.current?.onOpenLoading();
-      const { data }: { data: TAdminHttp } = await apiUser.getAdminById(id);
+      const { data }: { data: TAdminHttp } = await apiUser.getAdminByUserId(id);
       setAdmin(mapperAdminHttpToForm(data));
       return mapperAdminHttpToForm(data);
     } catch (error) {
@@ -54,7 +54,7 @@ export const useAdmin = () => {
 
   useEffect(() => {
     if (idAdmin) {
-      getAdminById(Number(idAdmin));
+      getAdminByUserId(Number(idAdmin));
     }
   }, [idAdmin]);
 

@@ -78,12 +78,12 @@ const columns = ({ deleteFn }: TColumns): ColumnsType<TData> => {
   ];
 };
 export const ClassTable = () => {
-  const { isLoading, deleteById, allClasss } = useClass();
+  const { isLoading, deleteById, allClasses } = useClass();
   return (
     <Box m="20px" mt="100px">
       <Table
         loading={isLoading}
-        dataSource={allClasss}
+        dataSource={allClasses}
         columns={columns({ deleteFn: deleteById })}
         rowKey={(data) => data.idClass}
       />

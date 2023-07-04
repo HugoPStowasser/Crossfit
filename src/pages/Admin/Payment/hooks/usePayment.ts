@@ -102,10 +102,16 @@ export const usePayment = () => {
   }, [idPayment]);
 
   useEffect(() => {
-    if (payment.idPaymentType) {
-      getAllPaymentTypes();
+    if (payment.paymentType?.name) {
+      setAllPaymentTypes([
+        {
+          value: payment.idPaymentType,
+          label: payment.paymentType.name,
+          selected: true,
+        },
+      ]);
     }
-  }, [payment.idPaymentType]);
+  }, [payment.idPayment]);
 
   const onSubmitHandler = async () => {
     try {
@@ -141,6 +147,6 @@ export const usePayment = () => {
     loadingRef,
     formMethods,
     allPaymentTypes,
-    getAllPaymentTypes: idPayment ? () => Promise<void> : getAllPaymentTypes,
+    getAllPaymentTypes,
   };
 };

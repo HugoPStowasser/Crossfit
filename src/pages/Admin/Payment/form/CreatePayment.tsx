@@ -62,6 +62,7 @@ export const CreatePayment = () => {
               <form onSubmit={onSubmit}>
                 <InputBase inputName="invoice" display={"none"} />
                 <MonetaryInput<TPaymentFormValues>
+                  valueCanBeZero
                   name="invoice"
                   placeholder={"Valor"}
                   err={errors.invoice?.message}

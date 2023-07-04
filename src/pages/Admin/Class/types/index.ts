@@ -16,6 +16,7 @@ export type TClassHttp = {
     idStatus: number;
     name: string;
   };
+  checkin?: boolean;
 };
 
 export type TClassData = {
@@ -36,4 +37,17 @@ export type TClassFormValues = {
   endHour: string;
   description: string;
   professor: string;
+};
+
+export type TMapperHttpToTable = {
+  index: number;
+  professor: string;
+  status: string;
+  date: string;
+  startHour: string;
+  endHour: string;
+  idClass: number;
+  name: string;
+  description: string;
+  checkin?: boolean;
 };

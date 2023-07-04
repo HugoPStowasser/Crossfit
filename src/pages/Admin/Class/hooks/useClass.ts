@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { TClassData, TClassHttp, TClassFormValues } from "../types";
+import {
+  TClassData,
+  TClassHttp,
+  TClassFormValues,
+  TMapperHttpToTable,
+} from "../types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";
@@ -78,7 +83,7 @@ export const useClass = () => {
     return {};
   };
 
-  const getAllClasss = async () => {
+  const getAllClasses = async () => {
     try {
       setIsLoading(true);
       const { data }: { data: TClassHttp[] } = await apiClass.getAll();
@@ -93,9 +98,13 @@ export const useClass = () => {
     return [];
   };
 
-  const { refetch, data: allClasss } = useQuery({
+  const { refetch, data: allClasses } = useQuery<
+    any,
+    any,
+    TMapperHttpToTable[]
+  >({
     queryKey: ["class"],
-    queryFn: getAllClasss,
+    queryFn: getAllClasses,
   });
 
   const deleteById = async (id: number) => {
@@ -146,7 +155,7 @@ export const useClass = () => {
           title: `Aula editado com sucesso!`,
         });
       } else {
-        const { data: dataAdmin } = await apiUser.getAdminById(
+        const { data: dataAdmin } = await apiUser.getAdminByUserId(
           currentUser.idUser
         );
         await apiClass.insert(data, dataAdmin.idAdmin);
@@ -166,8 +175,8 @@ export const useClass = () => {
 
   return {
     onSubmit: formMethods.handleSubmit(onSubmitHandler),
-    allClasss,
-    getAllClasss,
+    allClasses,
+    getAllClasses,
     classData,
     deleteById,
     isLoading,

@@ -28,10 +28,15 @@ export const mapperHttpToForm = (data: TPaymentHttp): TPaymentData => {
   return {
     idPayment: data.idPayment,
     datePayment: data.datePayment || datePayment,
-    idPaymentType: data.idPaymentType || 0,
+    idPaymentType: data.paymentType?.idPaymentType || data.idPaymentType || 0,
     invoice: data.invoice || 0,
     dueDate: data.dueDate,
     status: data.status.name,
     studentName: data.student.user.socialName || data.student.user.name,
+    paymentType: {
+      name: data.paymentType?.name || "",
+    },
   };
 };
+
+export default { mapperHttpToTable, mapperHttpToForm };

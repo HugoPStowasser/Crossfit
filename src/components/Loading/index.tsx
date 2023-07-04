@@ -3,7 +3,6 @@ import {
   Modal,
   ModalContent,
   ModalOverlay,
-  Spinner,
   Text,
 } from "@chakra-ui/react";
 import { forwardRef, Ref, useImperativeHandle, useState, memo } from "react";
@@ -15,7 +14,7 @@ export type TLoadingRef = {
   onOpenLoading: () => void;
 };
 
-const LoadingComponent = forwardRef(
+export const Loading = forwardRef(
   (
     { startLoading = false }: { startLoading?: boolean },
     ref: Ref<TLoadingRef>
@@ -51,5 +50,3 @@ const LoadingComponent = forwardRef(
     );
   }
 );
-
-export const Loading = memo(LoadingComponent);

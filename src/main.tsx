@@ -7,6 +7,9 @@ import { CurrentUserProvider } from "./contexts/CurrentUser";
 import { queryClient } from "./services/queryClient";
 import { QueryClientProvider } from "react-query";
 const rootElement = document.getElementById("root")!;
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+dayjs.locale("pt-br");
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>

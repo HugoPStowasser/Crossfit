@@ -2,8 +2,11 @@ import { api } from "../../../../services/http";
 import { TClassData } from "../types";
 
 export const useClassRequest = () => {
-  const getAll = () => {
-    return api.get("/class");
+  const getAll = (idUser?: number) => {
+    if (idUser) {
+      return api.get(`/class/student-home/${idUser}`);
+    }
+    return api.get(`/class`);
   };
 
   const getById = (id: number) => {
