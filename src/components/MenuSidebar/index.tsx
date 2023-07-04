@@ -132,11 +132,13 @@ export const MenuSidebar = () => {
                   icon={TbBarbell}
                   title="Registrar Exercício"
                   active={pathname.includes("register-points")}
+                  onClick={() => handleGoPage("register-points")}
                 />
                 <SidebarItem
                   icon={TbPigMoney}
                   title="Cobranças"
                   active={pathname.includes("invoices")}
+                  onClick={() => handleGoPage("invoices")}
                 />
                 <SidebarItem
                   icon={TbTrophy}

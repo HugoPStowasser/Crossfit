@@ -1,19 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TRegisterPointsFormValues } from "../types";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { TSelect } from "../../../../@types/select";
 import { useForm } from "react-hook-form";
 import { registerPointsFormSchema } from "../schema/schema";
 import { useExerciseRequest } from "../../../Admin/Exercise/hooks/useExerciseRequest";
 import { useCustomToast } from "../../../../hooks/useCustomToast";
-import { TLoadingRef } from "../../../../components/Loading";
 import { useNavigate } from "react-router-dom";
 import { useRegisterPointsRequest } from "./useRegisterPointsRequest";
 import { useCurrentUser } from "../../../../hooks/useCurrentUser";
 import { useUserRequest } from "../../../Admin/User/hooks/useUserRequest";
 
 export const useRegisterPoints = () => {
-  const loadingRef = useRef<TLoadingRef>(null);
   const [allExercises, setAllExercises] = useState<TSelect[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { errorToast, successToast } = useCustomToast();
@@ -96,7 +94,6 @@ export const useRegisterPoints = () => {
     getAllExercises,
     allExercises,
     formMethods,
-    loadingRef,
     isLoading,
   };
 };

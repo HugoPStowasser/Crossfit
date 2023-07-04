@@ -11,14 +11,13 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { TitleWithBackButton } from "../../../components/TitleWithBackButton";
-import { Loading } from "../../../components/Loading";
 import { FormProvider } from "react-hook-form";
 import { SelectBase } from "../../../components/SelectBase";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { useRegisterPoints } from "./hooks/useRegisterPoints";
 
 export const RegisterPoints = () => {
-  const { loadingRef, formMethods, onSubmit, getAllExercises, allExercises } =
+  const { isLoading, formMethods, onSubmit, getAllExercises, allExercises } =
     useRegisterPoints();
 
   const {
@@ -35,8 +34,7 @@ export const RegisterPoints = () => {
     onSubmit()();
   };
 
-  const handleScoreChange = (valueString: string, valueNumber: number) => {
-    console.log(valueString);
+  const handleScoreChange = (_: string, valueNumber: number) => {
     if (isNaN(valueNumber)) {
       setValue("points", 0);
     } else {
@@ -58,7 +56,6 @@ export const RegisterPoints = () => {
 
   return (
     <Box my="20px" px="15px">
-      <Loading ref={loadingRef} />
       <TitleWithBackButton title="Registar Pontuação" />
       <Box
         display={"flex"}
@@ -68,6 +65,7 @@ export const RegisterPoints = () => {
       >
         <Box width={"80%"} maxW={"720px"} mt="100px">
           <FormProvider {...formMethods}>
+            <FormLabel mb="-15px">Exercício:</FormLabel>
             <SelectBase
               onFocus={getAllExercises}
               options={allExercises}
@@ -75,7 +73,7 @@ export const RegisterPoints = () => {
               errorMessage={errors.exercise?.message}
             />
             <FormControl mb={4} mt="20px">
-              <FormLabel>Pontuação</FormLabel>
+              <FormLabel>Pontuação:</FormLabel>
               <Flex align="center">
                 <IconButton
                   icon={<MinusIcon />}
@@ -139,6 +137,7 @@ export const RegisterPoints = () => {
                 borderColor="green.500"
                 borderWidth="1px"
                 onClick={handleSaveAndContinue}
+                isLoading={isLoading}
               >
                 Salvar e continuar
               </Button>
@@ -147,6 +146,7 @@ export const RegisterPoints = () => {
                 color="white"
                 bg="green.500"
                 onClick={handleSaveAndExit}
+                isLoading={isLoading}
               >
                 Salvar e sair
               </Button>

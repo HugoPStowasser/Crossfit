@@ -1,6 +1,7 @@
 type TStatus = {
   idStatus: number;
   name: string;
+  normalizedName: string;
 };
 
 type TPaymentType = {

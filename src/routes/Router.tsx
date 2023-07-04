@@ -24,6 +24,7 @@ import { CreateProfile } from "../pages/Admin/Profile/Form/CreateProfile";
 import { Profile } from "../pages/Admin/Profile/Profile";
 import { PaymentType } from "../pages/Admin/PaymentType/PaymentType";
 import { CreatePaymentType } from "../pages/Admin/PaymentType/Form/CreatePaymentType";
+import { StudentPayments } from "../pages/Student/Payments";
 
 export const Router = () => {
   return (
@@ -70,6 +71,7 @@ export const Router = () => {
       <Route path="student" element={<ProtectedRoute />}>
         <Route path="home" element={<Home />} />
         <Route path="register-points" element={<RegisterPoints />} />
+        <Route path="invoices" element={<StudentPayments />} />
       </Route>
       <Route path="landing-page" element={<LandingPage />} />
     </Routes>
