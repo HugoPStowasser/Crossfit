@@ -16,6 +16,7 @@ import {
   TbFileInvoice,
   TbGenderAndrogyne,
   TbLockOpen,
+  TbLogout,
   TbMenu2,
   TbPigMoney,
   TbTrophy,
@@ -25,12 +26,15 @@ import {
 import { SidebarItem } from "../SidebarItem";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { useLocation, useNavigate } from "react-router-dom";
+import { logout } from "../../services/http/Api/axios";
+import { useState } from "react";
 
 export const MenuSidebar = () => {
   const { isAdmin, currentUser } = useCurrentUser();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGoHome = () => {
     if (isAdmin) {
@@ -46,6 +50,13 @@ export const MenuSidebar = () => {
     );
     onClose();
   };
+
+  const handleClickLogout = () => {
+    console.log("hugo")
+    setIsLoading(true);
+    logout().finally(() => setIsLoading(false));
+  };
+
   return (
     <Box>
       <TbMenu2
@@ -125,6 +136,12 @@ export const MenuSidebar = () => {
                   title="Página de visitação"
                   active={pathname.includes("visit-page")}
                 />
+                <SidebarItem
+                  icon={TbLogout}
+                  title="Sair"
+                  active={pathname.includes("logout")}
+                  onClick={() => handleClickLogout()}
+                />
               </>
             ) : (
               <>
@@ -149,6 +166,12 @@ export const MenuSidebar = () => {
                   icon={TbUser}
                   title="Perfil"
                   active={pathname.includes("student/profile")}
+                />
+                <SidebarItem
+                  icon={TbLogout}
+                  title="Sair"
+                  active={pathname.includes("logout")}
+                  onClick={() => handleClickLogout()}
                 />
               </>
             )}
