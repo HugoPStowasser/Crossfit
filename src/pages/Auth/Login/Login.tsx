@@ -74,7 +74,7 @@ const LoginComponent = () => {
               Login
             </Button>
           </form>
-          <Text
+          {/* <Text
             textTransform={"none"}
             cursor={"default "}
             _hover={{
@@ -96,7 +96,7 @@ const LoginComponent = () => {
             >
               Cadastrar-se
             </Link>
-          </Text>
+          </Text> */}
         </Stack>
       </Flex>
     </HStack>

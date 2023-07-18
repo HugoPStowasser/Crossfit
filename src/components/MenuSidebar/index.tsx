@@ -120,11 +120,11 @@ export const MenuSidebar = () => {
                   active={pathname.includes("paymentType")}
                   onClick={() => handleGoPage("paymentType")}
                 />
-                <SidebarItem
+                {/* <SidebarItem
                   icon={TbDeviceImac}
                   title="Página de visitação"
                   active={pathname.includes("visit-page")}
-                />
+                /> */}
               </>
             ) : (
               <>
@@ -143,7 +143,8 @@ export const MenuSidebar = () => {
                 <SidebarItem
                   icon={TbTrophy}
                   title="Ranking"
-                  active={pathname.includes("ranking")}
+                  active={pathname.includes("personal-record")}
+                  onClick={() => handleGoPage("personal-record")}
                 />
                 <SidebarItem
                   icon={TbUser}

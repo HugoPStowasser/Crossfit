@@ -27,6 +27,7 @@ import { CreatePaymentType } from "../pages/Admin/PaymentType/Form/CreatePayment
 import { StudentPayments } from "../pages/Student/Payments";
 import { EditStudentProfile } from "../pages/Student/Profile";
 import { ViewClass } from "../pages/Admin/Class/View";
+import { PersonalRecord } from "../pages/Student/PersonalRecords";
 
 export const Router = () => {
   return (
@@ -76,6 +77,7 @@ export const Router = () => {
         <Route path="register-points" element={<RegisterPoints />} />
         <Route path="invoices" element={<StudentPayments />} />
         <Route path="profile" element={<EditStudentProfile />} />
+        <Route path="personal-record" element={<PersonalRecord />} />
       </Route>
       <Route path="landing-page" element={<LandingPage />} />
     </Routes>

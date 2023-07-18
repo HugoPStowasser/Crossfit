@@ -51,16 +51,19 @@ export const CreateClass = () => {
             <FormProvider {...formMethods}>
               <form onSubmit={onSubmit}>
                 <InputBase
+                  label="Nome:"
                   inputName="name"
                   placeholder="Nome da Aula"
                   errorMessage={errors.name?.message}
                 />
                 <InputBase
+                  label="Descrição:"
                   inputName="description"
                   placeholder="Descrição da aula"
                   errorMessage={errors.description?.message}
                 />
                 <InputBase
+                  label="Data da Aula:"
                   inputName="date"
                   placeholder="Data da aula"
                   type="date"
@@ -78,7 +81,9 @@ export const CreateClass = () => {
                     name="startHour"
                     render={({ field: { onChange, value } }) => (
                       <Box w="100%">
-                        <Text>Hora inicial</Text>
+                        <Text color="gray.500" fontSize="sm" fontWeight={500}>
+                          Hora Inicial:
+                        </Text>
                         <TimePicker
                           style={{ width: "100%", height: "40px" }}
                           format={"HH:mm"}
@@ -102,7 +107,9 @@ export const CreateClass = () => {
                     name="endHour"
                     render={({ field: { onChange, value } }) => (
                       <Box w="100%">
-                        <Text>Hora Final</Text>
+                        <Text color="gray.500" fontSize="sm" fontWeight={500}>
+                          Hora Final:
+                        </Text>
                         <TimePicker
                           style={{ width: "100%", height: "40px" }}
                           format={"HH:mm"}
@@ -122,6 +129,15 @@ export const CreateClass = () => {
                     )}
                   />
                 </Box>
+                <Text
+                  color="gray.500"
+                  fontSize="sm"
+                  fontWeight={500}
+                  mt="20px"
+                  mb="-20px"
+                >
+                  Professor:
+                </Text>
                 <SelectBase
                   onFocus={getAllProfessors}
                   options={allProfessors}

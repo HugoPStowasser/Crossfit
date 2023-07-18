@@ -49,6 +49,7 @@ export const NextClassesInfo = () => {
             professor={item.professor}
             withcheckInButton={false}
             confirmedStudentsLentgh={item.confirmedStudentLength}
+            onClick={() => navigate(`/admin/class/view/${item.idClass}`)}
           />
         ))}
       </Box>

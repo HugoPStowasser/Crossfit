@@ -46,7 +46,9 @@ export const usePayments = () => {
           paymentType: item.paymentType?.name,
           status: item.status.name,
           normalizedStatus: dayjs(item.dueDate).isBefore(new Date())
-            ? "OVERDUE"
+            ? Boolean(item.datePayment)
+              ? item.status.normalizedName
+              : "OVERDUE"
             : item.status.normalizedName,
         };
       });

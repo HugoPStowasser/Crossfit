@@ -62,26 +62,39 @@ export const CreateStudent = () => {
             <FormProvider {...formMethods}>
               <form onSubmit={onSubmit}>
                 <InputBase
+                  label="Nome:"
                   inputName="name"
-                  placeholder="Nome"
+                  placeholder="Fulano de Tal"
                   errorMessage={errors.name?.message}
                 />
                 <InputBase
+                  label="Nome Social:"
                   inputName="socialName"
-                  placeholder="Nome social"
+                  placeholder="Fulano"
                   errorMessage={errors.socialName?.message}
                 />
                 <InputBase
+                  label="E-mail:"
                   inputName="email"
-                  placeholder="E-mail"
+                  placeholder="fulanodetal@email.com"
                   errorMessage={errors.email?.message}
                 />
                 <InputBase
+                  label="Data de Nascimento:"
                   inputName="birthDate"
                   placeholder="Data de Nascimento"
                   type="date"
                   errorMessage={errors.birthDate?.message}
                 />
+                <Text
+                  color="gray.500"
+                  fontSize="sm"
+                  fontWeight={500}
+                  mb="-20px"
+                  mt="20px"
+                >
+                  Gênero:
+                </Text>
                 <SelectBase
                   onFocus={getAllGender}
                   options={allGenders}

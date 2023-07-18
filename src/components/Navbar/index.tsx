@@ -5,12 +5,7 @@ import {
   Button,
   Menu,
   MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  useColorModeValue,
   Stack,
-  Center,
 } from "@chakra-ui/react";
 import { MenuSidebar } from "../MenuSidebar";
 import { MenuAvatar } from "../MenuAvatar";
@@ -34,7 +29,7 @@ export const Navbar = () => {
                 <Avatar
                   size={"sm"}
                   src={
-                    "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                    "https://w7.pngwing.com/pngs/184/113/png-transparent-user-profile-computer-icons-profile-heroes-black-silhouette-thumbnail.png"
                   }
                 />
               </MenuButton>

@@ -31,7 +31,9 @@ export const MenuAvatar = () => {
       <Center>
         <Avatar
           size={"2xl"}
-          src={"https://cdn-icons-png.flaticon.com/512/3135/3135715.png"}
+          src={
+            "https://w7.pngwing.com/pngs/184/113/png-transparent-user-profile-computer-icons-profile-heroes-black-silhouette-thumbnail.png"
+          }
         />
       </Center>
       <Center>

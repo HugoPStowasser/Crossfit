@@ -14,14 +14,16 @@ export const PasswordInputs = ({
   return (
     <>
       <InputBase
+        label="Senha:"
         inputName="password"
-        placeholder="Senha"
+        placeholder="******"
         errorMessage={errors.password?.message}
         type="password"
       />
       <InputBase
+        label="Confirmar Senha:"
         inputName="confirmPassword"
-        placeholder="Confirmar Senha"
+        placeholder="******"
         errorMessage={errors.confirmPassword?.message}
         type="password"
       />

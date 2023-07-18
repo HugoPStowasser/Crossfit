@@ -20,10 +20,26 @@ export const useDashboard = () => {
   const getAllClasses = async () => {
     try {
       const { data }: { data: TClassHttp[] } = await apiClass.getAll();
+      const currentDateTime = dayjs();
       return classMappers.mapperHttpToTable(
         data
           ?.filter((c) => {
-            return new Date(c.date) > new Date();
+            const hour = Number(c.startHour.split(":")[0]);
+            const min = Number(c.startHour.split(":")[1]);
+            const sec = Number(c.startHour.split(":")[2]);
+            const classDateTime = dayjs(c.date)
+              .set("hour", hour)
+              .set("minute", min)
+              .set("second", sec);
+
+            if (classDateTime.isSame(currentDateTime, "day")) {
+              return classDateTime.isAfter(currentDateTime);
+            }
+
+            return (
+              classDateTime.isAfter(currentDateTime) ||
+              classDateTime.isSame(currentDateTime, "day")
+            );
           })
           .sort(
             (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -62,7 +78,20 @@ export const useDashboard = () => {
   const getAllPayments = async () => {
     try {
       const { data }: { data: TPaymentHttp[] } = await apiPayment.getAll();
-      return paymentMappers.mapperHttpToTable(data.slice(0, 3));
+      return paymentMappers
+        .mapperHttpToTable(data)
+        .filter((item) => item.datePayment)
+        .sort((a, b) => {
+          if (b.datePayment && a.datePayment) {
+            return new Date(a.datePayment) < new Date(b.datePayment) ? -1 : 1;
+          }
+          return 0;
+        })
+        .slice(0, 5)
+        .map((item) => ({
+          ...item,
+          datePayment: dayjs(item.datePayment).format("DD/MM/YYYY"),
+        }));
     } catch (error) {
       errorToast({
         title: `Não foi possível encontrar os pagamentos!`,
@@ -72,7 +101,7 @@ export const useDashboard = () => {
   };
 
   const { data: allPayments, isLoading: paymentIsLoading } = useQuery({
-    queryKey: ["payment"],
+    queryKey: ["payment_dashboard"],
     queryFn: getAllPayments,
   });
   const {

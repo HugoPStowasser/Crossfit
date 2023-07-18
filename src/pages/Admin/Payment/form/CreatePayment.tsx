@@ -1,4 +1,4 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import { TitleWithBackButton } from "../../../../components/TitleWithBackButton";
 import { usePayment } from "../hooks/usePayment";
 import { FormProvider } from "react-hook-form";
@@ -61,6 +61,14 @@ export const CreatePayment = () => {
             <FormProvider {...formMethods}>
               <form onSubmit={onSubmit}>
                 <InputBase inputName="invoice" display={"none"} />
+                <Text
+                  color="gray.500"
+                  fontSize="sm"
+                  mb="-20px"
+                  fontWeight={500}
+                >
+                  Valor:
+                </Text>
                 <MonetaryInput<TPaymentFormValues>
                   valueCanBeZero
                   name="invoice"
@@ -72,12 +80,21 @@ export const CreatePayment = () => {
                 />
 
                 <InputBase
+                  label="Data de Pagamento:"
                   inputName="datePayment"
                   placeholder="Data de Pagamento"
                   type="date"
                   errorMessage={errors.datePayment?.message}
                 />
-
+                <Text
+                  mt="20px"
+                  color="gray.500"
+                  fontSize="sm"
+                  mb="-20px"
+                  fontWeight={500}
+                >
+                  Forma de Pagamento:
+                </Text>
                 <SelectBase
                   onFocus={getAllPaymentTypes}
                   options={allPaymentTypes}
@@ -85,12 +102,14 @@ export const CreatePayment = () => {
                   errorMessage={errors.paymentType?.message}
                 />
                 <InputBase
+                  label="Estudante:"
                   inputName="studentName"
                   placeholder="Estudante"
                   errorMessage={errors.studentName?.message}
                   isDisabled
                 />
                 <InputBase
+                  label="Data de Vencimento:"
                   inputName="dueDate"
                   placeholder="Data de Vencimento"
                   type="date"
@@ -98,6 +117,7 @@ export const CreatePayment = () => {
                   errorMessage={errors.dueDate?.message}
                 />
                 <InputBase
+                  label="Status"
                   inputName="status"
                   placeholder="Status"
                   errorMessage={errors.status?.message}

@@ -10,6 +10,7 @@ type TCardClass = {
   withcheckInButton?: boolean;
   checkIn?: boolean;
   confirmedStudentsLentgh?: number;
+  onClick?: () => void;
   checkInFn?: () => Promise<boolean>;
   checkoutFn?: () => Promise<boolean>;
 };
@@ -21,6 +22,7 @@ export const CardClass = ({
   withcheckInButton = true,
   checkIn = false,
   confirmedStudentsLentgh,
+  onClick = async () => {},
   checkInFn = async () => true,
   checkoutFn = async () => true,
 }: TCardClass) => {
@@ -52,6 +54,8 @@ export const CardClass = ({
       bgPos="center"
       bgRepeat={"no-repeat"}
       color="white"
+      cursor={onClick !== undefined ? "pointer" : "default"}
+      onClick={onClick}
     >
       <Box
         display={"flex"}

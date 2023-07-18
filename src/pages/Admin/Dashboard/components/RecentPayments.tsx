@@ -17,6 +17,11 @@ const columns = [
     key: "student",
   },
   {
+    title: "Data de Pagamento",
+    dataIndex: "datePayment",
+    key: "datePayment",
+  },
+  {
     title: "Valor",
     dataIndex: "invoice",
     key: "invoice",

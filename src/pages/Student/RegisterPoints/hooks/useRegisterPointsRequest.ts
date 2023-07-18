@@ -18,6 +18,10 @@ export const useRegisterPointsRequest = () => {
     return api.delete(`/studentPoints/${idStudent}/${idExercise}`);
   };
 
+  const getByStudentId = (idStudent: number) => {
+    return api.get(`/studentPoints/byStudent/${idStudent}`);
+  };
+
   // const update = (idStudent: number, idExercise: number) => {
   //   return api.put(`/studentPoints/${idStudent}/${idExercise}`);
   // };
@@ -27,6 +31,7 @@ export const useRegisterPointsRequest = () => {
     getById,
     insert,
     deleteById,
+    getByStudentId,
     // update
   };
 };
