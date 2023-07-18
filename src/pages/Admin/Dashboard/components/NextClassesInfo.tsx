@@ -1,4 +1,4 @@
-import { Box, Button, Link, Spinner, Text } from "@chakra-ui/react";
+import { Box, Button, Link, Skeleton, Text } from "@chakra-ui/react";
 import { CardClass } from "../../../../components/CardClass";
 import dayjs from "dayjs";
 import { TbList } from "react-icons/tb";
@@ -8,9 +8,6 @@ import { useNavigate } from "react-router-dom";
 export const NextClassesInfo = () => {
   const { allClasses, classesIsLoading } = useDashboard();
   const navigate = useNavigate();
-  if (classesIsLoading) {
-    return <Spinner />;
-  }
 
   return (
     <>
@@ -39,19 +36,26 @@ export const NextClassesInfo = () => {
         </Link>
       </Box>
       <Box display="flex" flexDir={"column"} gap={2}>
-        {allClasses?.map((item) => (
-          <CardClass
-            key={item.idClass}
-            title={item.name}
-            description={item.description}
-            datetime={`${dayjs(item.date, "DD/MM/YYYY").format("D [de] MMMM")}
-               ${item.startHour} - ${item.endHour}`}
-            professor={item.professor}
-            withcheckInButton={false}
-            confirmedStudentsLentgh={item.confirmedStudentLength}
-            onClick={() => navigate(`/admin/class/view/${item.idClass}`)}
-          />
-        ))}
+        {classesIsLoading ? (
+          <>
+            <Skeleton height="20px" width="100%" />
+            <Skeleton height="20px" width="100%" />
+          </>
+        ) : (
+          allClasses?.map((item) => (
+            <CardClass
+              key={item.idClass}
+              title={item.name}
+              description={item.description}
+              datetime={`${dayjs(item.date, "DD/MM/YYYY").format("D [de] MMMM")}
+                 ${item.startHour} - ${item.endHour}`}
+              professor={item.professor}
+              withcheckInButton={false}
+              confirmedStudentsLentgh={item.confirmedStudentLength}
+              onClick={() => navigate(`/admin/class/view/${item.idClass}`)}
+            />
+          ))
+        )}
       </Box>
       <Button
         mt="16px"

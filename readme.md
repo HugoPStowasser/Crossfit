@@ -18,6 +18,10 @@ Além disso, haverá acesso à uma plataforma exclusiva para administradores e e
 - ChakraUi
 - Yup
 
+## Requisitos do projeto?
+- Node.JS
+- Visual Studio Code
+
 ## Como testar o projeto?
 
 1. clonar este projeto em sua máquina local.

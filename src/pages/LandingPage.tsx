@@ -27,12 +27,14 @@ export const LandingPage = () => {
           fontWeight={"700"}
           color="white"
         >
-          Neque porro quisquam est
+          Gladius Crossfit
         </Text>
         <Text fontSize={"16px"} color="white" mt="15px">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-          faucibus lectus ligula, quis cursus ipsum consectetur eget. Vestibulum
-          rhoncus ipsum eget turpis iaculis
+        Bem-vindo ao Gladius CrossFit, 
+        onde o treinamento funcional de alta intensidade te leva além dos limites. 
+        Com treinadores especializados e instalações modernas, 
+        estamos aqui para ajudá-lo a alcançar seus objetivos. 
+        Venha se juntar à nossa comunidade.
         </Text>
       </Box>
       <About />

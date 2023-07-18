@@ -26,7 +26,7 @@ export const InputBase = ({
       )}
       <Input {...register(inputName)} {...props} />
       {errors && (
-        <Text color="red.500" fontSize={"sm"} pt="5px">
+        <Text color="red.500" fontSize="sm" pt="5px">
           {errorMessage}
         </Text>
       )}

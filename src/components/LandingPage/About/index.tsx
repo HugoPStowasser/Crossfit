@@ -7,18 +7,25 @@ const AboutComponent = () => {
         Sobre
       </Text>
       <Text fontSize={"16px"} letterSpacing={"2px"} mt="20px">
-        Proin feugiat, ipsum vitae semper tempus, lorem quam cursus nisi, ut
-        efficitur nibh orci quis est. Integer leo lectus, ornare a justo vel,
-        varius tristique nulla. Vestibulum euismod, lorem tincidunt maximus
-        blandit, turpis purus placerat quam, quis eleifend orci mi sit amet
-        sapien. Nam nulla sem, venenatis nec ultricies eget, faucibus in magna.
-        Phasellus faucibus augue neque. Proin dapibus nisl quam, sed vestibulum
-        orci blandit vitae.
+        Bem-vindo à nossa academia de CrossFit, 
+        um espaço dedicado a ajudar você a alcançar seus objetivos de condicionamento físico e saúde. 
+        Fundada em 2015, nossa academia tem sido uma referência na comunidade fitness, 
+        proporcionando um ambiente acolhedor e motivador para todos os nossos clientes.
         <br />
         <br />
-        Proin feugiat, ipsum vitae semper tempus, lorem quam cursus nisi, ut
-        efficitur nibh orci quis est. Integer leo lectus, ornare a justo vel,
-        varius tristique nulla.
+        Com uma equipe de instrutores altamente qualificados, 
+        estamos comprometidos em orientar e apoiar você em cada etapa do caminho. 
+        Nossa academia promove uma atmosfera de comunidade vibrante, onde a competição saudável e o trabalho em equipe são valorizados.
+        <br />
+        <br />
+        Temos uma base de clientes satisfeitos, 
+        que alcançaram resultados impressionantes em força, resistência, flexibilidade e composição corporal. 
+        Se você está pronto para embarcar em uma jornada de transformação física e mental, 
+        venha fazer parte da nossa comunidade e descubra o que é possível alcançar!
+        <br />
+        <br />
+        Agende uma visita hoje mesmo e experimente o poder do CrossFit em primeira mão. 
+        Estamos ansiosos para recebê-lo(a) e começar essa jornada incrível juntos.
       </Text>
     </Box>
   );
