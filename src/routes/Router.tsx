@@ -26,6 +26,7 @@ import { PaymentType } from "../pages/Admin/PaymentType/PaymentType";
 import { CreatePaymentType } from "../pages/Admin/PaymentType/Form/CreatePaymentType";
 import { StudentPayments } from "../pages/Student/Payments";
 import { EditStudentProfile } from "../pages/Student/Profile";
+import { ViewClass } from "../pages/Admin/Class/View";
 
 export const Router = () => {
   return (
@@ -41,6 +42,7 @@ export const Router = () => {
         <Route path="exercise" element={<Exercise />} />
         <Route path="class" element={<Class />} />
         <Route path="class/create/:idClass?" element={<CreateClass />} />
+        <Route path="class/view/:idClass" element={<ViewClass />} />
         <Route path="gender" element={<Gender />} />
         <Route path="gender/create/:idGender?" element={<CreateGender />} />
         <Route path="status" element={<Status />} />

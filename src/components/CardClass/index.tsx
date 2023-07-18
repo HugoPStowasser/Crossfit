@@ -1,15 +1,16 @@
 import { Box, Button, Text } from "@chakra-ui/react";
 import { useState } from "react";
-import { TbCalendarTime, TbCheck, TbSchool } from "react-icons/tb";
+import { TbCalendarTime, TbCheck, TbSchool, TbUserCheck } from "react-icons/tb";
 
 type TCardClass = {
   title: string;
   datetime: string;
   professor: string;
   description: string;
-  withCheckinButton?: boolean;
-  checkin?: boolean;
-  checkinFn?: () => Promise<boolean>;
+  withcheckInButton?: boolean;
+  checkIn?: boolean;
+  confirmedStudentsLentgh?: number;
+  checkInFn?: () => Promise<boolean>;
   checkoutFn?: () => Promise<boolean>;
 };
 export const CardClass = ({
@@ -17,16 +18,17 @@ export const CardClass = ({
   datetime,
   description,
   professor,
-  withCheckinButton = true,
-  checkin = false,
-  checkinFn = async () => true,
+  withcheckInButton = true,
+  checkIn = false,
+  confirmedStudentsLentgh,
+  checkInFn = async () => true,
   checkoutFn = async () => true,
 }: TCardClass) => {
-  const [toggleConfirm, setToggleConfirm] = useState(checkin);
+  const [toggleConfirm, setToggleConfirm] = useState(checkIn);
 
-  const handleClickCheckin = () => {
+  const handleClickcheckIn = () => {
     setToggleConfirm(true);
-    checkinFn().then((res) => {
+    checkInFn().then((res) => {
       if (!res) {
         setToggleConfirm(false);
       }
@@ -76,8 +78,23 @@ export const CardClass = ({
         <Text fontSize={14} my="16px">
           {description}
         </Text>
+        {confirmedStudentsLentgh && confirmedStudentsLentgh > 0 ? (
+          <Text
+            fontSize={14}
+            my="16px"
+            display={"flex"}
+            alignItems={"center"}
+            gap={1}
+          >
+            <Text display={"flex"} alignItems={"center"} gap={2}>
+              <TbUserCheck />
+              <Text>Alunos Confirmados:</Text>
+            </Text>
+            {confirmedStudentsLentgh}
+          </Text>
+        ) : null}
       </Box>
-      {withCheckinButton && (
+      {withcheckInButton && (
         <>
           {toggleConfirm ? (
             <Button
@@ -95,7 +112,7 @@ export const CardClass = ({
             </Button>
           ) : (
             <Button
-              onClick={handleClickCheckin}
+              onClick={handleClickcheckIn}
               w="100%"
               _hover={{ backgroundColor: "yellow.500" }}
               bg="yellow.400"

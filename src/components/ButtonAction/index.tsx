@@ -7,6 +7,7 @@ import { Modal as ModalAntd } from "antd";
 export enum EActionButton {
   edit = "edit",
   delete = "delete",
+  view = "view",
 }
 
 type TButtonAction = Omit<ButtonProps, "id"> & {
@@ -57,7 +58,7 @@ export const ButtonAction = ({
         <TbPencil size={22} />
       </Button>
     );
-  } else {
+  } else if (actionType === EActionButton.delete) {
     return (
       <>
         <Button
@@ -86,6 +87,18 @@ export const ButtonAction = ({
           <Text>Você realmente deseja deletar este item?</Text>
         </ModalAntd>
       </>
+    );
+  } else {
+    return (
+      <Button
+        _hover={{ opacity: 0.7 }}
+        transition={"all 0.3s ease"}
+        variant="unstyled"
+        onClick={() => navigate(`/admin/${prefRoute}/view/${id}`)}
+        {...props}
+      >
+        <TbEye size={22} />
+      </Button>
     );
   }
 };

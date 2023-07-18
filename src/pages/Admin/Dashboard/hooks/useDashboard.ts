@@ -22,7 +22,10 @@ export const useDashboard = () => {
       const { data }: { data: TClassHttp[] } = await apiClass.getAll();
       return classMappers.mapperHttpToTable(
         data
-          ?.sort(
+          ?.filter((c) => {
+            return new Date(c.date) > new Date();
+          })
+          .sort(
             (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
           )
           .slice(0, 2)

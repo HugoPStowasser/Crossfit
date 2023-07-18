@@ -64,6 +64,11 @@ const columns = ({ deleteFn }: TColumns): ColumnsType<TData> => {
           <>
             <ButtonAction
               id={rowData.idClass}
+              actionType={EActionButton.view}
+              prefRoute={"class"}
+            />
+            <ButtonAction
+              id={rowData.idClass}
               actionType={EActionButton.edit}
             />
             <ButtonAction

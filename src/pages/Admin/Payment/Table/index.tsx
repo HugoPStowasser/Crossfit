@@ -23,6 +23,7 @@ const columns = (): ColumnsType<TData> => {
       title: "Aluno",
       dataIndex: "student",
       key: "student",
+      sorter: true,
     },
     {
       title: "Status",

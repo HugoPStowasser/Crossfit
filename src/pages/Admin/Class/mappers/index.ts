@@ -2,25 +2,26 @@ import { format, formatISO, parseISO } from "date-fns";
 import { TClassData, TClassHttp, TMapperHttpToTable } from "../types";
 
 export const mapperHttpToTable = (data: TClassHttp[]): TMapperHttpToTable[] => {
-  return data.map((exercise, index) => {
+  return data.map((classData, index) => {
     const startHourFormatted = format(
-      new Date(`2000-01-01T${exercise.startHour}`),
+      new Date(`2000-01-01T${classData.startHour}`),
       "H'h'mm"
     );
     const endHourFormatted = format(
-      new Date(`2000-01-01T${exercise.endHour}`),
+      new Date(`2000-01-01T${classData.endHour}`),
       "H'h'mm"
     );
 
     return {
-      ...exercise,
+      ...classData,
       index: index + 1,
       professor:
-        exercise.professor.user.socialName || exercise.professor.user.name,
-      status: exercise.status.name,
-      date: format(new Date(exercise.date), "dd/MM/yyyy"),
+        classData.professor.user.socialName || classData.professor.user.name,
+      status: classData.status.name,
+      date: format(new Date(classData.date), "dd/MM/yyyy"),
       startHour: startHourFormatted,
       endHour: endHourFormatted,
+      confirmedStudentLength: classData.confirmedStudents?.length,
     };
   });
 };

@@ -5,15 +5,15 @@ import { useCustomToast } from "./useCustomToast";
 import { useUserRequest } from "../pages/Admin/User/hooks/useUserRequest";
 
 const useStudentRequest = () => {
-  const checkinClass = (idStudent: number, idClass: number) => {
-    return api.post(`/student/checkin/${idStudent}/${idClass}`);
+  const checkInClass = (idStudent: number, idClass: number) => {
+    return api.post(`/student/checkIn/${idStudent}/${idClass}`);
   };
   const checkoutClass = (idStudent: number, idClass: number) => {
     return api.delete(`/student/checkout/${idStudent}/${idClass}`);
   };
 
   return {
-    checkinClass,
+    checkInClass,
     checkoutClass,
   };
 };
@@ -25,20 +25,20 @@ export const useStudent = () => {
   const apiUser = useUserRequest();
   const { currentUser } = useCurrentUser();
 
-  const checkin = async (idClass: number) => {
+  const checkIn = async (idClass: number) => {
     let result = true;
     try {
       setIsloading(true);
       const { data }: { data: { idStudent: number } } =
         await apiUser.getStudentByUserId(currentUser.idUser);
-      await apiStudent.checkinClass(data.idStudent, idClass);
+      await apiStudent.checkInClass(data.idStudent, idClass);
       successToast({
         title: "Check-in realizado com sucesso, não se atrase!",
       });
     } catch (error) {
       result = false;
       errorToast({
-        title: `Não foi possível realizar o checkin para esta aula.`,
+        title: `Não foi possível realizar o checkIn para esta aula.`,
       });
     } finally {
       setIsloading(false);
@@ -69,7 +69,7 @@ export const useStudent = () => {
   };
 
   return {
-    checkin,
+    checkIn,
     checkout,
     isLoading,
   };

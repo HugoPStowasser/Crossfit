@@ -1,3 +1,9 @@
+type TConfirmedStudent =
+  | {
+      idStudent: number;
+      name: string;
+    }[]
+  | null;
 export type TClassHttp = {
   idClass: number;
   name: string;
@@ -16,7 +22,8 @@ export type TClassHttp = {
     idStatus: number;
     name: string;
   };
-  checkin?: boolean;
+  checkIn?: boolean;
+  confirmedStudents: TConfirmedStudent;
 };
 
 export type TClassData = {
@@ -49,5 +56,7 @@ export type TMapperHttpToTable = {
   idClass: number;
   name: string;
   description: string;
-  checkin?: boolean;
+  checkIn?: boolean;
+  confirmedStudents: TConfirmedStudent;
+  confirmedStudentLength?: number;
 };

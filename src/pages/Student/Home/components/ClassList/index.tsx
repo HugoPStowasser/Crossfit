@@ -13,7 +13,7 @@ type TClassList = {
 };
 export const ClassList = ({ classesData }: TClassList) => {
   const loadingRef = useRef<TLoadingRef>(null);
-  const { checkin, checkout, isLoading } = useStudent();
+  const { checkIn, checkout, isLoading } = useStudent();
   const [allData, setAllData] = useState(classesData.slice(0, 1));
   const { block } = useCurrentUser();
   const { alertToast } = useCustomToast();
@@ -28,14 +28,14 @@ export const ClassList = ({ classesData }: TClassList) => {
     setAllData(classesData.slice(0, 1));
   };
 
-  const handleCheckin = async (idClass: number) => {
+  const handlecheckIn = async (idClass: number) => {
     if (block.isBlocked) {
       alertToast({
         title: block.blockDescription,
       });
       return false;
     }
-    return checkin(idClass);
+    return checkIn(idClass);
   };
   const handleCheckout = async (idClass: number) => {
     return checkout(idClass);
@@ -55,9 +55,9 @@ export const ClassList = ({ classesData }: TClassList) => {
       {allData.map((item) => (
         <Box key={item.idClass}>
           <CardClass
-            checkinFn={() => handleCheckin(item.idClass)}
+            checkInFn={() => handlecheckIn(item.idClass)}
             checkoutFn={() => handleCheckout(item.idClass)}
-            checkin={Boolean(item.checkin)}
+            checkIn={Boolean(item.checkIn)}
             title={item.name}
             description={item.description}
             datetime={`${dayjs(item.date, "DD/MM/YYYY").format("D [de] MMMM")}

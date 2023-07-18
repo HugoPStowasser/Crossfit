@@ -47,7 +47,8 @@ export const NextClassesInfo = () => {
             datetime={`${dayjs(item.date, "DD/MM/YYYY").format("D [de] MMMM")}
                ${item.startHour} - ${item.endHour}`}
             professor={item.professor}
-            withCheckinButton={false}
+            withcheckInButton={false}
+            confirmedStudentsLentgh={item.confirmedStudentLength}
           />
         ))}
       </Box>
